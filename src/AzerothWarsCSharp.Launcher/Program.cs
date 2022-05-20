@@ -56,6 +56,7 @@ namespace AzerothWarsCSharp.Launcher
       Console.WriteLine("2. Compile map");
       Console.WriteLine("3. Compile and run map");
       Console.WriteLine("4. Compile and run test map");
+      Console.WriteLine("5. Check map integrity");
       MakeDecision();
     }
 
@@ -82,6 +83,9 @@ namespace AzerothWarsCSharp.Launcher
         case ConsoleKey.D4:
           Build(TEST_MAP_PATH, TEST_SOURCE_CODE_PROJECT_FOLDER_PATH, true);
           break;
+        case ConsoleKey.D5:
+          CheckMapIntegrity(BASE_MAP_PATH);
+          break;
         default:
           Console.WriteLine($"{Environment.NewLine}Invalid input. Please choose again.");
           MakeDecision();
@@ -89,6 +93,12 @@ namespace AzerothWarsCSharp.Launcher
       }
     }
 
+    private static void CheckMapIntegrity(string baseMapPath)
+    {
+      var map = Map.Open(baseMapPath);
+      IntegrityChecker.CheckAbilityIntegrity(map);
+    }
+    
     /// <summary>
     ///   Builds the Warcraft 3 map.
     /// </summary>
@@ -102,7 +112,7 @@ namespace AzerothWarsCSharp.Launcher
       var map = Map.Open(baseMapPath);
 
       FixDoodadData(map);
-      SetTestPlayerSlot(map, 3);
+      SetTestPlayerSlot(map, 0);
       var builder = new MapBuilder(map);
       builder.AddFiles(baseMapPath, "*", SearchOption.AllDirectories);
       builder.AddFiles(ASSETS_FOLDER_PATH, "*", SearchOption.AllDirectories);
