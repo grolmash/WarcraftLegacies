@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using War3Api.Object;
 using War3Net.Build;
 
@@ -11,7 +12,7 @@ namespace AzerothWarsCSharp.Launcher
     {
       List<Ability> abilities = new();
       var objectDatabase = GetObjectDatabaseFromMap(map);
-      var units = objectDatabase.GetUnits();
+      var units = objectDatabase.GetUnits().ToList();
       foreach (var unit in units)
       {
         if (unit.IsAbilitiesNormalModified)
