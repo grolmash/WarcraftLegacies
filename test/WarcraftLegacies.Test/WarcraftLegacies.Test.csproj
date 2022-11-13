@@ -7,15 +7,15 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="FluentAssertions" Version="6.8.0"/>
-        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.4.0"/>
-        <PackageReference Include="War3Net.Build" Version="5.5.3"/>
-        <PackageReference Include="War3Net.Build.Core" Version="5.5.4"/>
-        <PackageReference Include="xunit" Version="2.4.2"/>
+        <PackageReference Include="FluentAssertions" Version="6.8.0" />
+        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.4.0" />
+        <PackageReference Include="War3Net.Build" Version="5.5.5" />
+        <PackageReference Include="War3Net.Build.Core" Version="5.5.5" />
+        <PackageReference Include="xunit" Version="2.4.2" />
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\..\src\War3Api.Object\War3Api.Object.csproj"/>
+        <ProjectReference Include="..\..\src\War3Api.Object\War3Api.Object.csproj" />
     </ItemGroup>
 
 </Project>

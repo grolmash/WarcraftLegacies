@@ -15,7 +15,7 @@ public sealed class MapDataTests
     _testOutputHelper = testOutputHelper;
   }
 
-  private const string BaseMapPath = @"..\..\..\..\..\maps\testsource.w3x";
+  private const string BaseMapPath = @"..\..\..\..\..\maps\source.w3x";
   
   [Theory]
   [MemberData(nameof(UnitData))]
