@@ -15,17 +15,15 @@ public sealed class MapDataTests
     _testOutputHelper = testOutputHelper;
   }
 
-  private const string BaseMapPath = @"..\..\..\..\..\maps\source.w3x";
+  private const string BaseMapPath = @"..\..\..\..\..\maps\testsource.w3x";
   
   [Theory]
   [MemberData(nameof(UnitData))]
   public void AllBuildingsMentionUnitsTheyTrain(Unit unit)
   {
-    if (!unit.IsStatsIsABuildingModified || !unit.StatsIsABuilding || !unit.IsTechtreeUnitsTrainedModified ||
-        !unit.IsTextTooltipExtendedModified)
+    if (!unit.StatsIsABuilding || !unit.IsTechtreeUnitsTrainedModified || !unit.IsTextTooltipExtendedModified)
     {
       _testOutputHelper.WriteLine(unit.TextName);
-      _testOutputHelper.WriteLine(unit.IsStatsIsABuildingModified.ToString());
       _testOutputHelper.WriteLine(unit.StatsIsABuilding.ToString());
       _testOutputHelper.WriteLine(unit.IsTechtreeUnitsTrainedModified.ToString());
       _testOutputHelper.WriteLine(unit.IsTextTooltipExtendedModified.ToString());
