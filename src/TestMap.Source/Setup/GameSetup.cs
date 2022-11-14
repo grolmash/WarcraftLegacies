@@ -1,4 +1,6 @@
 ﻿using MacroTools;
+using MacroTools.AchievementSystem;
+using MacroTools.Frames.Books.AchievementSystem;
 using MacroTools.Frames.Books.ArtifactSystem;
 using MacroTools.Frames.Books.Powers;
 using MacroTools.Mechanics;
@@ -35,6 +37,8 @@ namespace TestMap.Source.Setup
       FactionMultiboard.Setup();
       PowerBook.Initialize();
       ArtifactBook.Initialize();
+      AchievementManager.Setup();
+      AchievementBook.Initialize();
       TestSetup.Setup();
       WaygateManager.Setup(FourCC("nwgt"));
       HintSetup.Setup();

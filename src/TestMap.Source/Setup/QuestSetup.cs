@@ -1,4 +1,5 @@
-﻿using MacroTools.FactionSystem;
+﻿using MacroTools.AchievementSystem;
+using MacroTools.FactionSystem;
 using TestMap.Source.Quests;
 using TestMap.Source.Setup.FactionSetup.FactionSetup;
 
@@ -19,6 +20,8 @@ namespace TestMap.Source.Setup
       {
         faction.AddQuest(sharedQuest);
       }
+      
+      AchievementManager.Register(new AchievementCompleteQuest(sharedQuest));
     }
   }
 }

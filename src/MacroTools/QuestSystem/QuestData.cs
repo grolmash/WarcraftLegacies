@@ -17,11 +17,14 @@ namespace MacroTools.QuestSystem
       Quest = CreateQuest();
       Description = desc;
       Title = title;
+      Icon = icon;
       QuestSetTitle(Quest, title);
       QuestSetIconPath(Quest, icon);
       QuestSetEnabled(Quest, false);
       Required = false;
     }
+
+    public string Icon { get; set; }
 
     /// <summary>
     ///   If true, the quest appears on the left hand side of the F9 menu.
