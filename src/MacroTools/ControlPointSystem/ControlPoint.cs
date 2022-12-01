@@ -14,7 +14,7 @@ namespace MacroTools.ControlPointSystem
   /// </summary>
   public sealed class ControlPoint
   {
-    private const float CAPTURE_THRESHOLD = 0.8f; //Percentage of maximum HP; below this, the CP will go to the damager
+    private const float CaptureThreshold = 0.8f; //Percentage of maximum HP; below this, the CP will go to the damager
     private static readonly int RegenerationAbility = FourCC("A0UT");
 
     private readonly TriggerWrapper _damageTrigger = new();
@@ -60,7 +60,7 @@ namespace MacroTools.ControlPointSystem
 
         var hp = (GetUnitState(Unit, UNIT_STATE_LIFE) - GetEventDamage()) /
                  GetUnitState(Unit, UNIT_STATE_MAX_LIFE);
-        if (hp < CAPTURE_THRESHOLD)
+        if (hp < CaptureThreshold)
         {
           BlzSetEventDamage(0);
           SetUnitOwner(Unit, GetOwningPlayer(attacker), true);
@@ -78,18 +78,18 @@ namespace MacroTools.ControlPointSystem
       try
       {
         var formerOwner = GetChangingUnitPrevOwner();
-        var newOwner = GetTriggerPlayer();
+        var newOwner = GetTriggerUnit().OwningPlayer();
 
-        PlayerData playerData = PlayerData.ByHandle(formerOwner);
-
-        playerData.BaseIncome -= Value;
+        var playerData = PlayerData.ByHandle(formerOwner);
+        
         playerData.ControlPointCount -= 1;
-        
-        playerData = PlayerData.ByHandle(newOwner);
+        playerData.BaseIncome -= Value;
 
-        playerData.BaseIncome += Value;
-        playerData.ControlPointCount += 1;
+        playerData = PlayerData.ByHandle(newOwner);
         
+        playerData.ControlPointCount += 1;
+        playerData.BaseIncome += Value;
+
         UnitAddAbility(Unit, RegenerationAbility);
         SetUnitState(Unit, UNIT_STATE_LIFE, GetUnitState(Unit, UNIT_STATE_MAX_LIFE));
 

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using MacroTools.Extensions;
 using MacroTools.Wrappers;
+using WCSharp.Shared.Data;
 using static War3Api.Common;
 
 namespace MacroTools.FactionSystem
@@ -12,20 +13,25 @@ namespace MacroTools.FactionSystem
   public static class PlayerExtensions
   {
     /// <summary>
+    /// Pings the minimap for the player.
+    /// </summary>
+    /// <param name="whichPlayer">Who to display the ping to.</param>
+    /// <param name="position">Where to ping.</param>
+    /// <param name="duration">How long the ping should last.</param>
+    /// <returns>The same player that was passed in.</returns>
+    public static player PingLocation(this player whichPlayer, Point position, float duration)
+    {
+      if (GetLocalPlayer() == whichPlayer)
+        PingMinimap(position.X, position.Y, duration);
+      return whichPlayer;
+    }
+    
+    /// <summary>
     /// Replaces the minimap background texture with the specified one.
     /// </summary>
     public static void ChangeMinimapTerrainTexture(this player whichPlayer, string texturePath)
     {
       if (GetLocalPlayer() == whichPlayer) BlzChangeMinimapTerrainTex(texturePath);
-    }
-    
-    /// <summary>
-    /// Runs a function for the player locally, as in, only on their machine.
-    /// <para>This MUST contain asynchronous code only. If synchronous code is used, the game will desynchronize.</para>
-    /// </summary>
-    public static void RunLocal(this player whichPlayer, Action localFunction)
-    {
-      if (GetLocalPlayer() == whichPlayer) localFunction();
     }
 
     public static void ApplyCameraField(this player whichPlayer, camerafield whichField, float value, float duration)
@@ -97,8 +103,7 @@ namespace MacroTools.FactionSystem
     /// </summary>
     /// <param name="player">The player in question.</param>
     /// <param name="objectId">The unit type ID or research ID we want to know about.</param>
-    public static int GetObjectLimit(this player player, int objectId) =>
-      PlayerData.ByHandle(player).GetObjectLimit(objectId);
+    public static int GetObjectLimit(this player player, int objectId) => GetPlayerTechMaxAllowed(player, objectId);
 
     public static int GetControlPointCount(this player player)
     {
@@ -257,6 +262,68 @@ namespace MacroTools.FactionSystem
     private static void SetPlayerAllianceStateFullControl(this player sourcePlayer, player otherPlayer, bool flag)
     {
       SetPlayerAlliance(sourcePlayer, otherPlayer, ALLIANCE_SHARED_ADVANCED_CONTROL, flag);
+    }
+
+    public static void DisplayHint(this player whichPlayer, string msg ){
+      DisplayTextToPlayer(whichPlayer, 0, 0, $"\n|cff00ff00HINT|r - {msg}");
+      if (GetLocalPlayer() == whichPlayer){
+        StartSound(SoundLibrary.Hint);
+      }
+    }
+
+    public static void DisplayHeroReward(this unit whichUnit, int strength, int agility, int intelligence, int experience ){
+      var display = $"\n|cff00ff00HERO REWARD EARNED -{GetHeroProperName(whichUnit)}|r";
+      if (strength > 0){
+        display = $"{display}\n+{I2S(strength)} Strength";
+      }
+      if (agility > 0){
+        display = $"{display}\n+{I2S(agility)} Agility";
+      }
+      if (intelligence > 0){
+        display = $"{display}\n+{I2S(intelligence)} Intelligence";
+      }
+      if (experience > 0){
+        display = $"{display}\n+{I2S(experience)} Experience";
+      }
+      DisplayTextToPlayer(GetOwningPlayer(whichUnit), 0, 0, display);
+      if (GetLocalPlayer() == GetOwningPlayer(whichUnit)){
+        StartSound(SoundLibrary.Hint);
+      }
+    }
+
+    public static void DisplayUnitLimit(this Faction whichFaction, int unitTypeId ){
+      DisplayTextToPlayer(whichFaction.Player, 0, 0,
+        $"\n|cff00ff00UNIT LIMIT CHANGED - {GetObjectName(unitTypeId)}|r\nYou can now train up to {whichFaction.GetObjectLimit(unitTypeId)} {GetObjectName(unitTypeId)}s.");
+      if (GetLocalPlayer() == whichFaction.Player){
+        StartSound(SoundLibrary.Hint);
+      }
+    }
+
+    public static void DisplayResearchAcquired(this player whichPlayer, int researchId, int researchLevel ){
+      DisplayTextToPlayer(whichPlayer, 0, 0,
+        $"\n|cff00ff00RESEARCH ACQUIRED - {GetObjectName(researchId)}|r\n{BlzGetAbilityExtendedTooltip(researchId, researchLevel)}");
+      if (GetLocalPlayer() == whichPlayer){
+        StartSound(SoundLibrary.Hint);
+      }
+    }
+
+    public static void DisplayUnitTypeAcquired(this player whichPlayer, int unitId, string flavor ){
+      DisplayTextToPlayer(whichPlayer, 0, 0,
+        $"\n|cff00ff00NEW UNIT ACQUIRED - {GetObjectName(unitId)}\n|r{flavor}");
+      if (GetLocalPlayer() == whichPlayer){
+        StartSound(SoundLibrary.Hint);
+      }
+    }
+    
+    /// <summary>
+    /// Indicates to the player that they have acquired a new <see cref="Power"/>.
+    /// </summary>
+    public static void DisplayPowerAcquired(this player whichPlayer, Power power){
+      DisplayTextToPlayer(whichPlayer, 0, 0,
+        $"\n|cff00ff00NEW POWER ACQUIRED - {power.Name}\n|r{power.Description}");
+      if (GetLocalPlayer() == whichPlayer){
+        StartSound(SoundLibrary.Hint);
+      }
     }
   }
 }

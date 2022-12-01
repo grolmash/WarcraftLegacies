@@ -228,6 +228,11 @@ namespace MacroTools.FactionSystem
     }
 
     /// <summary>
+    /// The number of living <see cref="Protector"/> making this <see cref="Legend"/> invulnerable.
+    /// </summary>
+    public int ProtectorCount => _protectors.Count;
+    
+    /// <summary>
     ///   Fired when the <see cref="Legend" /> permanently dies.
     /// </summary>
     public event EventHandler<Legend>? PermanentlyDied;
@@ -245,12 +250,12 @@ namespace MacroTools.FactionSystem
     /// <summary>
     /// Fired when the <see cref="Legend"/> permanently dies, after it is removed from the game.
     /// </summary>
-    public static event EventHandler<Legend>? OnLegendPermaDeath;
+    public event EventHandler<Legend>? OnLegendPermaDeath;
 
     /// <summary>
     /// Fired when the <see cref="Legend"/> dies, even if not permanently.
     /// </summary>
-    public static event EventHandler<Legend>? OnLegendDeath;
+    public event EventHandler<Legend>? OnLegendDeath;
 
     private void OnProtectorDeath(object? sender, Protector protector)
     {
@@ -439,9 +444,8 @@ namespace MacroTools.FactionSystem
     {
       OnLegendDeath?.Invoke(this, this);
 
-      if (GetOwningPlayer(_unit) == Player(PLAYER_NEUTRAL_PASSIVE) ||
-          (GetOwningPlayer(_unit) == Player(PLAYER_NEUTRAL_AGGRESSIVE) && DeathMessage != "" &&
-           !string.IsNullOrEmpty(DeathMessage)))
+      if (GetOwningPlayer(_unit) == Player(PLAYER_NEUTRAL_AGGRESSIVE) && DeathMessage != "" &&
+           !string.IsNullOrEmpty(DeathMessage) && !IsUnitType(_unit, UNIT_TYPE_STRUCTURE))
         DisplayTextToPlayer(GetLocalPlayer(), 0, 0, $"\n|cffffcc00LEGENDARY CREEP DEATH|r\n{DeathMessage}");
 
       if (_permaDies || !IsUnitType(_unit, UNIT_TYPE_HERO))
@@ -476,11 +480,6 @@ namespace MacroTools.FactionSystem
     public static Legend? GetFromUnit(unit whichUnit)
     {
       return ByUnit.ContainsKey(whichUnit) ? ByUnit[whichUnit] : null;
-    }
-
-    ~Legend()
-    {
-      DestroyGroup(_diesWithout);
     }
 
     /// <summary>

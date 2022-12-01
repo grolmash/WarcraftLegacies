@@ -6,19 +6,19 @@ namespace MacroTools.Cheats
 {
   public static class CheatKick
   {
-    private const string COMMAND = "-kick ";
+    private const string Command = "-kick ";
     private static string? _parameter;
 
     private static void Actions()
     {
       try
       {
-        if (!TestSafety.CheatCondition()) return;
+        if (!TestMode.CheatCondition()) return;
 
         string enteredString = GetEventPlayerChatString();
         player p = GetTriggerPlayer();
 
-        _parameter = SubString(enteredString, StringLength(COMMAND), StringLength(enteredString));
+        _parameter = SubString(enteredString, StringLength(Command), StringLength(enteredString));
         var kickId = S2I(_parameter);
 
         var faction = PlayerData.ByHandle(Player(kickId)).Faction;
@@ -36,7 +36,7 @@ namespace MacroTools.Cheats
     public static void Setup()
     {
       trigger trig = CreateTrigger();
-      foreach (var player in WCSharp.Shared.Util.EnumeratePlayers()) TriggerRegisterPlayerChatEvent(trig, player, COMMAND, false);
+      foreach (var player in WCSharp.Shared.Util.EnumeratePlayers()) TriggerRegisterPlayerChatEvent(trig, player, Command, false);
 
       TriggerAddAction(trig, Actions);
     }

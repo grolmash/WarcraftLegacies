@@ -6,7 +6,7 @@ namespace MacroTools.Cheats
 {
   public static class CheatBuild
   {
-    private const string COMMAND = "-build ";
+    private const string Command = "-build ";
     private static readonly List<player> PlayersWithCheat = new();
 
     private static bool IsCheatActive(player whichPlayer)
@@ -36,11 +36,11 @@ namespace MacroTools.Cheats
 
     private static void Actions()
     {
-      if (!TestSafety.CheatCondition()) return;
+      if (!TestMode.CheatCondition()) return;
 
       var enteredString = GetEventPlayerChatString();
       var p = GetTriggerPlayer();
-      var parameter = SubString(enteredString, StringLength(COMMAND), StringLength(enteredString));
+      var parameter = SubString(enteredString, StringLength(Command), StringLength(enteredString));
 
       if (parameter == "on")
       {
@@ -58,7 +58,7 @@ namespace MacroTools.Cheats
     public static void Setup()
     {
       trigger trig = CreateTrigger();
-      foreach (var player in WCSharp.Shared.Util.EnumeratePlayers()) TriggerRegisterPlayerChatEvent(trig, player, COMMAND, false);
+      foreach (var player in WCSharp.Shared.Util.EnumeratePlayers()) TriggerRegisterPlayerChatEvent(trig, player, Command, false);
 
       TriggerAddAction(trig, Actions);
 

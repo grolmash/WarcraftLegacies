@@ -1,4 +1,4 @@
-using MacroTools;
+﻿using MacroTools;
 using MacroTools.FactionSystem;
 using WCSharp.Shared.Data;
 using static War3Api.Common;
@@ -8,9 +8,8 @@ namespace WarcraftLegacies.Source.Setup.FactionSetup
   public static class SentinelsSetup
   {
     public static Faction? Sentinels { get; private set; }
-
-
-    public static void Setup()
+    
+    public static void Setup(PreplacedUnitSystem preplacedUnitSystem)
     {
       Sentinels = new Faction("Sentinels", PLAYER_COLOR_MINT, "|CFFBFFF80",
         "ReplaceableTextures\\CommandButtons\\BTNPriestessOfTheMoon.blp")
@@ -54,8 +53,8 @@ Once you have secured your holdings, gather your army and destroy the orc invade
       Sentinels.ModObjectLimit(FourCC("ehpr"), 6); //Hippogryph Rider
       Sentinels.ModObjectLimit(FourCC("n034"), 12); //Guild Ranger
       Sentinels.ModObjectLimit(FourCC("nwat"), Faction.UNLIMITED); //Nightblade
-      Sentinels.ModObjectLimit(FourCC("etrs"), 12); //Night Elf Transport Ship
-      Sentinels.ModObjectLimit(FourCC("edes"), 12); //Night Elf Frigate
+      Sentinels.ModObjectLimit(FourCC("etrs"), Faction.UNLIMITED); //Night Elf Transport Ship
+      Sentinels.ModObjectLimit(FourCC("edes"), Faction.UNLIMITED); //Night Elf Frigate
       Sentinels.ModObjectLimit(FourCC("ebsh"), 6); //Night Elf Battleship
       Sentinels.ModObjectLimit(FourCC("nnmg"), 12); //Redeemed Highborne
 
@@ -78,7 +77,7 @@ Once you have secured your holdings, gather your army and destroy the orc invade
       Sentinels.ModObjectLimit(FourCC("R03J"), Faction.UNLIMITED); //Wind Walk
       Sentinels.ModObjectLimit(FourCC("R013"), Faction.UNLIMITED); //Elune)s Blessing
 
-      Sentinels.AddGoldMine(PreplacedUnitSystem.GetUnit(FourCC("ngol"), new Point(-16016, 10113)));
+      Sentinels.AddGoldMine(preplacedUnitSystem.GetUnit(FourCC("ngol"), new Point(-16016, 10113)));
       
       FactionManager.Register(Sentinels);
     }

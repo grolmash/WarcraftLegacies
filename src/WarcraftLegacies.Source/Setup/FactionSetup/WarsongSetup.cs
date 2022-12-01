@@ -1,4 +1,4 @@
-using MacroTools;
+﻿using MacroTools;
 using MacroTools.FactionSystem;
 using WCSharp.Shared.Data;
 using static War3Api.Common;
@@ -9,7 +9,7 @@ namespace WarcraftLegacies.Source.Setup.FactionSetup
   {
     public static Faction? WarsongClan { get; private set; }
     
-    public static void Setup()
+    public static void Setup(PreplacedUnitSystem preplacedUnitSystem)
     {
       WarsongClan = new Faction("Warsong", PLAYER_COLOR_ORANGE, "|c00ff8000",
         "ReplaceableTextures\\CommandButtons\\BTNHellScream.blp")
@@ -52,8 +52,8 @@ The Night Elves are aware of your presence and are gathering against you. Unlock
       WarsongClan.ModObjectLimit(FourCC("o00I"), 6); //Horde War Machine
       WarsongClan.ModObjectLimit(FourCC("e01M"), 4); //Azerite Siege Engine
       WarsongClan.ModObjectLimit(FourCC("okod"), 4); //Kodo Beast
-      WarsongClan.ModObjectLimit(FourCC("obot"), 12); //Transport Ship
-      WarsongClan.ModObjectLimit(FourCC("odes"), 12); //Orc Frigate
+      WarsongClan.ModObjectLimit(FourCC("obot"), Faction.UNLIMITED); //Transport Ship
+      WarsongClan.ModObjectLimit(FourCC("odes"), Faction.UNLIMITED); //Orc Frigate
       WarsongClan.ModObjectLimit(FourCC("ojgn"), 6); //Juggernaught
       WarsongClan.ModObjectLimit(FourCC("o00G"), 6); //Blademaster
       WarsongClan.ModObjectLimit(FourCC("n03F"), 6); //Korkron elite
@@ -62,6 +62,7 @@ The Night Elves are aware of your presence and are gathering against you. Unlock
       WarsongClan.ModObjectLimit(FourCC("Ogrh"), 1); //Grom
       WarsongClan.ModObjectLimit(FourCC("Obla"), 1); //Varok
       WarsongClan.ModObjectLimit(FourCC("O05O"), 1); //Varok
+      WarsongClan.ModObjectLimit(FourCC("n0CN"), 1); //Gibbs
 
       WarsongClan.ModObjectLimit(FourCC("Robs"), Faction.UNLIMITED); //Berserker Strength
       WarsongClan.ModObjectLimit(FourCC("Rotr"), Faction.UNLIMITED); //Troll Regeneration
@@ -84,7 +85,7 @@ The Night Elves are aware of your presence and are gathering against you. Unlock
       WarsongClan.ModAbilityAvailability(Constants.ABILITY_ABTL_BATTLE_STATIONS_FROSTWOLF_WARSONG_BURROW, 1);
       WarsongClan.ModAbilityAvailability(Constants.ABILITY_A0M4_BATTLE_STATIONS_PINK_GREY_ORC_BURROW_BLOODPACT, -1);
       
-      WarsongClan.AddGoldMine(PreplacedUnitSystem.GetUnit(FourCC("ngol"), new Point(-9755, 2277)));
+      WarsongClan.AddGoldMine(preplacedUnitSystem.GetUnit(FourCC("ngol"), new Point(-9755, 2277)));
       
       FactionManager.Register(WarsongClan);
     }

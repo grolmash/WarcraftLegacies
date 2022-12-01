@@ -1,4 +1,4 @@
-using MacroTools;
+﻿using MacroTools;
 using MacroTools.FactionSystem;
 using WCSharp.Shared.Data;
 using static War3Api.Common;
@@ -9,7 +9,7 @@ namespace WarcraftLegacies.Source.Setup.FactionSetup
   {
     public static Faction? Lordaeron { get; private set; }
 
-    public static void Setup()
+    public static void Setup(PreplacedUnitSystem preplacedUnitSystem)
     {
       Lordaeron = new Faction("Lordaeron", PLAYER_COLOR_BLUE, "|c000042ff",
         "ReplaceableTextures\\CommandButtons\\BTNArthas.blp")
@@ -49,8 +49,8 @@ Burn these infected buildings to weaken the Cult's power."
 
       //Units
       Lordaeron.ModObjectLimit(FourCC("hpea"), Faction.UNLIMITED); //Peasant
-      Lordaeron.ModObjectLimit(FourCC("hbot"), 12); //Alliance Transport Ship
-      Lordaeron.ModObjectLimit(FourCC("hdes"), 12); //Alliance Frigate
+      Lordaeron.ModObjectLimit(FourCC("hbot"), Faction.UNLIMITED); //Alliance Transport Ship
+      Lordaeron.ModObjectLimit(FourCC("hdes"), Faction.UNLIMITED); //Alliance Frigate
       Lordaeron.ModObjectLimit(FourCC("hbsh"), 6); //Alliance Battle Ship
       Lordaeron.ModObjectLimit(FourCC("hfoo"), Faction.UNLIMITED); //Footman
       Lordaeron.ModObjectLimit(FourCC("hkni"), Faction.UNLIMITED); //Knight
@@ -101,7 +101,7 @@ Burn these infected buildings to weaken the Cult's power."
       Lordaeron.ModAbilityAvailability(Constants.ABILITY_A0GC_REPLENISH_MANA_ORANGE_KEEPS_CAPITALS, -1);
       Lordaeron.ModAbilityAvailability(Constants.ABILITY_A0K5_DWARVEN_MASONRY_CASTLES_YELLOW, -1);
       
-      Lordaeron.AddGoldMine(PreplacedUnitSystem.GetUnit(FourCC("ngol"), new Point(13617, 8741)));
+      Lordaeron.AddGoldMine(preplacedUnitSystem.GetUnit(FourCC("ngol"), new Point(13617, 8741)));
       
       FactionManager.Register(Lordaeron);
     }

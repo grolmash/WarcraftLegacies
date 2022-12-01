@@ -1,5 +1,5 @@
 ﻿using MacroTools.ArtifactSystem;
-using MacroTools.CheatSystem;
+using MacroTools.CommandSystem;
 using static War3Api.Common;
 
 namespace MacroTools.Cheats
@@ -7,13 +7,16 @@ namespace MacroTools.Cheats
   /// <summary>
   /// Destroys an <see cref="Artifact"/>.
   /// </summary>
-  public sealed class CheatDestroy : Cheat
+  public sealed class CommandDestroy : Command
   {
     /// <inheritdoc />
-    public override string Command => "destroy";
+    public override string CommandText => "destroy";
 
     /// <inheritdoc />
     public override int ParameterCount => 1;
+    
+    /// <inheritdoc />
+    public override CommandType Type => CommandType.Cheat;
     
     /// <inheritdoc />
     public override string Execute(player cheater, params string[] parameters)

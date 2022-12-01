@@ -1,10 +1,11 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using MacroTools;
 using MacroTools.Extensions;
 using MacroTools.FactionSystem;
 using MacroTools.QuestSystem;
 using MacroTools.QuestSystem.UtilityStructs;
 using MacroTools.Wrappers;
+using WarcraftLegacies.Source.Setup.Legends;
 using WCSharp.Shared.Data;
 using static War3Api.Common;
 
@@ -14,12 +15,12 @@ namespace WarcraftLegacies.Source.Quests.Ironforge
   {
     private readonly List<unit> _rescueUnits = new();
 
-    public QuestThelsamar(Rectangle rescueRect) : base("Murloc Menace",
+    public QuestThelsamar(PreplacedUnitSystem preplacedUnitSystem, Rectangle rescueRect) : base("Murloc Menace",
       "A vile group of Murloc is terrorizing Thelsamar. Destroy them!",
       "ReplaceableTextures\\CommandButtons\\BTNMurlocNightCrawler.blp")
     {
-      AddObjective(new ObjectiveKillUnit(PreplacedUnitSystem.GetUnit(FourCC("N089")))); //Murloc
-      AddObjective(new ObjectiveExpire(1435));
+      AddObjective(new ObjectiveLegendDead(LegendNeutral.MurlocSorc));
+      AddObjective(new ObjectiveExpire(420));
       AddObjective(new ObjectiveSelfExists());
       foreach (var unit in new GroupWrapper().EnumUnitsInRect(rescueRect).EmptyToList())
         if (GetOwningPlayer(unit) == Player(PLAYER_NEUTRAL_PASSIVE))

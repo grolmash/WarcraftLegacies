@@ -1,5 +1,6 @@
-using MacroTools;
+﻿using MacroTools;
 using MacroTools.FactionSystem;
+using WarcraftLegacies.Source.Mechanics.Fel_Horde;
 using WCSharp.Shared.Data;
 using static War3Api.Common;
 
@@ -9,7 +10,7 @@ namespace WarcraftLegacies.Source.Setup.FactionSetup
   {
     public static Faction? FelHorde { get; private set; }
 
-    public static void Setup()
+    public static void Setup(PreplacedUnitSystem preplacedUnitSystem)
     {
       FelHorde = new Faction("Fel Horde", PLAYER_COLOR_GREEN, "|c0020c000",
         "ReplaceableTextures\\CommandButtons\\BTNPitLord.blp")
@@ -59,8 +60,8 @@ Your allies cannot reach you on Outland, you are alone.",
       FelHorde.ModObjectLimit(FourCC("u00V"), Faction.UNLIMITED); //Necrolyte
       FelHorde.ModObjectLimit(FourCC("n057"), -Faction.UNLIMITED); //Nether Dragon Hatchling
       FelHorde.ModObjectLimit(FourCC("n058"), Faction.UNLIMITED); //Troll Axethrowers
-      FelHorde.ModObjectLimit(FourCC("obot"), 12); //Transport Ship
-      FelHorde.ModObjectLimit(FourCC("odes"), 12); //Orc Frigate
+      FelHorde.ModObjectLimit(FourCC("obot"), Faction.UNLIMITED); //Transport Ship
+      FelHorde.ModObjectLimit(FourCC("odes"), Faction.UNLIMITED); //Orc Frigate
       FelHorde.ModObjectLimit(FourCC("ojgn"), 6); //Juggernaught
 
       FelHorde.ModObjectLimit(FourCC("n05T"), 1); //Kazzak
@@ -101,9 +102,11 @@ Your allies cannot reach you on Outland, you are alone.",
       FelHorde.ModAbilityAvailability(Constants.ABILITY_A0MZ_DEMONIC_CONSTRUCTION_TEAL_DEMOLISHERS, -1);
       FelHorde.ModAbilityAvailability(Constants.ABILITY_A0GM_FOR_THE_HORDE_PINK_GREY_MAIN_BUILDINGS, -1);
 
-      FelHorde.AddGoldMine(PreplacedUnitSystem.GetUnit(FourCC("ngol"), new Point(5804, -29242)));
+      FelHorde.AddGoldMine(preplacedUnitSystem.GetUnit(FourCC("ngol"), new Point(5804, -29242)));
       
       FactionManager.Register(FelHorde);
+
+      JuggernautDeath.Setup(preplacedUnitSystem);
     }
   }
 }

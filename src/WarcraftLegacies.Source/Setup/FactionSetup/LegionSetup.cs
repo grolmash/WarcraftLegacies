@@ -9,7 +9,7 @@ namespace WarcraftLegacies.Source.Setup.FactionSetup
   {
     public static Faction? Legion { get; private set; }
     
-    public static void Setup()
+    public static void Setup(PreplacedUnitSystem preplacedUnitSystem)
     {
       Legion = new Faction("Legion", PLAYER_COLOR_PEANUT, "|CFFBF8F4F",
         "ReplaceableTextures\\CommandButtons\\BTNKiljaedin.blp")
@@ -42,9 +42,9 @@ Your primary objective is to summon the Burning Legion. Invade the city of Dalar
       Legion.ModObjectLimit(FourCC("ndmg"), Faction.UNLIMITED); //Demon Gate
       Legion.ModObjectLimit(FourCC("n04N"), Faction.UNLIMITED); //Infernal Machine Factory
       Legion.ModObjectLimit(FourCC("n04Q"), Faction.UNLIMITED); //Nether Pit
-      Legion.ModObjectLimit(FourCC("e01F"), 1); //Monolith
-      Legion.ModObjectLimit(FourCC("e01G"), 1); //Satue
-      Legion.ModObjectLimit(FourCC("e01H"), 1); //Fortress
+      Legion.ModObjectLimit(Constants.UNIT_U00F_DORMANT_SPIRE_BLUE, 1);
+      Legion.ModObjectLimit(Constants.UNIT_U00C_LEGION_BASTION_LEGION, 1);
+      Legion.ModObjectLimit(Constants.UNIT_U00N_BURNING_CITADEL_LEGION, 1);
 
       //Units
       Legion.ModObjectLimit(FourCC("u00D"), Faction.UNLIMITED); //Legion Herald
@@ -53,8 +53,8 @@ Your primary objective is to summon the Burning Legion. Invade the city of Dalar
       Legion.ModObjectLimit(FourCC("ninc"), Faction.UNLIMITED); //Burning archer
       Legion.ModObjectLimit(FourCC("n04K"), Faction.UNLIMITED); //Succubus
       Legion.ModObjectLimit(FourCC("n04J"), Faction.UNLIMITED); //Felstalker
-      Legion.ModObjectLimit(FourCC("ubot"), 12); //Undead Transport SHip
-      Legion.ModObjectLimit(FourCC("udes"), 12); //Undead Frigate
+      Legion.ModObjectLimit(FourCC("ubot"), Faction.UNLIMITED); //Undead Transport SHip
+      Legion.ModObjectLimit(FourCC("udes"), Faction.UNLIMITED); //Undead Frigate
       Legion.ModObjectLimit(FourCC("uubs"), 6); //Undead Battleship
       Legion.ModObjectLimit(FourCC("n04O"), 6); //Doomguard
       Legion.ModObjectLimit(FourCC("n04L"), 6); //Infernal Juggernaut
@@ -79,14 +79,15 @@ Your primary objective is to summon the Burning Legion. Invade the city of Dalar
       Legion.ModObjectLimit(FourCC("R04G"), Faction.UNLIMITED); //Improved Carrion Swarm
       Legion.ModObjectLimit(FourCC("R03Z"), Faction.UNLIMITED); //War Plating
       Legion.ModObjectLimit(FourCC("R040"), Faction.UNLIMITED); //Flying horrors
+      Legion.ModObjectLimit(Constants.UPGRADE_R096_REMATERIALIZATION_LEGION, 1);
       Legion.SetObjectLevel(Constants.UPGRADE_R04R_FORTIFIED_HULLS_UNIVERSAL_UPGRADE, 1);
 
       //Heroes
       Legion.ModObjectLimit(FourCC("U00L"), 1); //Anetheron
-      Legion.ModObjectLimit(Constants.UNIT_UMAL_THE_CUNNING_LEGION, 1); //Mal)ganis
-      Legion.ModObjectLimit(Constants.UNIT_UTIC_THE_DARKENER_LEGION, 1); //Tichondrius
+      Legion.ModObjectLimit(Constants.UNIT_UMAL_THE_CUNNING_LEGION, 1);
+      Legion.ModObjectLimit(Constants.UNIT_UTIC_THE_DARKENER_LEGION, 1);
 
-      Legion.AddGoldMine(PreplacedUnitSystem.GetUnit(FourCC("ngol"), new Point(-23179, 6865)));
+      Legion.AddGoldMine(preplacedUnitSystem.GetUnit(FourCC("ngol"), new Point(-23179, 6865)));
       
       FactionManager.Register(Legion);
     }

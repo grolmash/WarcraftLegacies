@@ -18,7 +18,7 @@ namespace WarcraftLegacies.Source.Quests.Frostwolf
       "The Tauren have been wandering for too long. The plains of Mulgore would offer respite from this endless journey.",
       "ReplaceableTextures\\CommandButtons\\BTNCentaurKhan.blp")
     {
-      AddObjective(new ObjectiveLegendDead(LegendNeutral.LegendCentaurkhan));
+      AddObjective(new ObjectiveLegendDead(LegendNeutral.CentaurKhan));
       AddObjective(new ObjectiveAnyUnitInRect(Regions.ThunderBluff, "Thunder Bluff", true));
       AddObjective(new ObjectiveExpire(1455));
       AddObjective(new ObjectiveSelfExists());
@@ -35,7 +35,7 @@ namespace WarcraftLegacies.Source.Quests.Frostwolf
     }
 
     //todo: bad flavour
-    protected override string CompletionPopup => "The Crossroads have been constructed.";
+    protected override string CompletionPopup => "The long march of the Tauren clans has ended, and they have joined forces with the Horde.";
 
     protected override string RewardDescription => "Control of Thunder Bluff";
 

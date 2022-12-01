@@ -1,61 +1,71 @@
+﻿using System;
 using System.Collections.Generic;
 using MacroTools.Extensions;
 using MacroTools.FactionSystem;
 using MacroTools.QuestSystem;
 using MacroTools.QuestSystem.UtilityStructs;
-using MacroTools.Wrappers;
 using WarcraftLegacies.Source.Setup.Legends;
 using WCSharp.Shared.Data;
 using static War3Api.Common;
 
-
 namespace WarcraftLegacies.Source.Quests.Lordaeron
 {
+  /// <summary>
+  /// Capture <see cref="LegendNeutral.Caerdarrow"/> to unlock the capital city of Lordaeron.
+  /// </summary>
   public sealed class QuestCapitalCity : QuestData
   {
     private readonly List<unit> _rescueUnits = new();
     private readonly unit _unitToMakeInvulnerable;
+    private readonly Legend _uther;
 
-    public QuestCapitalCity(Rectangle rescueRect, unit unitToMakeInvulnerable, IEnumerable<QuestData> prequisites) :
+    /// <summary>
+    /// Initializes a new instance of the <see cref="QuestCapitalCity"/> class.
+    /// </summary>
+    /// <param name="rescueRect"></param>
+    /// <param name="unitToMakeInvulnerable"></param>
+    /// <param name="uther"></param>
+    /// <param name="prequisites"></param>
+    public QuestCapitalCity(Rectangle rescueRect, unit unitToMakeInvulnerable, Legend uther, IEnumerable<QuestData> prequisites) :
       base("Hearthlands",
         "The territories of Lordaeron are fragmented. Regain control of the old Alliance's hold to secure the kingdom.",
         "ReplaceableTextures\\CommandButtons\\BTNCastle.blp")
     {
-      AddObjective(new ObjectiveControlLegend(LegendNeutral.LegendCaerdarrow, false));
-      foreach (var prequisite in prequisites) AddObjective(new ObjectiveCompleteQuest(prequisite));
+      AddObjective(new ObjectiveControlLegend(LegendNeutral.Caerdarrow, false));
+      foreach (var prequisite in prequisites)
+        AddObjective(new ObjectiveCompleteQuest(prequisite));
       AddObjective(new ObjectiveExpire(1472));
       AddObjective(new ObjectiveSelfExists());
       ResearchId = Constants.UPGRADE_R04Y_QUEST_COMPLETED_HEARTHLANDS;
       _unitToMakeInvulnerable = unitToMakeInvulnerable;
-      foreach (var unit in new GroupWrapper().EnumUnitsInRect(rescueRect.Rect).EmptyToList())
-        if (GetOwningPlayer(unit) == Player(PLAYER_NEUTRAL_PASSIVE))
-        {
-          SetUnitInvulnerable(unit, true);
-          _rescueUnits.Add(unit);
-        }
-
+      _uther = uther;
+      Func<unit, bool> rescueUnitFilter = (unit whichUnit) => { return GetUnitTypeId(whichUnit) != Constants.UNIT_N08F_UNDERCITY_ENTRANCE; };
+      _rescueUnits = rescueRect.PrepareUnitsForRescue(RescuePreparationMode.HideNonStructures, rescueUnitFilter);
       Required = true;
     }
 
-    //Todo: bad flavour
+    /// <inheritdoc/>
     protected override string CompletionPopup =>
       "The Capital City of Lordaeron has been literated.";
 
-    protected override string RewardDescription => "Control of all units in Capital City";
+    /// <inheritdoc/>
+    protected override string RewardDescription => "Control of all units in the Capital City";
 
+    /// <inheritdoc/>
     protected override void OnFail(Faction completingFaction)
     {
-      foreach (var unit in _rescueUnits) unit.Rescue(Player(PLAYER_NEUTRAL_AGGRESSIVE));
-      LegendLordaeron.Uther.AddUnitDependency(LegendLordaeron.CapitalPalace.Unit);
+      Player(PLAYER_NEUTRAL_AGGRESSIVE).RescueGroup(_rescueUnits);
     }
 
+    /// <inheritdoc/>
     protected override void OnComplete(Faction completingFaction)
     {
-      foreach (var unit in _rescueUnits) unit.Rescue(Player(PLAYER_NEUTRAL_AGGRESSIVE));
+      if (completingFaction.Player != null)
+        completingFaction.Player.RescueGroup(_rescueUnits);
       SetUnitInvulnerable(_unitToMakeInvulnerable, true);
       if (GetLocalPlayer() == completingFaction.Player)
         PlayThematicMusic("war3mapImported\\CapitalCity.mp3");
-      LegendLordaeron.Uther.AddUnitDependency(LegendLordaeron.CapitalPalace.Unit);
+      _uther.AddUnitDependency(LegendLordaeron.CapitalPalace.Unit);
     }
   }
 }

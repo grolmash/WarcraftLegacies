@@ -1,9 +1,10 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using MacroTools.Extensions;
 using MacroTools.FactionSystem;
 using MacroTools.QuestSystem;
 using MacroTools.QuestSystem.UtilityStructs;
 using MacroTools.Wrappers;
+using WarcraftLegacies.Source.Setup;
 using WarcraftLegacies.Source.Setup.Legends;
 using static War3Api.Common;
 
@@ -85,10 +86,18 @@ namespace WarcraftLegacies.Source.Quests.Draenei
         EscapeOutland(completingFaction.Player);
         completingFaction.Player.AdjustPlayerState(PLAYER_STATE_RESOURCE_GOLD, 200);
         completingFaction.Player.AdjustPlayerState(PLAYER_STATE_RESOURCE_LUMBER, 500);
-        RemoveUnit(TheExodar);
+        completingFaction.Player?.SetTeam(TeamSetup.NightElves);
+        if (!completingFaction.GetQuestByTitle("The Survivors of Shattrah").ProgressLocked) completingFaction.GetQuestByTitle("The Survivors of Shattrah").Progress = QuestProgress.Failed;
+        if (!completingFaction.GetQuestByTitle("Broken Civilisation").ProgressLocked) completingFaction.GetQuestByTitle("Broken Civilisation").Progress = QuestProgress.Failed;
+        if (!completingFaction.GetQuestByTitle("The Broken One").ProgressLocked) completingFaction.GetQuestByTitle("The Broken One").Progress = QuestProgress.Failed;
+        if (!completingFaction.GetQuestByTitle("Warn Halaar").ProgressLocked) completingFaction.GetQuestByTitle("Warn Halaar").Progress = QuestProgress.Failed;
+        if (!completingFaction.GetQuestByTitle("Warn Shattrah").ProgressLocked) completingFaction.GetQuestByTitle("Warn Shattrah").Progress = QuestProgress.Failed;
+        if (!completingFaction.GetQuestByTitle("Warn Farahlon").ProgressLocked) completingFaction.GetQuestByTitle("Warn Farahlon").Progress = QuestProgress.Failed;
+        TheExodar.Kill();
       }
-      
-      completingFaction.Player?.RunLocal(() => PlayThematicMusic("war3mapImported\\DraeneiTheme.mp3"));
+
+      if (GetLocalPlayer() == completingFaction.Player) 
+        PlayThematicMusic("war3mapImported\\DraeneiTheme.mp3");
       ResetCamera(completingFaction);
 
       if (KilledOnFail != null)
@@ -132,6 +141,8 @@ namespace WarcraftLegacies.Source.Quests.Draenei
           KillUnit(unit);
         else if (!IsUnitType(unit, UNIT_TYPE_ANCIENT)) 
           SetUnitPosition(unit, -21185, 8000);
+        else if (IsUnitType(unit, UNIT_TYPE_ANCIENT))
+          unit.Rescue(Player(PLAYER_NEUTRAL_AGGRESSIVE));
       }
     }
   }

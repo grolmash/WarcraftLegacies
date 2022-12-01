@@ -1,5 +1,4 @@
 using MacroTools.FactionSystem;
-using MacroTools.Libraries;
 using MacroTools.QuestSystem;
 using MacroTools.QuestSystem.UtilityStructs;
 using WarcraftLegacies.Source.Setup.Legends;
@@ -18,8 +17,8 @@ namespace WarcraftLegacies.Source.Quests.Warsong
       "The prowess and savagery of the Sentinels is to be respected - and feared. They must be eliminated.",
       "ReplaceableTextures\\CommandButtons\\BTNArcher.blp")
     {
-      AddObjective(new ObjectiveLegendDead(LegendSentinels.legendFeathermoon));
-      AddObjective(new ObjectiveLegendDead(LegendSentinels.legendAuberdine));
+      AddObjective(new ObjectiveLegendDead(LegendSentinels.Feathermoon));
+      AddObjective(new ObjectiveLegendDead(LegendSentinels.Auberdine));
     }
 
 
@@ -32,7 +31,7 @@ namespace WarcraftLegacies.Source.Quests.Warsong
     protected override void OnComplete(Faction completingFaction)
     {
       completingFaction.ModObjectLimit(UnittypeId, LIMIT_CHANGE);
-      Display.DisplayUnitLimit(completingFaction, UnittypeId);
+      completingFaction.DisplayUnitLimit(UnittypeId);
     }
   }
 }

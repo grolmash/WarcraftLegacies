@@ -1,6 +1,6 @@
 ﻿using System;
 using MacroTools.Augments;
-using MacroTools.Frames.Books.Augments;
+using MacroTools.BookSystem.Augments;
 using static War3Api.Common;
 
 namespace MacroTools.Cheats
@@ -13,7 +13,7 @@ namespace MacroTools.Cheats
       {
          try
          {
-            if (!TestSafety.CheatCondition()) return;
+            if (!TestMode.CheatCondition()) return;
             var triggerPlayer = GetTriggerPlayer();
             var augmentSelectionWindow = new AugmentPage
             {

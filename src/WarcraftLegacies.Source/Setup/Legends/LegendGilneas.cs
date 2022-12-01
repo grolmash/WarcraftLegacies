@@ -1,59 +1,67 @@
-using MacroTools.FactionSystem;
-using static War3Api.Common;
+﻿using MacroTools.FactionSystem;
 
 namespace WarcraftLegacies.Source.Setup.Legends
 {
+  /// <summary>
+  /// Responsible for setting up all Gilneas <see cref="Legend"/>s.
+  /// </summary>
   public static class LegendGilneas
   {
-    public static Legend LegendTess { get; private set; }
-    public static Legend LegendGenn { get; private set; }
-    public static Legend LegendDarius { get; private set; }
-    public static Legend LegendGoldrinn { get; private set; }
-    public static Legend LegendLightdawn { get; private set; }
-    public static Legend LegendGilneascastle { get; private set; }
+    public static Legend Tess { get; private set; }
+    public static Legend Genn { get; private set; }
+    public static Legend Darius { get; private set; }
+    public static Legend Goldrinn { get; private set; }
+    public static Legend LightDawn { get; private set; }
+    public static Legend GilneasCastle { get; private set; }
 
+    /// <summary>
+    /// Sets up <see cref="LegendGilneas"/>.
+    /// </summary>
     public static void Setup()
     {
-      LegendTess = new Legend
+      Tess = new Legend
       {
-        UnitType = FourCC("Ewar")
+        UnitType = Constants.UNIT_EWAR_PRINCESS_OF_GILNEAS_GILNEAS,
+        Name = "Tess Greymane"
       };
-      Legend.Register(LegendTess);
+      Legend.Register(Tess);
 
-      LegendGoldrinn = new Legend
+      Goldrinn = new Legend
       {
-        UnitType = FourCC("E01E"),
-        StartingXp = 8800
+        UnitType = Constants.UNIT_E01E_ANCIENT_GUARDIAN_GILNEAS,
+        StartingXp = 8800,
+        Name = "Goldrinn"
       };
-      Legend.Register(LegendGoldrinn);
+      Legend.Register(Goldrinn);
 
-      LegendGenn = new Legend
+      Genn = new Legend
       {
-        UnitType = FourCC("HHkl")
+        Name = "Genn Greymane",
+        UnitType = Constants.UNIT_HHKL_KING_OF_GILNEAS_GILNEAS,
+        StartingXp = 2800
       };
-      Legend.Register(LegendGenn);
+      Legend.Register(Genn);
 
-      LegendDarius = new Legend
+      Darius = new Legend
       {
-        UnitType = FourCC("hpb2")
+        UnitType = Constants.UNIT_HPB2_GILNEAN_LORD_GILNEAS,
+        Name = "Darius Crowley"
       };
-      Legend.Register(LegendDarius);
+      Legend.Register(Darius);
 
-      LegendLightdawn = new Legend
+      LightDawn = new Legend
       {
-        UnitType = FourCC("h057"),
+        UnitType = Constants.UNIT_H057_LIGHT_S_DAWN_CATHEDRAL_GILNEAS,
         DeathMessage = "The Light's Dawn Capital has been destroyed.",
-        
       };
-      Legend.Register(LegendLightdawn);
+      Legend.Register(LightDawn);
 
-      LegendGilneascastle = new Legend
+      GilneasCastle = new Legend
       {
-        UnitType = FourCC("h04I"),
-        DeathMessage = "The Gilneas castle has fallen",
-        
+        UnitType = Constants.UNIT_H04I_GILNEAS_CASTLE_GILNEAS,
+        DeathMessage = "The Gilneas castle has fallen",  
       };
-      Legend.Register(LegendGilneascastle);
+      Legend.Register(GilneasCastle);
     }
   }
 }

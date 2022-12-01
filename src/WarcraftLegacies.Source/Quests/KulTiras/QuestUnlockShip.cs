@@ -29,10 +29,10 @@ namespace WarcraftLegacies.Source.Quests.KulTiras
       "The Troll Empire of Zandalar is a danger to the safety of Kul'tiras and the Alliance. Before setting sail, we must eliminate them.",
       "ReplaceableTextures\\CommandButtons\\BTNGalleonIcon.blp")
     {
-      AddObjective(new ObjectiveControlLegend(LegendNeutral.LegendDazaralor, false));
+      AddObjective(new ObjectiveControlLegend(LegendNeutral.Dazaralor, false));
       AddObjective(new ObjectiveControlLegend(LegendKultiras.LegendBoralus, true));
       _proudmooreCapitalShip = proudmooreCapitalShip;
-      _rescueUnits = rescueRect.PrepareUnitsForRescue(Player(PLAYER_NEUTRAL_PASSIVE));
+      _rescueUnits = rescueRect.PrepareUnitsForRescue(RescuePreparationMode.HideNonStructures);
       _rescueRect = rescueRect;
     }
 

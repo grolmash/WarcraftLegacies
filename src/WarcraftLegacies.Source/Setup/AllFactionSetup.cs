@@ -1,35 +1,33 @@
+﻿using MacroTools;
 using WarcraftLegacies.Source.Setup.FactionSetup;
 
 namespace WarcraftLegacies.Source.Setup
 {
   public static class AllFactionSetup
   {
-    public static void Setup()
+    public static void Setup(PreplacedUnitSystem preplacedUnitSystem)
     {
-      ScourgeSetup.Setup();
-      LegionSetup.Setup();
-      LordaeronSetup.Setup();
-      DalaranSetup.Setup();
-      QuelthalasSetup.Setup();
-      SentinelsSetup.Setup();
-      DruidsSetup.Setup();
-      FelHordeSetup.Setup();
-      FrostwolfSetup.Setup();
-      WarsongSetup.Setup();
+      ScourgeSetup.Setup(preplacedUnitSystem);
+      LegionSetup.Setup(preplacedUnitSystem);
+      LordaeronSetup.Setup(preplacedUnitSystem);
+      DalaranSetup.Setup(preplacedUnitSystem);
+      QuelthalasSetup.Setup(preplacedUnitSystem);
+      SentinelsSetup.Setup(preplacedUnitSystem);
+      DruidsSetup.Setup(preplacedUnitSystem);
+      FelHordeSetup.Setup(preplacedUnitSystem);
+      FrostwolfSetup.Setup(preplacedUnitSystem);
+      WarsongSetup.Setup(preplacedUnitSystem);
       StormwindSetup.Setup();
-      IronforgeSetup.Setup();
-      KultirasSetup.Setup();
+      IronforgeSetup.Setup(preplacedUnitSystem);
+      KultirasSetup.Setup(preplacedUnitSystem);
       IllidariSetup.Setup();
       IllidanSetup.Setup();
       GilneasSetup.Setup();
-      ZandalarSetup.Setup();
+      ZandalarSetup.Setup(preplacedUnitSystem);
       GoblinSetup.Setup();
-      TwilightSetup.Setup();
-      ScarletSetup.Setup();
-      CthunSetup.Setup();
+      ScarletSetup.Setup(preplacedUnitSystem);
       ForsakenSetup.Setup();
       DraeneiSetup.Setup();
-      NzothSetup.Setup();
       DragonmawSetup.Setup();
     }
   }

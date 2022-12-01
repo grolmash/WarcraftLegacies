@@ -4,7 +4,6 @@ using MacroTools.QuestSystem;
 using MacroTools.QuestSystem.UtilityStructs;
 using WarcraftLegacies.Source.Setup.Legends;
 using static War3Api.Common;
-using static MacroTools.Libraries.Display;
 
 namespace WarcraftLegacies.Source.Quests.Dalaran
 {
@@ -15,7 +14,7 @@ namespace WarcraftLegacies.Source.Quests.Dalaran
       , "ReplaceableTextures\\CommandButtons\\BTNRockGolem.blp")
     {
       AddObjective(new ObjectiveControlPoint(ControlPointManager.GetFromUnitType(FourCC("n02R"))));
-      AddObjective(new ObjectiveControlLegend(LegendNeutral.LegendDraktharonkeep, false));
+      AddObjective(new ObjectiveControlLegend(LegendNeutral.DraktharonKeep, false));
       ResearchId = FourCC("R045");
     }
 
@@ -25,7 +24,7 @@ namespace WarcraftLegacies.Source.Quests.Dalaran
 
     protected override void OnComplete(Faction completingFaction)
     {
-      DisplayResearchAcquired(completingFaction.Player, ResearchId, 1);
+      completingFaction.Player.DisplayResearchAcquired(ResearchId, 1);
       completingFaction.ModObjectLimit(FourCC("n096"), -6);
       completingFaction.ModObjectLimit(FourCC("n0AD"), 6);
     }

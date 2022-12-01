@@ -21,7 +21,7 @@ namespace MacroTools.UserInterface
 
     private const float WidthFaction = 0.08f;
     private const float WidthCp = 0.02f;
-    private const float WidthIncome = 0.02f;
+    private const float WidthIncome = 0.022f;
     private const float WidthTeam = WidthFaction + WidthCp + WidthIncome;
     
     private static bool _initialized;
@@ -53,16 +53,21 @@ namespace MacroTools.UserInterface
       TimerStart(timer, 2, false, () => { Instance = new FactionMultiboard(ColumnCount, 3, Title); }
       );
 
-      PlayerData.FactionChange += OnPersonFactionChange;
-      PlayerData.PlayerJoinedTeam += OnFactionTeamJoin;
-      PlayerData.PlayerLeftTeam += OnFactionTeamLeft;
-      Faction.StatusChanged += OnFactionStatusChanged;
-
+      PlayerData.FactionChange += (_, _) => { Instance?.Render(); };
       FactionManager.AnyFactionNameChanged += OnFactionAnyFactionNameChanged;
-      Faction.IconChanged += OnFactionIconChanged;
-
+      
       foreach (var player in WCSharp.Shared.Util.EnumeratePlayers())
+      {
         player.GetPlayerData().IncomeChanged += OnPlayerIncomeChanged;
+        player.GetPlayerData().PlayerJoinedTeam += (_, _) => { Instance?.Render(); };  
+        player.GetPlayerData().PlayerLeftTeam += (_, _) => { Instance?.Render(); };
+      }
+
+      foreach (var faction in FactionManager.GetAllFactions())
+      {
+        faction.StatusChanged += (_, _) => { Instance?.Render(); };
+        faction.IconChanged += OnFactionIconChanged;
+      }
 
       _initialized = true;
     }
@@ -70,10 +75,13 @@ namespace MacroTools.UserInterface
     //Run when a detail about a Faction has changed
     private void UpdateFactionRow(Faction faction)
     {
+      if (!_rowsByFaction.ContainsKey(faction))
+        return;
+
       var row = _rowsByFaction[faction];
-      multiboarditem factionMbi = MultiboardGetItem(_multiboard, row, ColumnFaction);
-      multiboarditem cpMbi = MultiboardGetItem(_multiboard, row, ColumnCp);
-      multiboarditem incomeMbi = MultiboardGetItem(_multiboard, row, ColumnIncome);
+      var factionMbi = MultiboardGetItem(_multiboard, row, ColumnFaction);
+      var cpMbi = MultiboardGetItem(_multiboard, row, ColumnCp);
+      var incomeMbi = MultiboardGetItem(_multiboard, row, ColumnIncome);
       MultiboardSetItemValue(factionMbi, faction.ColoredName);
       MultiboardSetItemIcon(factionMbi, faction.Icon);
       MultiboardSetItemValue(cpMbi, faction.Player?.GetControlPointCount().ToString());
@@ -92,9 +100,9 @@ namespace MacroTools.UserInterface
     private void UpdateTeamRow(Team team)
     {
       var row = _rowsByTeam[team];
-      multiboarditem mbi = MultiboardGetItem(_multiboard, row, ColumnTeam);
+      var mbi = MultiboardGetItem(_multiboard, row, ColumnTeam);
       MultiboardSetItemValue(mbi,
-        "-----" + team.Name + SubString("-----------------------------------------", 0, 19 - StringLength(team.Name)));
+        $"---{team.Name}{SubString("-----------------------------------------", 0, 19 - StringLength(team.Name))}");
       MultiboardSetItemWidth(mbi, WidthTeam);
       MultiboardSetItemStyle(mbi, true, false);
       MultiboardSetItemStyle(MultiboardGetItem(_multiboard, row, ColumnCp), false, false);
@@ -103,9 +111,9 @@ namespace MacroTools.UserInterface
 
     private void UpdateHeaderRow()
     {
-      multiboarditem factionMbi = MultiboardGetItem(_multiboard, 0, ColumnFaction);
-      multiboarditem cpMbi = MultiboardGetItem(_multiboard, 0, ColumnCp);
-      multiboarditem incomeMbi = MultiboardGetItem(_multiboard, 0, ColumnIncome);
+      var factionMbi = MultiboardGetItem(_multiboard, 0, ColumnFaction);
+      var cpMbi = MultiboardGetItem(_multiboard, 0, ColumnCp);
+      var incomeMbi = MultiboardGetItem(_multiboard, 0, ColumnIncome);
       MultiboardSetItemStyle(factionMbi, false, false);
       MultiboardSetItemStyle(cpMbi, false, true);
       MultiboardSetItemStyle(incomeMbi, false, true);
@@ -119,6 +127,8 @@ namespace MacroTools.UserInterface
     //Run when the number of Teams or Factions have changed, or a Faction has changed its Team
     private void Render()
     {
+      _rowsByFaction.Clear();
+      _rowsByTeam.Clear();
       var row = 0;
       DestroyMultiboard(_multiboard);
       _multiboard = CreateMultiboard();
@@ -130,51 +140,26 @@ namespace MacroTools.UserInterface
       UpdateHeaderRow();
       row += 1;
       foreach (var team in FactionManager.GetAllTeams())
-        if (team.Size > 0)
-        {
-          _rowsByTeam[team] = row;
-          UpdateTeamRow(team);
-          row += 1;
-          foreach (var faction in team.GetAllFactions())
-            if (faction.Player != null && faction.ScoreStatus != ScoreStatus.Defeated)
-            {
-              _rowsByFaction[faction] = row;
-              UpdateFactionRow(faction);
-              row += 1;
-            }
-        }
-
+      {
+        if (team.UndefeatedPlayerCount <= 0) 
+          continue;
+        _rowsByTeam[team] = row;
+        UpdateTeamRow(team);
+        row += 1;
+        foreach (var faction in team.GetAllFactions())
+          if (faction.Player != null && faction.ScoreStatus != ScoreStatus.Defeated)
+          {
+            _rowsByFaction[faction] = row;
+            UpdateFactionRow(faction);
+            row += 1;
+          }
+      }
       MultiboardSetRowCount(_multiboard, row);
-    }
-
-    private static void RenderInstance()
-    {
-      Instance?.Render();
     }
 
     private static void OnFactionAnyFactionNameChanged(object? sender, Faction faction)
     {
       Instance?.UpdateFactionRow(faction);
-    }
-
-    private static void OnPersonFactionChange(object? sender, PlayerFactionChangeEventArgs playerFactionChangeEventArgs)
-    {
-      RenderInstance();
-    }
-
-    private static void OnFactionTeamJoin(object? sender, PlayerChangeTeamEventArgs playerChangeTeamEventArgs)
-    {
-      RenderInstance();
-    }
-
-    private static void OnFactionTeamLeft(object? sender, PlayerChangeTeamEventArgs playerChangeTeamEventArgs)
-    {
-      RenderInstance();
-    }
-
-    private static void OnFactionStatusChanged(object? sender, Faction faction)
-    {
-      RenderInstance();
     }
 
     private static void OnPlayerIncomeChanged(object? sender, PlayerData player)

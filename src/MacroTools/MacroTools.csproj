@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFrameworks>net5.0;net6.0</TargetFrameworks>
+        <TargetFramework>net6.0</TargetFramework>
         <Nullable>enable</Nullable>
         <RootNamespace>MacroTools</RootNamespace>
     </PropertyGroup>
@@ -13,6 +13,7 @@
         <PackageReference Include="WCSharp.Events" Version="2.0.8" />
         <PackageReference Include="WCSharp.Json" Version="2.0.1" />
         <PackageReference Include="WCSharp.Lightnings" Version="2.0.0" />
+        <PackageReference Include="WCSharp.Missiles" Version="2.0.5" />
         <PackageReference Include="WCSharp.Shared" Version="2.0.6" />
     </ItemGroup>
 

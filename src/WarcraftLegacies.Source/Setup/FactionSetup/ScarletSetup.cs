@@ -1,4 +1,4 @@
-using MacroTools;
+﻿using MacroTools;
 using MacroTools.FactionSystem;
 using WCSharp.Shared.Data;
 using static War3Api.Common;
@@ -9,7 +9,7 @@ namespace WarcraftLegacies.Source.Setup.FactionSetup
   {
     public static Faction? ScarletCrusade { get; private set; }
 
-    public static void Setup()
+    public static void Setup(PreplacedUnitSystem preplacedUnitSystem)
     {
       ScarletCrusade = new Faction("Militia", PLAYER_COLOR_MAROON, "|cff800000",
         "ReplaceableTextures\\CommandButtons\\BTNPeasant.blp")
@@ -39,7 +39,7 @@ Fortify your strongholds against the storm to come and make ready to unleash the
       ScarletCrusade.ModObjectLimit(FourCC("h084"), Faction.UNLIMITED); //Scout Tower
       ScarletCrusade.ModObjectLimit(FourCC("h085"), Faction.UNLIMITED); //Guard Tower
       ScarletCrusade.ModObjectLimit(FourCC("h087"), Faction.UNLIMITED); //Guard Tower (Improved)
-      ScarletCrusade.ModObjectLimit(FourCC("hshy"), Faction.UNLIMITED); //Alliance Shipyard
+      ScarletCrusade.ModObjectLimit(FourCC("h0AG"), Faction.UNLIMITED); //Alliance Shipyard
       ScarletCrusade.ModObjectLimit(FourCC("h086"), Faction.UNLIMITED); //Marketplace
       ScarletCrusade.ModObjectLimit(FourCC("h082"), Faction.UNLIMITED); //Aviary
       ScarletCrusade.ModObjectLimit(FourCC("h097"), Faction.UNLIMITED); //Training Camp
@@ -51,8 +51,8 @@ Fortify your strongholds against the storm to come and make ready to unleash the
 
       //Units
       ScarletCrusade.ModObjectLimit(FourCC("hpea"), Faction.UNLIMITED); //Peasant
-      ScarletCrusade.ModObjectLimit(FourCC("hbot"), 12); //Alliance Transport Ship
-      ScarletCrusade.ModObjectLimit(FourCC("hdes"), 12); //Alliance Frigate
+      ScarletCrusade.ModObjectLimit(FourCC("hbot"), Faction.UNLIMITED); //Alliance Transport Ship
+      ScarletCrusade.ModObjectLimit(FourCC("hdes"), Faction.UNLIMITED); //Alliance Frigate
       ScarletCrusade.ModObjectLimit(FourCC("hbsh"), 6); //Alliance Battle Ship
       ScarletCrusade.ModObjectLimit(FourCC("h08I"), Faction.UNLIMITED); //Crusader
       ScarletCrusade.ModObjectLimit(FourCC("h08M"), Faction.UNLIMITED); //Men-at-arms
@@ -88,7 +88,7 @@ Fortify your strongholds against the storm to come and make ready to unleash the
       ScarletCrusade.ModObjectLimit(FourCC("Rhac"), Faction.UNLIMITED); //Improved Masonry
       ScarletCrusade.ModObjectLimit(FourCC("R06Q"), Faction.UNLIMITED); //Paladin Adept Training
 
-      ScarletCrusade.AddGoldMine(PreplacedUnitSystem.GetUnit(FourCC("ngol"), new Point(12860, 11254)));
+      ScarletCrusade.AddGoldMine(preplacedUnitSystem.GetUnit(FourCC("ngol"), new Point(12860, 11254)));
       
       FactionManager.Register(ScarletCrusade);
     }

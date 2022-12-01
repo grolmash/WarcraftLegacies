@@ -5,15 +5,15 @@ namespace MacroTools.Cheats
 {
   public static class CheatVision
   {
-    private const string COMMAND = "-vision ";
+    private const string Command = "-vision ";
     private static readonly Dictionary<player, fogmodifier> Fogs = new();
 
     private static void Actions()
     {
-      if (!TestSafety.CheatCondition()) return;
+      if (!TestMode.CheatCondition()) return;
       string enteredString = GetEventPlayerChatString();
       player p = GetTriggerPlayer();
-      string parameter = SubString(enteredString, StringLength(COMMAND), StringLength(enteredString));
+      string parameter = SubString(enteredString, StringLength(Command), StringLength(enteredString));
 
       if (parameter == "on")
       {
@@ -32,7 +32,7 @@ namespace MacroTools.Cheats
     public static void Setup()
     {
       trigger trig = CreateTrigger();
-      foreach (var player in WCSharp.Shared.Util.EnumeratePlayers()) TriggerRegisterPlayerChatEvent(trig, player, COMMAND, false);
+      foreach (var player in WCSharp.Shared.Util.EnumeratePlayers()) TriggerRegisterPlayerChatEvent(trig, player, Command, false);
       TriggerAddAction(trig, Actions);
     }
   }

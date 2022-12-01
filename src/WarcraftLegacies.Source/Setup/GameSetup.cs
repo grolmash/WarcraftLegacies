@@ -1,6 +1,4 @@
 using MacroTools;
-using MacroTools.Frames.Books.ArtifactSystem;
-using MacroTools.Frames.Books.Powers;
 using MacroTools.Mechanics;
 using MacroTools.PassiveAbilitySystem;
 using MacroTools.UserInterface;
@@ -25,43 +23,40 @@ namespace WarcraftLegacies.Source.Setup
     /// </summary>
     public static void Setup()
     {
-      PreplacedUnitSystem.Initialize();
-      AllLegendSetup.Setup();
+      var preplacedUnitSystem = new PreplacedUnitSystem();
+      SoundLibrary.Setup();
+      AllLegendSetup.Setup(preplacedUnitSystem);
       ShoreSetup.Setup();
       ControlPointSetup.Setup();
-      InstanceSetup.Setup();
+      InstanceSetup.Setup(preplacedUnitSystem);
       TeamSetup.Setup();
-      AllFactionSetup.Setup();
+      AllFactionSetup.Setup(preplacedUnitSystem);
       PlayerSetup.Setup();
       NeutralHostileSetup.Setup();
-      ArtifactSetup.Setup();
-      AllQuestSetup.Setup();
-      //ResearchSetup.Setup();
+      ArtifactSetup.Setup(preplacedUnitSystem);
+      AllQuestSetup.Setup(preplacedUnitSystem);
       ObserverSetup.Setup();
       SpellsSetup.Setup();
       CheatSetup.Setup();
       CommandSetup.Setup();
       ControlPointVictory.Setup();
       SilvermoonDies.Setup();
-      //IncompatibleTierConfig.Setup();
       GameTime.Setup();
       FactionMultiboard.Setup();
-      ArtifactBook.Initialize();
-      PowerBook.Initialize();
+      BookSetup.Setup();
       HintConfig.Setup();
       WaygateManager.Setup(Constants.UNIT_N0AO_WAY_GATE_DALARAN);
       BlightSystem.Setup(ScourgeSetup.Scourge);
-      BlightSetup.Setup();
+      BlightSetup.Setup(preplacedUnitSystem);
       QuestMenuSetup.Setup();
       CinematicMode.Start(59);
       DialogueSetup.Setup();
       DisplayIntroText.Setup(10);
       GameSettings.Setup();
       InfoQuests.Setup();
-      DestructibleSetup.Setup();
-      ResearchSetup.Setup();
-      PatronSystem.Setup();
-      PreplacedUnitSystem.Shutdown();
+      DestructibleSetup.Setup(preplacedUnitSystem);
+      ResearchSetup.Setup(preplacedUnitSystem);
+      PatronSystem.Setup(preplacedUnitSystem);
       OpenAllianceVote.Setup();
       AugmentSetup.Setup();
       RockSetup.Setup();
@@ -117,6 +112,7 @@ namespace WarcraftLegacies.Source.Setup
       PassiveAbilityManager.InitializePreplacedUnits();
       IncompatibleResearchSetup.Setup();
       DemonGateSetup.Setup();
+      SummonRallyPoints.Setup();
     }
   }
 }

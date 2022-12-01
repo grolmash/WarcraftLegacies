@@ -27,7 +27,7 @@ namespace WarcraftLegacies.Source.Quests.Draenei
       _baseName = baseName;
       AddObjective(new ObjectiveAnyUnitInRect(baseRect, baseName, false));
       AddObjective(new ObjectiveSelfExists());
-      _rescueUnits = baseRect.PrepareUnitsForRescue(Player(PLAYER_NEUTRAL_PASSIVE));
+      _rescueUnits = baseRect.PrepareUnitsForRescue(RescuePreparationMode.None);
       Required = true;
     }
 
@@ -49,7 +49,11 @@ namespace WarcraftLegacies.Source.Quests.Draenei
     /// <inheritdoc />
     protected override void OnFail(Faction completingFaction)
     {
-      Player(PLAYER_NEUTRAL_AGGRESSIVE).RescueGroup(_rescueUnits);
+      foreach (var unit in _rescueUnits)
+      {
+        if (GetOwningPlayer(unit) == completingFaction.Player || GetOwningPlayer(unit) == Player(PLAYER_NEUTRAL_AGGRESSIVE) || GetOwningPlayer(unit) == Player(PLAYER_NEUTRAL_PASSIVE))
+          unit.Rescue(Player(PLAYER_NEUTRAL_AGGRESSIVE));
+      }
       _rescueUnits.Clear();
     }
   }

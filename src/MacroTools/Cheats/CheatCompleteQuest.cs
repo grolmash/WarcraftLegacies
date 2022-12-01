@@ -5,7 +5,7 @@ using static War3Api.Common;
 namespace MacroTools.Cheats
 {
   /// <summary>
-  /// A cheat that completes a specified <see cref="QuestData"/>.
+  /// A command that completes a specified <see cref="QuestData"/>.
   /// </summary>
   public static class CheatCompleteQuest
   {
@@ -13,7 +13,7 @@ namespace MacroTools.Cheats
 
     private static void Actions()
     {
-      if (!TestSafety.CheatCondition()) return;
+      if (!TestMode.CheatCondition()) return;
 
       var enteredString = GetEventPlayerChatString();
       var triggerPlayer = GetTriggerPlayer();
@@ -27,7 +27,7 @@ namespace MacroTools.Cheats
     }
 
     /// <summary>
-    /// Registers the command which allows players to execute the <see cref="CheatCompleteQuest"/> cheat.
+    /// Registers the command which allows players to execute the <see cref="CheatCompleteQuest"/> command.
     /// </summary>
     public static void Setup()
     {

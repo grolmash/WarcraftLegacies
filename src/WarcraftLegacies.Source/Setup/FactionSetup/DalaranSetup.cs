@@ -1,4 +1,4 @@
-using MacroTools;
+﻿using MacroTools;
 using MacroTools.FactionSystem;
 using WCSharp.Shared.Data;
 using static War3Api.Common;
@@ -9,7 +9,7 @@ namespace WarcraftLegacies.Source.Setup.FactionSetup
   {
     public static Faction? Dalaran { get; private set; }
 
-    public static void Setup()
+    public static void Setup(PreplacedUnitSystem preplacedUnitSystem)
     {
       Dalaran = new Faction("Dalaran", PLAYER_COLOR_PINK, "|c00e55bb0",
         "ReplaceableTextures\\CommandButtons\\BTNJaina.blp")
@@ -48,8 +48,8 @@ Your mages are the finest in Azeroth, be sure to utilize them alongside your her
 
       //Units
       Dalaran.ModObjectLimit(FourCC("h022"), Faction.UNLIMITED); //Shaper
-      Dalaran.ModObjectLimit(FourCC("hbot"), 12); //Alliance Transport Ship
-      Dalaran.ModObjectLimit(FourCC("hdes"), 12); //Alliance Frigate
+      Dalaran.ModObjectLimit(FourCC("hbot"), Faction.UNLIMITED); //Alliance Transport Ship
+      Dalaran.ModObjectLimit(FourCC("hdes"), Faction.UNLIMITED); //Alliance Frigate
       Dalaran.ModObjectLimit(FourCC("hbsh"), 6); //Alliance Battle Ship
       Dalaran.ModObjectLimit(FourCC("nhym"), Faction.UNLIMITED); //Hydromancer
       Dalaran.ModObjectLimit(FourCC("h032"), Faction.UNLIMITED); //Battlemage
@@ -89,7 +89,7 @@ Your mages are the finest in Azeroth, be sure to utilize them alongside your her
       Dalaran.ModAbilityAvailability(Constants.ABILITY_A0GD_SUMMON_GARRISON_STORMWIND, -1);
       Dalaran.ModAbilityAvailability(Constants.ABILITY_A0K5_DWARVEN_MASONRY_CASTLES_YELLOW, -1);
 
-      Dalaran.AddGoldMine(PreplacedUnitSystem.GetUnit(FourCC("ngol"), new Point(9204, 2471)));
+      Dalaran.AddGoldMine(preplacedUnitSystem.GetUnit(FourCC("ngol"), new Point(9204, 2471)));
       
       FactionManager.Register(Dalaran);
     }

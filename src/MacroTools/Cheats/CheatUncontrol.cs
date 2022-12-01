@@ -5,15 +5,15 @@ namespace MacroTools.Cheats
 {
   public static class CheatUncontrol
   {
-    private const string COMMAND = "-uncontrol ";
+    private const string Command = "-uncontrol ";
 
     private static void Actions()
     {
-      if (!TestSafety.CheatCondition()) return;
+      if (!TestMode.CheatCondition()) return;
 
       string enteredString = GetEventPlayerChatString();
       player p = GetTriggerPlayer();
-      string parameter = SubString(enteredString, StringLength(COMMAND), StringLength(enteredString));
+      string parameter = SubString(enteredString, StringLength(Command), StringLength(enteredString));
 
       if (parameter == "all")
       {
@@ -41,7 +41,7 @@ namespace MacroTools.Cheats
     public static void Setup()
     {
       trigger trig = CreateTrigger();
-      foreach (var player in WCSharp.Shared.Util.EnumeratePlayers()) TriggerRegisterPlayerChatEvent(trig, player, COMMAND, false);
+      foreach (var player in WCSharp.Shared.Util.EnumeratePlayers()) TriggerRegisterPlayerChatEvent(trig, player, Command, false);
 
       TriggerAddAction(trig, Actions);
     }

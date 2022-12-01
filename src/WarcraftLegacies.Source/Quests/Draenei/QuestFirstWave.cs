@@ -12,7 +12,7 @@ namespace WarcraftLegacies.Source.Quests.Draenei
   {
     private readonly List<unit> _unitsToKill;
 
-    public QuestFirstWave() : base("Broken Civilisation",
+    public QuestFirstWave(PreplacedUnitSystem preplacedUnitSystem) : base("Broken Civilisation",
       "The Fel Orc attack will begin at any moment, the Draenei need to evacuate their civilians aboard the Exodar",
       "ReplaceableTextures\\CommandButtons\\BTNDraeneiDivineCitadel.blp")
     {
@@ -21,16 +21,15 @@ namespace WarcraftLegacies.Source.Quests.Draenei
       AddObjective(new ObjectiveSelfExists());
       _unitsToKill = new List<unit>
       {
-        PreplacedUnitSystem.GetUnit(FourCC("o051"), Regions.DraeneiEvacuation.Center),
-        PreplacedUnitSystem.GetUnit(FourCC("o055"), Regions.DraeneiEvacuation.Center),
-        PreplacedUnitSystem.GetUnit(FourCC("o054"), Regions.DraeneiEvacuation.Center),
-        PreplacedUnitSystem.GetUnit(FourCC("n0BU"), Regions.DraeneiEvacuation.Center)
+        preplacedUnitSystem.GetUnit(Constants.UNIT_O051_DIVINE_CITADEL_DRAENEI, Regions.DraeneiEvacuation.Center),
+        preplacedUnitSystem.GetUnit(Constants.UNIT_O055_CRYSTAL_SPIRE_DRAENEI, Regions.DraeneiEvacuation.Center),
+        preplacedUnitSystem.GetUnit(Constants.UNIT_O054_ASTRAL_SANCTUM_DRAENEI, Regions.DraeneiEvacuation.Center),
       };
     }
 
     /// <inheritdoc />
     protected override string CompletionPopup =>
-      "The Draenei have holded long enough and most of their civilisation had time to join the Exodar";
+      "The Draenei have held long enough and most of their civilisation had time to join the Exodar";
 
     /// <inheritdoc />
     protected override string PenaltyDescription =>

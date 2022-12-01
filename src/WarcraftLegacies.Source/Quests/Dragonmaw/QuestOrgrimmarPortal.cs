@@ -1,7 +1,10 @@
-﻿using MacroTools.Extensions;
+﻿using MacroTools;
+using MacroTools.Extensions;
 using MacroTools.FactionSystem;
 using MacroTools.QuestSystem;
 using MacroTools.QuestSystem.UtilityStructs;
+using System;
+using WarcraftLegacies.Source.Setup;
 using WarcraftLegacies.Source.Setup.Legends;
 using static War3Api.Common;
 
@@ -12,59 +15,59 @@ namespace WarcraftLegacies.Source.Quests.Dragonmaw
   /// </summary>
   public sealed class QuestOrgrimmarPortal : QuestData
   {
-    private readonly unit _waygateOrgrimmar;
     private readonly unit _waygateDragonmawPort;
-    private readonly destructable _dragonmawGate;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="QuestOrgrimmarPortal"/> class.
     /// </summary>
-    /// <param name="dragonmawGate">Starts invulnerable and gets opened when the quest is complete.</param>
-    /// <param name="waygateOrgrimmar">Starts hidden and gets revealed when the quest is complete.</param>
+    /// <param name="prequel">This quest must be completed first.</param>
     /// <param name="waygateDragonmawPort">Starts hidden and gets revealed when the quest is complete.</param>
-    public QuestOrgrimmarPortal(destructable dragonmawGate, unit waygateOrgrimmar, unit waygateDragonmawPort) : base(
+    public QuestOrgrimmarPortal(QuestData prequel, unit waygateDragonmawPort) : base(
       "The Reunification of the Horde",
-      "The new Horde in Kalimdor has send a message to the Dragonmaw Clan to join them, Zuluhead will need to open a portal for his people to go through!",
+      "The new Horde in Kalimdor has send a message to the Dragonmaw Clan to join them, Zaela has foreseen it to be the salvation of the Dragonmaw Clan. But the portal will be unstable, as soon as it is open, we should escape with great haste",
       "ReplaceableTextures\\CommandButtons\\BTNPortal.blp")
     {
-      _waygateOrgrimmar = waygateOrgrimmar;
       _waygateDragonmawPort = waygateDragonmawPort;
-      _dragonmawGate = dragonmawGate.SetInvulnerable(true);
-      AddObjective(new ObjectiveChannelRect(Regions.DragonmawPortal, "Dragonmaw Port", LegendFelHorde.LegendZuluhed,
-        180, 300));
-      AddObjective(new ObjectiveControlLegend(LegendNeutral.LegendGrimbatol, false));
-      AddObjective(new ObjectiveControlLegend(LegendFrostwolf.LegendOrgrimmar, false));
-      waygateOrgrimmar.Show(false);
+
+      AddObjective(new ObjectiveCompleteQuest(prequel));
+      AddObjective(new ObjectiveControlLegend(LegendNeutral.GrimBatol, false));
       waygateDragonmawPort.Show(false);
       Required = true;
     }
 
     /// <inheritdoc />
     protected override string CompletionPopup =>
-      "Zuluhead has opened the portal to Orgrimmar. Hurry, it will collapse in 3 mins";
+      "The portal to Kalimdor will open at turn 9! Once it does, hurry! it will only last for 60 seconds.";
 
     /// <inheritdoc />
-    protected override string RewardDescription => "Open a Portal between Dragonmaw Port and Orgrimmar";
+    protected override string RewardDescription => "Will make the Orgrimar Portal open at turn 9. The portal will stay open only for 60 seconds!";
 
     /// <inheritdoc />
-    protected override void OnFail(Faction whichFaction) => _dragonmawGate.SetInvulnerable(false);
-
-    /// <inheritdoc />
-    protected override void OnComplete(Faction whichFaction)
+    protected override void OnComplete(Faction completingFaction)
     {
-      _waygateOrgrimmar
-        .Show(true)
-        .SetWaygateDestination(Regions.DragonmawPortal.Center);
+      var timeUntilReward = 540 - GameTime.GetGameTime();
+      if (timeUntilReward <= 0)
+        GiveReward(completingFaction);
+      else
+        CreateTimer().Start(Math.Max(540 - GameTime.GetGameTime(), 0), false, () =>
+        {
+          GiveReward(completingFaction);
+        });
+    }
+    
+    private void GiveReward(Faction completingFaction)
+    {
       _waygateDragonmawPort
         .Show(true)
         .SetWaygateDestination(Regions.OrgrimmarPortal.Center);
-      CreateTimer().Start(180, false, () =>
+      CreateTimer().Start(60, false, () =>
       {
-        _dragonmawGate.SetInvulnerable(false);
-        _waygateOrgrimmar.Kill();
         _waygateDragonmawPort.Kill();
         GetExpiredTimer().Destroy();
       });
+      if (completingFaction.Player != null)
+        completingFaction.Player?.SetTeam(TeamSetup.Horde);
+
     }
   }
 }

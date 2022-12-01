@@ -1,4 +1,4 @@
-using MacroTools;
+﻿using MacroTools;
 using MacroTools.FactionSystem;
 using WCSharp.Shared.Data;
 using static War3Api.Common;
@@ -12,21 +12,20 @@ namespace WarcraftLegacies.Source.Setup.FactionSetup
   {
     public static Faction? Ironforge { get; private set; }
     
-    public static void Setup()
+    public static void Setup(PreplacedUnitSystem preplacedUnitSystem)
     {
       Ironforge = new Faction("Ironforge", PLAYER_COLOR_YELLOW, "|C00FFFC01",
         "ReplaceableTextures\\CommandButtons\\BTNHeroMountainKing.blp")
       {
         UndefeatedResearch = FourCC("R05T"),
-        StartingGold = 150,
+        StartingGold = 250,
         StartingLumber = 500,
         CinematicMusic = "PursuitTheme",
         IntroText = @"You are playing as the long- enduring |cffe4bc00Kingdom of Ironforge.
                     |r
 Re-establish your stronghold by capturing the surrounding lands.
 
-The Twilight Hammer clan is gathering in the East, behind the Dragonmaw Gate. It cannot be destroyed, but it can be opened by anyone who owns Grim Batol. 
-Once the gate opens, it cannot be closed for 7 minutes, use this opening to your advantage.
+The Dragonmaw Clan is gathering in the Twilight highlands, you will need to destroy them before they attack your towns in the Wetlands. 
 
 Stormwind is preparing for the Fel Horde invasion in the South, muster the throng to help them or you may lose your strongest ally."
       };
@@ -54,8 +53,8 @@ Stormwind is preparing for the Fel Horde invasion in the South, muster the thron
 
       //Units
       Ironforge.ModObjectLimit(FourCC("h019"), Faction.UNLIMITED); //Dwarven Worker
-      Ironforge.ModObjectLimit(FourCC("hbot"), 12); //Alliance Transport Ship
-      Ironforge.ModObjectLimit(FourCC("hdes"), 12); //Alliance Frigate
+      Ironforge.ModObjectLimit(FourCC("hbot"), Faction.UNLIMITED); //Alliance Transport Ship
+      Ironforge.ModObjectLimit(FourCC("hdes"), Faction.UNLIMITED); //Alliance Frigate
       Ironforge.ModObjectLimit(FourCC("hbsh"), 6); //Alliance Battle Ship
       Ironforge.ModObjectLimit(FourCC("hrif"), Faction.UNLIMITED); //Rifleman
       Ironforge.ModObjectLimit(FourCC("hmtm"), 9); //Mortar Team
@@ -83,6 +82,7 @@ Stormwind is preparing for the Fel Horde invasion in the South, muster the thron
       Ironforge.ModObjectLimit(FourCC("Rhri"), Faction.UNLIMITED); //Long Rifles
       Ironforge.ModObjectLimit(FourCC("Rhhb"), Faction.UNLIMITED); //Storm Hammers
       Ironforge.ModObjectLimit(FourCC("R063"), Faction.UNLIMITED); //Thunder Ale
+      Ironforge.ModObjectLimit(FourCC("R02K"), Faction.UNLIMITED); //Gryphon Superior Breed
       Ironforge.ModObjectLimit(Constants.UPGRADE_RHME_PYRITE_FORGED_WEAPONRY_UNIVERSAL_UPGRADE, Faction.UNLIMITED);
       Ironforge.ModObjectLimit(Constants.UPGRADE_RHAR_PYRITE_ARMOR_PLATING_UNIVERSAL_UPGRADE, Faction.UNLIMITED);
       Ironforge.ModObjectLimit(Constants.UPGRADE_R014_DEEPRUN_TRAM_IRONFORGE, 1);
@@ -99,7 +99,7 @@ Stormwind is preparing for the Fel Horde invasion in the South, muster the thron
       Ironforge.ModAbilityAvailability(Constants.ABILITY_A0GC_REPLENISH_MANA_ORANGE_KEEPS_CAPITALS, -1);
       Ironforge.ModAbilityAvailability(Constants.ABILITY_A0IH_SPIKED_BARRICADES_DWARF_KEEP, -1);
       
-      Ironforge.AddGoldMine(PreplacedUnitSystem.GetUnit(FourCC("ngol"), new Point(12079, -2768)));
+      Ironforge.AddGoldMine(preplacedUnitSystem.GetUnit(FourCC("ngol"), new Point(12079, -2768)));
       
       FactionManager.Register(Ironforge);
     }

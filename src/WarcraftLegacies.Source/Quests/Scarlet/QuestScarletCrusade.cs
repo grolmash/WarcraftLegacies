@@ -15,7 +15,7 @@ namespace WarcraftLegacies.Source.Quests.Scarlet
   /// </summary>
   public sealed class QuestScarletCrusade : QuestData
   {
-    private const int UnleashTheCrusadeResearchId = Constants.UPGRADE_R03P_FORTIFIED_HULLS_SCARLET_CRUSADE;
+    private const int UnleashTheCrusadeResearchId = Constants.UPGRADE_R03P_UNLEASH_THE_CRUSADE_SCARLET_CRUSADE;
     private readonly List<unit> _rescueUnits;
     private readonly unit _scarletMonasteryEntrance;
     private readonly QuestData _sequel;
@@ -37,7 +37,7 @@ namespace WarcraftLegacies.Source.Quests.Scarlet
       ResearchId = Constants.UPGRADE_R03F_QUEST_COMPLETED_UNLEASH_THE_CRUSADE;
       Global = true;
       _sequel = sequel;
-      _rescueUnits = rescueRect.PrepareUnitsForRescue(Player(PLAYER_NEUTRAL_PASSIVE));
+      _rescueUnits = rescueRect.PrepareUnitsForRescue(RescuePreparationMode.HideAll);
     }
 
     //Todo: bad flavour
@@ -48,12 +48,6 @@ namespace WarcraftLegacies.Source.Quests.Scarlet
     /// <inheritdoc />
     protected override string RewardDescription =>
       "Control of all units in the Scarlet Monastery and you will unally the alliance";
-
-    /// <inheritdoc />
-    protected override void OnFail(Faction completingFaction)
-    {
-      foreach (var unit in _rescueUnits) unit.Rescue(Player(PLAYER_NEUTRAL_AGGRESSIVE));
-    }
 
     /// <inheritdoc />
     protected override void OnComplete(Faction completingFaction)
@@ -76,9 +70,7 @@ namespace WarcraftLegacies.Source.Quests.Scarlet
     }
 
     /// <inheritdoc />
-    protected override void OnAdd(Faction whichFaction)
-    {
+    protected override void OnAdd(Faction whichFaction) => 
       whichFaction.ModObjectLimit(UnleashTheCrusadeResearchId, 1);
-    }
   }
 }
