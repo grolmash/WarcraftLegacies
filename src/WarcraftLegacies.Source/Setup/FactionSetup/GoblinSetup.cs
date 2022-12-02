@@ -17,7 +17,13 @@ namespace WarcraftLegacies.Source.Setup.FactionSetup
         StartingLumber = 500,
         PossibleTeams = new[]
         {
-          teamSetup.Horde
+          teamSetup.Horde,
+          teamSetup.Alliance,
+          teamSetup.NorthAlliance,
+          teamSetup.SouthAlliance,
+          teamSetup.ScarletCrusade,
+          teamSetup.OldGods,
+          teamSetup.Illidari
         }
       };
 
