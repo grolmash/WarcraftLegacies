@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Reflection.Emit;
 using MacroTools.Augments;
 using MacroTools.Extensions;
 using MacroTools.QuestSystem;
@@ -84,6 +85,11 @@ namespace MacroTools.FactionSystem
     /// Where the player's camera should be moved when they pick this faction.
     /// </summary>
     public Point CameraStartPosition { get; set; }
+    
+    /// <summary>
+    /// The different <see cref="Team"/>s that this <see cref="Faction"/> is eligible to start in.
+    /// </summary>
+    public IEnumerable<Team>? PossibleTeams { get; set; }
     
     static Faction()
     {

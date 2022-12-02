@@ -13,7 +13,7 @@ namespace WarcraftLegacies.Source.Setup.FactionSetup
   {
     public static Faction? Stormwind { get; private set; }
     
-    public static void Setup()
+    public static void Setup(TeamSetup teamSetup)
     {
       Stormwind = new Faction("Stormwind", PLAYER_COLOR_AQUA, "|CFF106246",
         "ReplaceableTextures\\CommandButtons\\BTNKnight.blp")

@@ -10,7 +10,7 @@ namespace WarcraftLegacies.Source.Setup.FactionSetup
   {
     public static Faction? FelHorde { get; private set; }
 
-    public static void Setup(PreplacedUnitSystem preplacedUnitSystem)
+    public static void Setup(TeamSetup teamSetup, PreplacedUnitSystem preplacedUnitSystem)
     {
       FelHorde = new Faction("Fel Horde", PLAYER_COLOR_GREEN, "|c0020c000",
         "ReplaceableTextures\\CommandButtons\\BTNPitLord.blp")

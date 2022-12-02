@@ -7,7 +7,7 @@ namespace WarcraftLegacies.Source.Setup.FactionSetup
   {
     public static Faction? Gilneas { get; private set; }
     
-    public static void Setup()
+    public static void Setup(TeamSetup teamSetup)
     {
       Gilneas = new Faction("Gilneas", PLAYER_COLOR_COAL, "|cff808080",
         "ReplaceableTextures\\CommandButtons\\BTNGreymane.blp")

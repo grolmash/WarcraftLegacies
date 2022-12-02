@@ -9,7 +9,7 @@ namespace WarcraftLegacies.Source.Setup.FactionSetup
   {
     public static Faction? Sentinels { get; private set; }
     
-    public static void Setup(PreplacedUnitSystem preplacedUnitSystem)
+    public static void Setup(TeamSetup teamSetup, PreplacedUnitSystem preplacedUnitSystem)
     {
       Sentinels = new Faction("Sentinels", PLAYER_COLOR_MINT, "|CFFBFFF80",
         "ReplaceableTextures\\CommandButtons\\BTNPriestessOfTheMoon.blp")

@@ -16,7 +16,8 @@ namespace WarcraftLegacies.Source.Setup.FactionSetup
     /// <summary>
     /// up the Dragonmaw faction.
     /// </summary>
-    public static void Setup()
+    /// <param name="teamSetup"></param>
+    public static void Setup(TeamSetup teamSetup)
     {
       Dragonmaw = new Faction("Dragonmaw", PLAYER_COLOR_WHEAT, "|C00FFFC01",
         "ReplaceableTextures\\CommandButtons\\BTNRedDragon.blp")

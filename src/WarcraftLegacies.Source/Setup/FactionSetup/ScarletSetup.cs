@@ -9,7 +9,7 @@ namespace WarcraftLegacies.Source.Setup.FactionSetup
   {
     public static Faction? ScarletCrusade { get; private set; }
 
-    public static void Setup(PreplacedUnitSystem preplacedUnitSystem)
+    public static void Setup(TeamSetup teamSetup, PreplacedUnitSystem preplacedUnitSystem)
     {
       ScarletCrusade = new Faction("Militia", PLAYER_COLOR_MAROON, "|cff800000",
         "ReplaceableTextures\\CommandButtons\\BTNPeasant.blp")

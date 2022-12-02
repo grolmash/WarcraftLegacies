@@ -7,7 +7,7 @@ namespace WarcraftLegacies.Source.Setup.FactionSetup
   {
     public static Faction? Illidan { get; private set; }
     
-    public static void Setup()
+    public static void Setup(TeamSetup teamSetup)
     {
       Illidan = new Faction("Illidan's Forces", PLAYER_COLOR_VIOLET, "|cffff00ff",
         "ReplaceableTextures\\CommandButtons\\BTNHeroDemonHunter.blp")

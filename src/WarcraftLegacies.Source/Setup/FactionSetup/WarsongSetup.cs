@@ -9,7 +9,7 @@ namespace WarcraftLegacies.Source.Setup.FactionSetup
   {
     public static Faction? WarsongClan { get; private set; }
     
-    public static void Setup(PreplacedUnitSystem preplacedUnitSystem)
+    public static void Setup(TeamSetup teamSetup, PreplacedUnitSystem preplacedUnitSystem)
     {
       WarsongClan = new Faction("Warsong", PLAYER_COLOR_ORANGE, "|c00ff8000",
         "ReplaceableTextures\\CommandButtons\\BTNHellScream.blp")

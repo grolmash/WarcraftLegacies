@@ -11,7 +11,7 @@ namespace WarcraftLegacies.Source.Setup.FactionSetup
   {
     public static Faction? Kultiras { get; private set; }
 
-    public static void Setup(PreplacedUnitSystem preplacedUnitSystem)
+    public static void Setup(TeamSetup teamSetup, PreplacedUnitSystem preplacedUnitSystem)
     {
       Kultiras =
         new Faction(

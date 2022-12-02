@@ -10,7 +10,7 @@ namespace WarcraftLegacies.Source.Setup.FactionSetup
   {
     public static Faction? Frostwolf { get; private set; }
     
-    public static void Setup(PreplacedUnitSystem preplacedUnitSystem)
+    public static void Setup(TeamSetup teamSetup, PreplacedUnitSystem preplacedUnitSystem)
     {
       Frostwolf = new Faction("Frostwolf", PLAYER_COLOR_RED, "|c00ff0303",
         "ReplaceableTextures\\CommandButtons\\BTNThrall.blp")

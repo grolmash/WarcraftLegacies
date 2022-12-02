@@ -9,7 +9,7 @@ namespace WarcraftLegacies.Source.Setup.FactionSetup
   {
     public static Faction? Legion { get; private set; }
     
-    public static void Setup(PreplacedUnitSystem preplacedUnitSystem)
+    public static void Setup(TeamSetup teamSetup, PreplacedUnitSystem preplacedUnitSystem)
     {
       Legion = new Faction("Legion", PLAYER_COLOR_PEANUT, "|CFFBF8F4F",
         "ReplaceableTextures\\CommandButtons\\BTNKiljaedin.blp")

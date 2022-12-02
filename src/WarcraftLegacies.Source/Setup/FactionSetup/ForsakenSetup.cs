@@ -7,7 +7,7 @@ namespace WarcraftLegacies.Source.Setup.FactionSetup
   {
     public static Faction? Forsaken { get; private set; }
     
-    public static void Setup()
+    public static void Setup(TeamSetup teamSetup)
     {
       Forsaken = new Faction("Cult", PLAYER_COLOR_LIGHT_BLUE, "|cff8080ff",
         "ReplaceableTextures\\CommandButtons\\BTNAcolyte.blp")

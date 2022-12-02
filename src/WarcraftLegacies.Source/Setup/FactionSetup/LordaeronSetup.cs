@@ -9,7 +9,7 @@ namespace WarcraftLegacies.Source.Setup.FactionSetup
   {
     public static Faction? Lordaeron { get; private set; }
 
-    public static void Setup(PreplacedUnitSystem preplacedUnitSystem)
+    public static void Setup(TeamSetup teamSetup, PreplacedUnitSystem preplacedUnitSystem)
     {
       Lordaeron = new Faction("Lordaeron", PLAYER_COLOR_BLUE, "|c000042ff",
         "ReplaceableTextures\\CommandButtons\\BTNArthas.blp")

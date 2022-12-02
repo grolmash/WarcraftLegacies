@@ -9,7 +9,7 @@ namespace WarcraftLegacies.Source.Setup.FactionSetup
   {
     public static Faction? Dalaran { get; private set; }
 
-    public static void Setup(PreplacedUnitSystem preplacedUnitSystem)
+    public static void Setup(TeamSetup teamSetup, PreplacedUnitSystem preplacedUnitSystem)
     {
       Dalaran = new Faction("Dalaran", PLAYER_COLOR_PINK, "|c00e55bb0",
         "ReplaceableTextures\\CommandButtons\\BTNJaina.blp")

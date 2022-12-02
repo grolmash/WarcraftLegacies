@@ -12,7 +12,7 @@ namespace WarcraftLegacies.Source.Setup.FactionSetup
   {
     public static Faction? Ironforge { get; private set; }
     
-    public static void Setup(PreplacedUnitSystem preplacedUnitSystem)
+    public static void Setup(TeamSetup teamSetup, PreplacedUnitSystem preplacedUnitSystem)
     {
       Ironforge = new Faction("Ironforge", PLAYER_COLOR_YELLOW, "|C00FFFC01",
         "ReplaceableTextures\\CommandButtons\\BTNHeroMountainKing.blp")

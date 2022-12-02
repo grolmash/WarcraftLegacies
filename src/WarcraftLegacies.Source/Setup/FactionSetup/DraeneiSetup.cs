@@ -7,7 +7,7 @@ namespace WarcraftLegacies.Source.Setup.FactionSetup
   {
     public static Faction? Draenei { get; private set; }
 
-    public static void Setup()
+    public static void Setup(TeamSetup teamSetup)
     {
       Draenei = new Faction("The Exodar", PLAYER_COLOR_NAVY, "|cff000080",
         "ReplaceableTextures\\CommandButtons\\BTNBOSSVelen.blp")

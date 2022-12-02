@@ -12,7 +12,7 @@ namespace WarcraftLegacies.Source.Setup.FactionSetup
   {
     public static Faction? Scourge { get; private set; }
 
-    public static void Setup(PreplacedUnitSystem preplacedUnitSystem, Artifact helmOfDomination)
+    public static void Setup(TeamSetup teamSetup, PreplacedUnitSystem preplacedUnitSystem, Artifact helmOfDomination)
     {
       Scourge = new Faction("Scourge", PLAYER_COLOR_PURPLE, "|c00540081",
         "ReplaceableTextures\\CommandButtons\\BTNRevenant.blp")
@@ -117,6 +117,11 @@ namespace WarcraftLegacies.Source.Setup.FactionSetup
       HelmOfDominationDropsWhenScourgeLeaves.Setup(helmOfDomination);
 
       Scourge.ConfigureStartingFeatures(Player(3));
+      Scourge.PossibleTeams = new[]
+      {
+        teamSetup.Legion,
+        teamSetup.Scourge
+      };
       FactionManager.Register(Scourge);
     }
   }
