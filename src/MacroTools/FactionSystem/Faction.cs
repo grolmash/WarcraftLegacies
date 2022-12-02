@@ -84,11 +84,11 @@ namespace MacroTools.FactionSystem
     /// Where the player's camera should be moved when they pick this faction.
     /// </summary>
     public Point CameraStartPosition { get; set; }
-    
+
     /// <summary>
     /// The different <see cref="Team"/>s that this <see cref="Faction"/> is eligible to start in.
     /// </summary>
-    public IEnumerable<Team>? PossibleTeams { get; set; }
+    public IEnumerable<Team> PossibleTeams { get; init; } = new List<Team>();
     
     static Faction()
     {
@@ -644,7 +644,7 @@ namespace MacroTools.FactionSystem
     /// </summary>
     public void ConfigureStartingFeatures(player player)
     {
-      StartingUnits = new GroupWrapper().EnumUnitsOfPlayer(player).EmptyToList();
+      StartingUnits = CreateGroup().EnumUnitsOfPlayer(player).EmptyToList();
       foreach (var unit in StartingUnits) 
         ShowUnit(unit, false);
       CameraStartPosition = new Point(GetStartLocationX(GetPlayerStartLocation(player)), GetStartLocationY(GetPlayerStartLocation(player)));

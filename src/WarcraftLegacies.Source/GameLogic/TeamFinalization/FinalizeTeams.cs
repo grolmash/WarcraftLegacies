@@ -1,4 +1,6 @@
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using MacroTools.FactionSystem;
 using static War3Api.Common;
@@ -10,6 +12,18 @@ namespace WarcraftLegacies.Source.GameLogic.TeamFinalization
   /// </summary>
   public static class FinalizeTeams
   {
+    private static void SetupTeams(List<Faction> allFactions)
+    {
+      var bestLobby = PossibleLobby.GetBestPossibleLobby(allFactions);
+      foreach (var team in bestLobby.Teams)
+      {
+        foreach (var faction in team.Factions)
+        {
+          faction.Player?.SetTeam(team.RealTeam);
+        }
+      }
+    }
+    
     private static void Action()
     {
       var random = new Random();
@@ -28,9 +42,7 @@ namespace WarcraftLegacies.Source.GameLogic.TeamFinalization
             player.SetFaction(selectedFaction);
             selectedFaction.Status = FactionStatus.Undefeated;
           }
-
-          var possibleTeams = player.GetFaction()!.PossibleTeams!.ToList();
-          player.SetTeam(possibleTeams[random.Next(0, possibleTeams.Count - 1)]);
+          SetupTeams(allFactions);
         }
         catch (Exception ex)
         {
