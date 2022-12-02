@@ -19,7 +19,13 @@ namespace WarcraftLegacies.Source.Setup.FactionSetup
           UndefeatedResearch = FourCC("R05U"),
           StartingGold = 150,
           StartingLumber = 500,
-          CinematicMusic = "BloodElfTheme"
+          CinematicMusic = "BloodElfTheme",
+          PossibleTeams = new[]
+          {
+            teamSetup.Illidari,
+            teamSetup.Alliance,
+            teamSetup.NorthAlliance
+          }
         };
 
       //Structures

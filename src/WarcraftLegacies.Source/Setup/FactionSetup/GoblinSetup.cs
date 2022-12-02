@@ -14,7 +14,11 @@ namespace WarcraftLegacies.Source.Setup.FactionSetup
         "ReplaceableTextures\\CommandButtons\\BTNHeroTinker.blp")
       {
         StartingGold = 150,
-        StartingLumber = 500
+        StartingLumber = 500,
+        PossibleTeams = new[]
+        {
+          teamSetup.Horde
+        }
       };
 
       Goblin.ModObjectLimit(FourCC("o03L"), Faction.UNLIMITED); //Great Hall

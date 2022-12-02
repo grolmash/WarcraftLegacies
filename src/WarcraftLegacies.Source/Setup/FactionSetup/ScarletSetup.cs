@@ -15,7 +15,13 @@ namespace WarcraftLegacies.Source.Setup.FactionSetup
         "ReplaceableTextures\\CommandButtons\\BTNPeasant.blp")
       {
         StartingGold = 150,
-        StartingLumber = 500
+        StartingLumber = 500,
+        PossibleTeams = new[]
+        {
+          teamSetup.NorthAlliance,
+          teamSetup.Alliance,
+          teamSetup.ScarletCrusade
+        }
       };
 
       //Structures

@@ -20,7 +20,6 @@ namespace WarcraftLegacies.Source.Setup
       StormwindSetup.Setup(teamSetup);
       IronforgeSetup.Setup(teamSetup, preplacedUnitSystem);
       KultirasSetup.Setup(teamSetup, preplacedUnitSystem);
-      IllidariSetup.Setup(teamSetup);
       IllidanSetup.Setup(teamSetup);
       GilneasSetup.Setup(teamSetup);
       ZandalarSetup.Setup(teamSetup, preplacedUnitSystem);

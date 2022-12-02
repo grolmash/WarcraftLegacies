@@ -20,7 +20,12 @@ namespace WarcraftLegacies.Source.Setup.FactionSetup
         UndefeatedResearch = FourCC("R05K"),
         StartingGold = 150,
         StartingLumber = 500,
-        CinematicMusic = "ArthasTheme"
+        CinematicMusic = "ArthasTheme",
+        PossibleTeams = new[]
+        {
+          teamSetup.Scourge,
+          teamSetup.Legion
+        }
       };
 
       //Buildings
@@ -117,11 +122,6 @@ namespace WarcraftLegacies.Source.Setup.FactionSetup
       HelmOfDominationDropsWhenScourgeLeaves.Setup(helmOfDomination);
 
       Scourge.ConfigureStartingFeatures(Player(3));
-      Scourge.PossibleTeams = new[]
-      {
-        teamSetup.Legion,
-        teamSetup.Scourge
-      };
       FactionManager.Register(Scourge);
     }
   }

@@ -13,7 +13,13 @@ namespace WarcraftLegacies.Source.Setup.FactionSetup
         "ReplaceableTextures\\CommandButtons\\BTNAcolyte.blp")
       {
         StartingGold = 0,
-        StartingLumber = 100
+        StartingLumber = 100,
+        PossibleTeams = new[]
+        {
+          teamSetup.Forsaken,
+          teamSetup.Scourge,
+          teamSetup.Legion
+        }
       };
 
       //Buildings

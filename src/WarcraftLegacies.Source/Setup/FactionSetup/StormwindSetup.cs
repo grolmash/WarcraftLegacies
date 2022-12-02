@@ -20,7 +20,12 @@ namespace WarcraftLegacies.Source.Setup.FactionSetup
       {
         UndefeatedResearch = FourCC("R060"),
         StartingGold = 150,
-        StartingLumber = 500
+        StartingLumber = 500,
+        PossibleTeams = new[]
+        {
+          teamSetup.Alliance,
+          teamSetup.SouthAlliance
+        }
       };
 
       //Structures

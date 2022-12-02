@@ -17,7 +17,11 @@ namespace WarcraftLegacies.Source.Setup.FactionSetup
         UndefeatedResearch = FourCC("R05Y"),
         StartingGold = 150,
         StartingLumber = 500,
-        CinematicMusic = "Comradeship"
+        CinematicMusic = "Comradeship",
+        PossibleTeams = new[]
+        {
+          teamSetup.NightElves,
+        }
       };
 
       Sentinels.ModObjectLimit(FourCC("e00V"), Faction.UNLIMITED); //Temple of Elune

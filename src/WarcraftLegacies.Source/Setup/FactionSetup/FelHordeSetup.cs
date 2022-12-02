@@ -19,7 +19,12 @@ namespace WarcraftLegacies.Source.Setup.FactionSetup
         StartingGold = 300,
         StartingLumber = 600,
         CinematicMusic = "Doom",
-        FoodMaximum = 250
+        FoodMaximum = 250,
+        PossibleTeams = new[]
+        {
+          teamSetup.Legion,
+          teamSetup.Scourge
+        }
       };
 
       FelHorde.ModObjectLimit(FourCC("o02Y"), Faction.UNLIMITED); //Great Hall

@@ -18,7 +18,13 @@ namespace WarcraftLegacies.Source.Setup.FactionSetup
           "Kul'tiras", PLAYER_COLOR_EMERALD, "|cff00781e", "ReplaceableTextures\\CommandButtons\\BTNProudmoore.blp")
           {
             StartingGold = 150,
-            StartingLumber = 500
+            StartingLumber = 500,
+            PossibleTeams = new[]
+            {
+              teamSetup.SouthAlliance,
+              teamSetup.NorthAlliance,
+              teamSetup.Alliance
+            }
           };
 
       //Structures

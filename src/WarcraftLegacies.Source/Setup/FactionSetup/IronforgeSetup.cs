@@ -20,7 +20,12 @@ namespace WarcraftLegacies.Source.Setup.FactionSetup
         UndefeatedResearch = FourCC("R05T"),
         StartingGold = 250,
         StartingLumber = 500,
-        CinematicMusic = "PursuitTheme"
+        CinematicMusic = "PursuitTheme",
+        PossibleTeams = new[]
+        {
+          teamSetup.SouthAlliance,
+          teamSetup.Alliance
+        }
       };
 
       //Structures

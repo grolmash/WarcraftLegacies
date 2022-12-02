@@ -17,7 +17,11 @@ namespace WarcraftLegacies.Source.Setup.FactionSetup
         UndefeatedResearch = FourCC("R06E"),
         StartingGold = 150,
         StartingLumber = 500,
-        CinematicMusic = "DarkAgents"
+        CinematicMusic = "DarkAgents",
+        PossibleTeams = new[]
+        {
+          teamSetup.NightElves,
+        }
       };
 
       Druids.ModObjectLimit(FourCC("etol"), Faction.UNLIMITED); //Tree of Life

@@ -18,7 +18,11 @@ namespace WarcraftLegacies.Source.Setup.FactionSetup
         UndefeatedResearch = Constants.UPGRADE_R05V_FROSTWOLF_EXISTS,
         StartingGold = 150,
         StartingLumber = 500,
-        CinematicMusic = "SadMystery"
+        CinematicMusic = "SadMystery",
+        PossibleTeams = new[]
+        {
+          teamSetup.Horde
+        }
       };
 
       Frostwolf.ModObjectLimit(Constants.UNIT_OGRE_GREAT_HALL_FROSTWOLF, Faction.UNLIMITED);

@@ -15,7 +15,12 @@ namespace WarcraftLegacies.Source.Setup.FactionSetup
         "ReplaceableTextures\\CommandButtons\\BTNHeadHunterBerserker.blp")
       {
         StartingGold = 150,
-        StartingLumber = 500
+        StartingLumber = 500,
+        PossibleTeams = new[]
+        {
+          teamSetup.Horde,
+          teamSetup.OldGods
+        }
       };
 
       Zandalar.ModObjectLimit(FourCC("o03R"), Faction.UNLIMITED); //Great Hall

@@ -15,7 +15,12 @@ namespace WarcraftLegacies.Source.Setup.FactionSetup
         UndefeatedResearch = FourCC("R02L"),
         StartingGold = 150,
         StartingLumber = 500,
-        CinematicMusic = @"war3mapImported\Illidancinematic3.mp3"
+        CinematicMusic = @"war3mapImported\Illidancinematic3.mp3",
+        PossibleTeams = new[]
+        {
+          teamSetup.NightElves,
+          teamSetup.Illidari
+        }
       };
 
       Illidan.ModObjectLimit(FourCC("e01P"), Faction.UNLIMITED); //Coral of Life

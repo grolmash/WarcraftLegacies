@@ -17,7 +17,12 @@ namespace WarcraftLegacies.Source.Setup.FactionSetup
         UndefeatedResearch = FourCC("R05W"),
         StartingGold = 150,
         StartingLumber = 500,
-        CinematicMusic = "DarkAgents"
+        CinematicMusic = "DarkAgents",
+        PossibleTeams = new[]
+        {
+          teamSetup.Horde,
+          teamSetup.Legion
+        }
       };
 
       WarsongClan.ModObjectLimit(FourCC("o00C"), Faction.UNLIMITED); //Great Hall

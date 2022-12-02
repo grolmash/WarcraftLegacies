@@ -13,7 +13,12 @@ namespace WarcraftLegacies.Source.Setup.FactionSetup
         "ReplaceableTextures\\CommandButtons\\BTNGreymane.blp")
       {
         StartingGold = 150,
-        StartingLumber = 200
+        StartingLumber = 200,
+        PossibleTeams = new[]
+        {
+          teamSetup.NorthAlliance,
+          teamSetup.Alliance
+        }
       };
 
       //Structures

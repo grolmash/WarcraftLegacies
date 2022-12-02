@@ -41,6 +41,26 @@ namespace WarcraftLegacies.Source.Setup
     /// The Lich King and followers.
     /// </summary>
     public Team Scourge { get; }
+    
+    /// <summary>
+    /// Illidan and his followers.
+    /// </summary>
+    public Team Illidari { get; }
+    
+    /// <summary>
+    /// Reality-manipulating evil gods.
+    /// </summary>
+    public Team OldGods { get; }
+    
+    /// <summary>
+    /// The good guys in north Eastern Kingdoms.
+    /// </summary>
+    public Team NorthAlliance { get; }
+    
+    /// <summary>
+    /// The good guys in south Eastern Kingdoms.
+    /// </summary>
+    public Team SouthAlliance { get; }
 
     /// <summary>
     /// Initializes a new instance of the <see cref="TeamSetup"/> class.

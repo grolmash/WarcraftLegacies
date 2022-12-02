@@ -14,7 +14,12 @@ namespace WarcraftLegacies.Source.Setup.FactionSetup
       {
         UndefeatedResearch = FourCC("R06E"),
         StartingGold = 150,
-        StartingLumber = 500
+        StartingLumber = 500,
+        PossibleTeams = new[]
+        {
+          teamSetup.Alliance,
+          teamSetup.NightElves
+        }
       };
 
       Draenei.ModObjectLimit(FourCC("o02P"), Faction.UNLIMITED); //Crystal Hall

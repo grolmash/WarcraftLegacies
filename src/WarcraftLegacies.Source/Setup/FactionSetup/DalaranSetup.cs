@@ -17,7 +17,12 @@ namespace WarcraftLegacies.Source.Setup.FactionSetup
         UndefeatedResearch = FourCC("R05N"),
         StartingGold = 150,
         StartingLumber = 500,
-        CinematicMusic = "SadMystery"
+        CinematicMusic = "SadMystery",
+        PossibleTeams = new[]
+        {
+          teamSetup.Alliance,
+          teamSetup.NorthAlliance
+        }
       };
 
       //Structures

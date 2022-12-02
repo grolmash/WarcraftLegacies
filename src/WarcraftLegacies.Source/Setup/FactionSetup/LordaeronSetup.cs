@@ -17,7 +17,12 @@ namespace WarcraftLegacies.Source.Setup.FactionSetup
         StartingGold = 150,
         StartingLumber = 500,
         UndefeatedResearch = FourCC("R05M"),
-        CinematicMusic = "Comradeship"
+        CinematicMusic = "Comradeship",
+        PossibleTeams = new[]
+        {
+          teamSetup.Alliance,
+          teamSetup.NorthAlliance
+        }
       };
 
       //Structures
