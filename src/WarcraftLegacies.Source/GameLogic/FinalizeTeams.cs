@@ -46,7 +46,7 @@ namespace WarcraftLegacies.Source.GameLogic
           var unselectedFactions = allFactions.Where(x => x.Status == FactionStatus.Unselected).ToList();
           if (unselectedFactions.Count == 0)
             throw new Exception($"There were no unselected factions left to give to {GetPlayerName(player)}.");
-          var selectedFaction = unselectedFactions[random.Next(0, unselectedFactions.Count - 1)];
+          var selectedFaction = unselectedFactions[random.Next(unselectedFactions.Count)];
           player.SetFaction(selectedFaction);
           selectedFaction.Status = FactionStatus.Undefeated;
           SetupTeams(allPlayers);
