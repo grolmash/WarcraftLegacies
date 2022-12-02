@@ -3,7 +3,7 @@
 namespace WarcraftLegacies.Source.Setup
 {
   /// <summary>
-  /// Responsible for setting up and storing all <see cref="Team"/>s..
+  /// Responsible for setting up and storing all <see cref="Team"/>s.
   /// </summary>
   public sealed class TeamSetup
   {
@@ -108,6 +108,30 @@ namespace WarcraftLegacies.Source.Setup
         VictoryMusic = "DarkVictory"
       };
       FactionManager.Register(Scourge);
+      
+      NorthAlliance = new Team("North Alliance")
+      {
+        VictoryMusic = "HeroicVictory"
+      };
+      FactionManager.Register(NorthAlliance);
+      
+      SouthAlliance = new Team("South Alliance")
+      {
+        VictoryMusic = "HeroicVictory"
+      };
+      FactionManager.Register(SouthAlliance);
+      
+      Illidari = new Team("Illidari")
+      {
+        VictoryMusic = "DarkVictory"
+      };
+      FactionManager.Register(Illidari);
+      
+      OldGods = new Team("Old Gods")
+      {
+        VictoryMusic = "DarkVictory"
+      };
+      FactionManager.Register(OldGods);
     }
   }
 }

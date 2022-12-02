@@ -28,6 +28,7 @@ namespace WarcraftLegacies.Source.Setup
       ForsakenSetup.Setup(teamSetup);
       DraeneiSetup.Setup(teamSetup);
       DragonmawSetup.Setup(teamSetup);
+      CthunSetup.Setup(teamSetup);
     }
   }
 }

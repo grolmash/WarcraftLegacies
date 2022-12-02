@@ -5,6 +5,7 @@ using MacroTools.PassiveAbilitySystem;
 using MacroTools.UserInterface;
 using WarcraftLegacies.Source.GameLogic;
 using WarcraftLegacies.Source.GameLogic.GameEnd;
+using WarcraftLegacies.Source.GameLogic.TeamFinalization;
 using WarcraftLegacies.Source.Hints;
 using WarcraftLegacies.Source.Mechanics.Quelthalas;
 using WarcraftLegacies.Source.Mechanics.Scourge.Blight;
@@ -99,7 +100,7 @@ namespace WarcraftLegacies.Source.Setup
       StartingQuestPopup.Setup(63);
       RefundZeroLimitUnits.Setup();
       HeroGlowFix.Setup();
-      CleanPersons.Setup();
+      FinalizeTeams.Setup();
       PlayerLeaves.Setup();
       FloatingTextSetup.Setup(60, 10);
       AmbianceSetup.Setup();

@@ -44,8 +44,6 @@ namespace MacroTools.BookSystem.FactionSelection
         {
           GetTriggerPlayer().SetFaction(faction);
           faction.Status = FactionStatus.Undefeated;
-          if (GetLocalPlayer() == GetTriggerPlayer())
-            SetCameraPosition(faction.CameraStartPosition.X, faction.CameraStartPosition.Y);
         }
       };
       chooseButton.SetPoint(FRAMEPOINT_LEFT, this, FRAMEPOINT_LEFT, 0.057f, -0.009f);

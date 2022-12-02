@@ -75,12 +75,13 @@ namespace MacroTools.BookSystem.FactionSelection
     {
       if (faction.Status != FactionStatus.Unselected)
       {
-        if (GetLocalPlayer() == GetTriggerPlayer())
+        if (GetLocalPlayer() == faction.Player)
         {
           Visible = false;
+          SetCameraPosition(faction.CameraStartPosition.X, faction.CameraStartPosition.Y);
         }
       }
-      ReRender();
+      //ReRender();
     }
   }
 }
