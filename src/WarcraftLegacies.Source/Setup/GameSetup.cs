@@ -1,4 +1,5 @@
 using MacroTools;
+using MacroTools.BookSystem.FactionSelection;
 using MacroTools.Mechanics;
 using MacroTools.PassiveAbilitySystem;
 using MacroTools.UserInterface;
@@ -108,6 +109,7 @@ namespace WarcraftLegacies.Source.Setup
       DemonGateSetup.Setup();
       SummonRallyPoints.Setup();
       RemoveUnusedAreas.Run();
+      FactionSelectionBook.Display();
     }
   }
 }

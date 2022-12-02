@@ -1,4 +1,4 @@
-﻿using MacroTools;
+﻿using MacroTools.BookSystem.FactionSelection;
 using MacroTools.Mechanics;
 using MacroTools.PassiveAbilitySystem;
 using MacroTools.UserInterface;
@@ -31,6 +31,7 @@ namespace TestMap.Source.Setup
       AugmentSetup.Setup();
       PassiveAbilityManager.InitializePreplacedUnits();
       LegendSetup.Kael.AddProtector(hars);
+      FactionSelectionBook.Display();
     }
   }
 }
