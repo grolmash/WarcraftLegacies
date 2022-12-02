@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using MacroTools.Extensions;
 using static War3Api.Common;
 
 namespace MacroTools.FactionSystem
@@ -90,6 +91,13 @@ namespace MacroTools.FactionSystem
         {
           if (value.Player == null)
           {
+            if (value.StartingUnits != null)
+            {
+              foreach (var unit in value.StartingUnits) 
+                unit.Rescue(Player);
+              value.StartingUnits.Clear();
+            }
+            
             Player.SetColor(value.PlayerColor, true);
             _faction = value;
             //Enforce referential integrity
@@ -98,8 +106,8 @@ namespace MacroTools.FactionSystem
           }
           else
           {
-            throw new Exception("Attempted to Person " + GetPlayerName(Player) +
-                                " to already occupied faction with name " + value.Name);
+            throw new Exception(
+              $"Attempted to Person {GetPlayerName(Player)} to already occupied faction with name {value.Name}");
           }
         }
 

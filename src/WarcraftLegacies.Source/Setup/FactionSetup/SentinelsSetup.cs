@@ -79,7 +79,7 @@ Once you have secured your holdings, gather your army and destroy the orc invade
 
       Sentinels.AddGoldMine(preplacedUnitSystem.GetUnit(FourCC("ngol"), new Point(-16016, 10113)));
       
-      Sentinels.AddStartingUnits(Player(18));
+      Sentinels.ConfigureStartingFeatures(Player(18));
       FactionManager.Register(Sentinels);
     }
   }

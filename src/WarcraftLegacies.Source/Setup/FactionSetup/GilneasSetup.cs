@@ -71,7 +71,7 @@ Once you have reclaimed Gilneas, open Greymane's Gate and march North to assist 
       Gilneas.ModObjectLimit(FourCC("Rhlh"), Faction.UNLIMITED); //Improved Lumber Harvesting
       Gilneas.ModObjectLimit(FourCC("Rhac"), Faction.UNLIMITED); //Improved Masonry
 
-      Gilneas.AddStartingUnits(Player(20));
+      Gilneas.ConfigureStartingFeatures(Player(20));
       FactionManager.Register(Gilneas);
     }
   }

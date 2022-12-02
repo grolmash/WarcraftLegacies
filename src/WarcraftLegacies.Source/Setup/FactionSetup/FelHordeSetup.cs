@@ -104,7 +104,7 @@ Your allies cannot reach you on Outland, you are alone.",
 
       FelHorde.AddGoldMine(preplacedUnitSystem.GetUnit(FourCC("ngol"), new Point(5804, -29242)));
       
-      FelHorde.AddStartingUnits(Player(6));
+      FelHorde.ConfigureStartingFeatures(Player(6));
       FactionManager.Register(FelHorde);
 
       JuggernautDeath.Setup(preplacedUnitSystem);

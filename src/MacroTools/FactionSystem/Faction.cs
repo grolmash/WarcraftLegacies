@@ -6,6 +6,7 @@ using MacroTools.QuestSystem;
 using MacroTools.QuestSystem.UtilityStructs;
 using MacroTools.Wrappers;
 using WCSharp.Events;
+using WCSharp.Shared.Data;
 using static War3Api.Common;
 
 namespace MacroTools.FactionSystem
@@ -69,9 +70,21 @@ namespace MacroTools.FactionSystem
     /// </summary>
     public EventHandler<FactionPowerEventArgs>? PowerRemoved;
 
+    /// <summary>
+    /// Fired when the <see cref="Faction"/>'s status changes.
+    /// </summary>
     public EventHandler<Faction>? ScoreStatusChanged;
-    private List<unit> _startingUnits;
+    
+    /// <summary>
+    /// The units that this <see cref="Faction"/> starts with.
+    /// </summary>
+    public List<unit>? StartingUnits { get; private set; }
 
+    /// <summary>
+    /// Where the player's camera should be moved when they pick this faction.
+    /// </summary>
+    public Point CameraStartPosition { get; set; }
+    
     static Faction()
     {
       PlayerUnitEvents.Register(ResearchEvent.IsFinished, () =>
@@ -629,11 +642,12 @@ namespace MacroTools.FactionSystem
     /// <summary>
     /// Marks all of the provided player's units as starting units for this faction. This hides them until the faction is picked.
     /// </summary>
-    public void AddStartingUnits(player player)
+    public void ConfigureStartingFeatures(player player)
     {
-      _startingUnits = new GroupWrapper().EnumUnitsOfPlayer(player).EmptyToList();
-      foreach (var unit in _startingUnits) 
+      StartingUnits = new GroupWrapper().EnumUnitsOfPlayer(player).EmptyToList();
+      foreach (var unit in StartingUnits) 
         ShowUnit(unit, false);
+      CameraStartPosition = new Point(GetStartLocationX(GetPlayerStartLocation(player)), GetStartLocationY(GetPlayerStartLocation(player)));
     }
   }
 }

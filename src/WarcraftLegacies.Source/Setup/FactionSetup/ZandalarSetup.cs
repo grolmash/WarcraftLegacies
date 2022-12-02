@@ -66,7 +66,7 @@ Once the human menace has been dealt with, sail West and help the Horde in Kalim
 
       Zandalar.AddGoldMine(preplacedUnitSystem.GetUnit(FourCC("ngol"), new Point(-3944, -11999)));
       
-      Zandalar.AddStartingUnits(Player(17));
+      Zandalar.ConfigureStartingFeatures(Player(17));
       FactionManager.Register(Zandalar);
     }
   }

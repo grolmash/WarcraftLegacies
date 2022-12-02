@@ -87,7 +87,7 @@ The Night Elves are aware of your presence and are gathering against you. Unlock
       
       WarsongClan.AddGoldMine(preplacedUnitSystem.GetUnit(FourCC("ngol"), new Point(-9755, 2277)));
       
-      WarsongClan.AddStartingUnits(Player(5));
+      WarsongClan.ConfigureStartingFeatures(Player(5));
       FactionManager.Register(WarsongClan);
     }
   }

@@ -100,7 +100,7 @@ Once you have conquered the Zandalari Empire, set sail to help your allies."
         },
       });
       
-      Kultiras.AddStartingUnits(Player(22));
+      Kultiras.ConfigureStartingFeatures(Player(22));
       FactionManager.Register(Kultiras);
     }
   }

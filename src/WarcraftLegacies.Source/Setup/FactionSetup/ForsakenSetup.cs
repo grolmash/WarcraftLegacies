@@ -71,7 +71,7 @@ To do so, march North to Quel'thalas and capture the Sunwell. This will unlock S
       Forsaken.ModObjectLimit(FourCC("R02A"), Faction.UNLIMITED); //Chaos Infusion
       Forsaken.ModObjectLimit(Constants.UPGRADE_R08T_SPLIT_SOUL_FORSAKEN, Faction.UNLIMITED);
 
-      Forsaken.AddStartingUnits(Player(9));
+      Forsaken.ConfigureStartingFeatures(Player(9));
       FactionManager.Register(Forsaken);
     }
   }

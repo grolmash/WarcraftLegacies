@@ -67,7 +67,7 @@ The goblins will be vying for the support of Tanaris, be ready for a tough fight
       Illidan.ModObjectLimit(FourCC("Rnsw"), Faction.UNLIMITED); //Siren Adept Training
       Illidan.ModObjectLimit(FourCC("R02V"), Faction.UNLIMITED); //Shadowcaster Adept Training
 
-      Illidan.AddStartingUnits(Player(15));
+      Illidan.ConfigureStartingFeatures(Player(15));
       FactionManager.Register(Illidan);
     }
   }

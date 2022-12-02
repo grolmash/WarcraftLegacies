@@ -61,7 +61,7 @@ Escape as soon as you can and  try to save as many Draenei as you can. If you ar
       Draenei.ModObjectLimit(FourCC("R078"), Faction.UNLIMITED); //Elementalist training
       Draenei.ModObjectLimit(FourCC("R07C"), Faction.UNLIMITED); //Luminarch training
 
-      Draenei.AddStartingUnits(Player(13));
+      Draenei.ConfigureStartingFeatures(Player(13));
       FactionManager.Register(Draenei);
     }
   }
