@@ -107,6 +107,7 @@ Make sure to communicate with your Dwarven and Kul'tiran allies, they will be th
         Filter = unit => !unit.IsType(UNIT_TYPE_MECHANICAL),
       });
       
+      Stormwind.AddStartingUnits(Player(10));
       FactionManager.Register(Stormwind);
     }
   }

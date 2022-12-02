@@ -71,6 +71,8 @@ Until then, plunder as much as you can from the surrounding lands."
       Dragonmaw.ModObjectLimit(FourCC("Rosp"), Faction.UNLIMITED); //Spiked Barricades
       Dragonmaw.ModObjectLimit(FourCC("R06X"), Faction.UNLIMITED); //Magic Training
       Dragonmaw.ModObjectLimit(FourCC("R06Z"), Faction.UNLIMITED); //Herald Training
+      
+      Dragonmaw.AddStartingUnits(Player(16));
     }
   }
 }

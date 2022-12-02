@@ -89,7 +89,9 @@ The Plague of Undeath is coming, and your allies to the South will need your hel
       
       Quelthalas.AddGoldMine(preplacedUnitSystem.GetUnit(FourCC("ngol"), new Point(17716, 13000)));
       
+      Quelthalas.AddStartingUnits(Player(2));
       FactionManager.Register(Quelthalas);
+      
     }
   }
 }

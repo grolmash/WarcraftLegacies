@@ -104,6 +104,7 @@ Burn these infected buildings to weaken the Cult's power."
       Lordaeron.AddGoldMine(preplacedUnitSystem.GetUnit(FourCC("ngol"), new Point(13617, 8741)));
       
       FactionManager.Register(Lordaeron);
+      Lordaeron.AddStartingUnits(Player(1));
     }
   }
 }

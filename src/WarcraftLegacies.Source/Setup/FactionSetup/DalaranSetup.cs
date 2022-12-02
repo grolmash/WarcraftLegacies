@@ -91,6 +91,7 @@ Your mages are the finest in Azeroth, be sure to utilize them alongside your her
 
       Dalaran.AddGoldMine(preplacedUnitSystem.GetUnit(FourCC("ngol"), new Point(9204, 2471)));
       
+      Dalaran.AddStartingUnits(Player(7));
       FactionManager.Register(Dalaran);
     }
   }

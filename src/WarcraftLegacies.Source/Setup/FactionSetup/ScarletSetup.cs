@@ -90,6 +90,7 @@ Fortify your strongholds against the storm to come and make ready to unleash the
 
       ScarletCrusade.AddGoldMine(preplacedUnitSystem.GetUnit(FourCC("ngol"), new Point(12860, 11254)));
       
+      ScarletCrusade.AddStartingUnits(Player(12));
       FactionManager.Register(ScarletCrusade);
     }
   }

@@ -70,6 +70,7 @@ namespace MacroTools.FactionSystem
     public EventHandler<FactionPowerEventArgs>? PowerRemoved;
 
     public EventHandler<Faction>? ScoreStatusChanged;
+    private List<unit> _startingUnits;
 
     static Faction()
     {
@@ -623,6 +624,16 @@ namespace MacroTools.FactionSystem
     public QuestData GetQuestByTitle(string parameter)
     {
       return _questsByName[parameter];
+    }
+
+    /// <summary>
+    /// Marks all of the provided player's units as starting units for this faction. This hides them until the faction is picked.
+    /// </summary>
+    public void AddStartingUnits(player player)
+    {
+      _startingUnits = new GroupWrapper().EnumUnitsOfPlayer(player).EmptyToList();
+      foreach (var unit in _startingUnits) 
+        ShowUnit(unit, false);
     }
   }
 }

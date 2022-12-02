@@ -77,6 +77,7 @@ Use your resources to raise an army strong enough to take land elsewhere."
       };
       Goblin.AddPower(oilPower);
 
+      Goblin.AddStartingUnits(Player(8));
       FactionManager.Register(Goblin);
     }
   }

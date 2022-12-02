@@ -125,6 +125,7 @@ The Necropolis of Naxxramas is become the perfect weapon for the Scourge, but yo
 
       HelmOfDominationDropsWhenScourgeLeaves.Setup(helmOfDomination);
 
+      Scourge.AddStartingUnits(Player(3));
       FactionManager.Register(Scourge);
     }
   }
