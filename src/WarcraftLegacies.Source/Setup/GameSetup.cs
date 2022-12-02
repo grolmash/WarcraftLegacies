@@ -31,8 +31,8 @@ namespace WarcraftLegacies.Source.Setup
       ShoreSetup.Setup();
       ControlPointSetup.Setup();
       InstanceSetup.Setup(preplacedUnitSystem);
-      TeamSetup.Setup();
-      AllFactionSetup.Setup(preplacedUnitSystem, artifactSetup);
+      var teamSetup = new TeamSetup();
+      AllFactionSetup.Setup(preplacedUnitSystem, artifactSetup, teamSetup);
       NeutralHostileSetup.Setup();
       AllQuestSetup.Setup(preplacedUnitSystem, artifactSetup);
       ObserverSetup.Setup();
@@ -51,7 +51,7 @@ namespace WarcraftLegacies.Source.Setup
       QuestMenuSetup.Setup();
       CinematicMode.Start(59);
       DialogueSetup.Setup();
-      DisplayIntroText.Setup(10);
+      DisplayIntroText.Setup();
       GameSettings.Setup();
       InfoQuests.Setup();
       DestructibleSetup.Setup(preplacedUnitSystem);
