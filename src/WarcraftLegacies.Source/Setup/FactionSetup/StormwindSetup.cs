@@ -20,14 +20,7 @@ namespace WarcraftLegacies.Source.Setup.FactionSetup
       {
         UndefeatedResearch = FourCC("R060"),
         StartingGold = 150,
-        StartingLumber = 500,
-        IntroText = @"You are playing as the steadfast |cff005800Kingdom of Stormwind|r.
-
-You are the first line of defense against the onslaught of the Fel Horde. 
-
-Reunite your Kingdom, beginning with Darkshire, Lakeshire, and finally Stormwind City. Then race East to the Stronghold of Nethergarde near the Dark Portal and prepare for the Fel Horde's invasion.
-
-Make sure to communicate with your Dwarven and Kul'tiran allies, they will be the ones to help you early on, as the rest of the Alliance will be too far to reach you in time."
+        StartingLumber = 500
       };
 
       //Structures

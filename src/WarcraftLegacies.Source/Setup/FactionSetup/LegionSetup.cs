@@ -17,14 +17,7 @@ namespace WarcraftLegacies.Source.Setup.FactionSetup
         UndefeatedResearch = FourCC("R04T"),
         StartingGold = 150,
         StartingLumber = 500,
-        CinematicMusic = "DarkAgents",
-        IntroText = @"You are playing as the destructive |cffa2722dBurning Legion|r.
-
-You begin isolated on Argus. Use Astral Walk and Diamonds of Summoning to move your units to Azeroth.
-
-Hurry to Outland to help your Fel ally defeat the Draenei as soon as possible.
-
-Your primary objective is to summon the Burning Legion. Invade the city of Dalaran, where the book of Medivh is kept, and use it to open a Demon-gate to Argus."
+        CinematicMusic = "DarkAgents"
       };
       
       //Structures

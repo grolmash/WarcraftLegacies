@@ -15,16 +15,7 @@ namespace WarcraftLegacies.Source.Setup.FactionSetup
         "ReplaceableTextures\\CommandButtons\\BTNPeasant.blp")
       {
         StartingGold = 150,
-        StartingLumber = 500,
-        IntroText = @"You are playing as the zealous |cff940000Scarlet Crusade|r.
-
-The Cult of the Damned has mobilized and is quietly spreading corruption throughout Lordaeron.
-
-Build towers to detect the hidden cultists moving through the Kingdom and burn any buildings they have corrupted.
-
-Your soldiers are weaker when alone, but gain substantial bonuses when paired with a variety of unit-types. 
-
-Fortify your strongholds against the storm to come and make ready to unleash the Crusade on those who would defile your lands."
+        StartingLumber = 500
       };
 
       //Structures

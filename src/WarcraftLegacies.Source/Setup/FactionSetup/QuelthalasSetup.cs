@@ -19,13 +19,7 @@ namespace WarcraftLegacies.Source.Setup.FactionSetup
           UndefeatedResearch = FourCC("R05U"),
           StartingGold = 150,
           StartingLumber = 500,
-          CinematicMusic = "BloodElfTheme",
-          IntroText = @"You are playing as the mystical |cff32e1e1Kingdom of Quel'thalas|r.
-
-The Trolls of Zul'Aman have cut you off from Silvermoon City, and are preparing attacks on your base,
-Train soldiers to repel the attack, then gather enough strength to besiege Zul'Aman and take the head of Zul'jin.
-
-The Plague of Undeath is coming, and your allies to the South will need your help with the Undead soon, be ready to join them as once you have secured Silvermoon and dealt with the Troll threat."
+          CinematicMusic = "BloodElfTheme"
         };
 
       //Structures

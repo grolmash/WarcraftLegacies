@@ -13,14 +13,7 @@ namespace WarcraftLegacies.Source.Setup.FactionSetup
         "ReplaceableTextures\\CommandButtons\\BTNGreymane.blp")
       {
         StartingGold = 150,
-        StartingLumber = 200,
-        IntroText = @"You are playing as the accursed |cff646464Kingdom of Gilneas|r|r.
-
-You start isolated behind the Greymane Wall, the only way for an enemy to reach you is through the Greymane Gate or via the coast.
-
-You must raise an army and fight back against the feral wolves and worgen that have overrun  your Kingdom.
-
-Once you have reclaimed Gilneas, open Greymane's Gate and march North to assist Lordaeron and Dalaran with the plague, if it's not too late."
+        StartingLumber = 200
       };
 
       //Structures

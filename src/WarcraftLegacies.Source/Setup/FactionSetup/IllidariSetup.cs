@@ -15,14 +15,7 @@ namespace WarcraftLegacies.Source.Setup.FactionSetup
         UndefeatedResearch = FourCC("R02L"),
         StartingGold = 0,
         StartingLumber = 2500,
-        CinematicMusic = @"war3mapImported\Illidancinematic3.mp3",
-        IntroText = @"You are playing as the banished Empire of Nazjatar|r|r.
-
-You start weak in the middle of the map.
-
-Take control of the deap sea before moving on to raiding coastal settlements and islands all around you, slowly gaining ressources along the way.
-
-Once you have collected enough, you can rebuild the great Nazjatar empire and start conquering the world."
+        CinematicMusic = @"war3mapImported\Illidancinematic3.mp3"
       };
 
       Illidari.ModObjectLimit(FourCC("nntt"), Faction.UNLIMITED); //Pillar of Waves

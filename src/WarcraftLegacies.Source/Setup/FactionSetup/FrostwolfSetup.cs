@@ -18,13 +18,7 @@ namespace WarcraftLegacies.Source.Setup.FactionSetup
         UndefeatedResearch = Constants.UPGRADE_R05V_FROSTWOLF_EXISTS,
         StartingGold = 150,
         StartingLumber = 500,
-        CinematicMusic = "SadMystery",
-        IntroText = @"You are playing as the honorable |cffff0000Frostwolf Clan|r.
-
-You have been shipwrecked. Gather enough resources to sail South-West to Kalimdor. Until you reach Kalimdor, you will be unable to train any more peons or research new tech. 
-
-Once you land, you will find a Tauren caravan with a Great Hall packed in it's inventory. 
-Escort the kodo to Thunderbluff, where you will find a goldmine waiting for you."
+        CinematicMusic = "SadMystery"
       };
 
       Frostwolf.ModObjectLimit(Constants.UNIT_OGRE_GREAT_HALL_FROSTWOLF, Faction.UNLIMITED);

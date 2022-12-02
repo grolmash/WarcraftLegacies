@@ -15,14 +15,7 @@ namespace WarcraftLegacies.Source.Setup.FactionSetup
         "ReplaceableTextures\\CommandButtons\\BTNHeadHunterBerserker.blp")
       {
         StartingGold = 150,
-        StartingLumber = 500,
-        IntroText = @"You are playing as the mighty |cffe1946cZandalari Empire|r.
-
-You start off on Zandalar. Raise an army and deal with the uprising in Nazmir, then head West to Crestfall to claim more gold mines. 
-
-The Kul'tiran Navy is mounting an assault on you from the North, brace for a tough fight and counter-attack. 
-
-Once the human menace has been dealt with, sail West and help the Horde in Kalimdor."
+        StartingLumber = 500
       };
 
       Zandalar.ModObjectLimit(FourCC("o03R"), Faction.UNLIMITED); //Great Hall

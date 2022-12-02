@@ -18,14 +18,7 @@ namespace WarcraftLegacies.Source.Setup.FactionSetup
           "Kul'tiras", PLAYER_COLOR_EMERALD, "|cff00781e", "ReplaceableTextures\\CommandButtons\\BTNProudmoore.blp")
           {
             StartingGold = 150,
-            StartingLumber = 500,
-            IntroText = @"You are playing as the hardy island |cff008000Kingdom of Kul'tiras|r.
-
-You start in the Balor islands, but you must move quickly to gain control your capital and the Gold Mines on Kul'tiras island. 
-
-The Zandalari Trolls mounting an attack from the South so be ready, the fight will be bloody.
-
-Once you have conquered the Zandalari Empire, set sail to help your allies."
+            StartingLumber = 500
           };
 
       //Structures

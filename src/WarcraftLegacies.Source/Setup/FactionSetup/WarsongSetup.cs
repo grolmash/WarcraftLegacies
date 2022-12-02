@@ -17,14 +17,7 @@ namespace WarcraftLegacies.Source.Setup.FactionSetup
         UndefeatedResearch = FourCC("R05W"),
         StartingGold = 150,
         StartingLumber = 500,
-        CinematicMusic = "DarkAgents",
-        IntroText = @"You are playing as the proud |cffd45e19Warsong clan|r.
-
-You start isolated in the woods of Ashenvale. The Warchief expects a large amount of lumber from you, begin harvesting with your Peons.
-
-Travel South into the Barren to creep and colonise.
-
-The Night Elves are aware of your presence and are gathering against you. Unlock Orgrimmar as soon as possible to defend against the Night Elf attacks."
+        CinematicMusic = "DarkAgents"
       };
 
       WarsongClan.ModObjectLimit(FourCC("o00C"), Faction.UNLIMITED); //Great Hall

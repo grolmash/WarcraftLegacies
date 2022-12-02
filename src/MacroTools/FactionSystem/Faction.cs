@@ -103,11 +103,6 @@ namespace MacroTools.FactionSystem
       FoodMaximum = FoodMaximumDefault;
     }
 
-    /// <summary>
-    ///   Displayed to the <see cref="Faction" /> when the game starts.
-    /// </summary>
-    public string? IntroText { get; init; }
-
     public int StartingGold { get; set; }
 
     public int StartingLumber { get; set; }

@@ -20,14 +20,7 @@ namespace WarcraftLegacies.Source.Setup.FactionSetup
         UndefeatedResearch = FourCC("R05T"),
         StartingGold = 250,
         StartingLumber = 500,
-        CinematicMusic = "PursuitTheme",
-        IntroText = @"You are playing as the long- enduring |cffe4bc00Kingdom of Ironforge.
-                    |r
-Re-establish your stronghold by capturing the surrounding lands.
-
-The Dragonmaw Clan is gathering in the Twilight highlands, you will need to destroy them before they attack your towns in the Wetlands. 
-
-Stormwind is preparing for the Fel Horde invasion in the South, muster the throng to help them or you may lose your strongest ally."
+        CinematicMusic = "PursuitTheme"
       };
 
       //Structures
