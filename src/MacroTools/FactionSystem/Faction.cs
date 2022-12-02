@@ -5,7 +5,6 @@ using MacroTools.Augments;
 using MacroTools.Extensions;
 using MacroTools.QuestSystem;
 using MacroTools.QuestSystem.UtilityStructs;
-using MacroTools.Wrappers;
 using WCSharp.Events;
 using WCSharp.Shared.Data;
 using static War3Api.Common;
@@ -520,7 +519,7 @@ namespace MacroTools.FactionSystem
       SetPlayerState(Player, PLAYER_STATE_RESOURCE_LUMBER, 0);
 
       //Give all units to Neutral Victim
-      foreach (var unit in new GroupWrapper().EnumUnitsOfPlayer(Player).EmptyToList())
+      foreach (var unit in CreateGroup().EnumUnitsOfPlayer(Player).EmptyToList())
       {
         var tempUnitType = UnitType.GetFromHandle(unit);
         if (!UnitAlive(unit))
@@ -544,7 +543,7 @@ namespace MacroTools.FactionSystem
       if (Player?.GetTeam() == null) return;
       foreach (var ally in playersToDistributeTo)
       {
-        var allyHeroes = new GroupWrapper().EnumUnitsOfPlayer(ally).EmptyToList()
+        var allyHeroes = CreateGroup().EnumUnitsOfPlayer(ally).EmptyToList()
           .FindAll(unit => IsUnitType(unit, UNIT_TYPE_HERO));
         foreach (var hero in allyHeroes)
           AddHeroXP(hero, R2I(_xp / (Player.GetTeam().Size - 1) / allyHeroes.Count * ExperienceTransferMultiplier), true);
@@ -568,7 +567,7 @@ namespace MacroTools.FactionSystem
     private void DistributeUnits(IReadOnlyList<player> playersToDistributeTo)
     {
       if (Player?.GetTeam() == null) return;
-      var playerUnits = new GroupWrapper().EnumUnitsOfPlayer(Player).EmptyToList();
+      var playerUnits = CreateGroup().EnumUnitsOfPlayer(Player).EmptyToList();
 
       foreach (var unit in playerUnits)
       {
