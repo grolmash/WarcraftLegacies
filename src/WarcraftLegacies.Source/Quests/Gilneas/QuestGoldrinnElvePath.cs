@@ -33,7 +33,7 @@ namespace WarcraftLegacies.Source.Quests.Gilneas
     /// <inheritdoc/>
     protected override void OnComplete(Faction whichFaction)
     {
-      GilneasSetup.Gilneas?.Player?.SetTeam(TeamSetup.NightElves);
+      //GilneasSetup.Gilneas?.Player?.SetTeam(TeamSetup.NightElves);
     }
 
   }

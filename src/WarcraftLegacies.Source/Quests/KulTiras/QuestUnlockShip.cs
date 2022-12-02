@@ -66,8 +66,8 @@ namespace WarcraftLegacies.Source.Quests.KulTiras
         _proudmooreCapitalShip.Rescue(Player(PLAYER_NEUTRAL_AGGRESSIVE));
       }
       _proudmooreCapitalShip.Pause(false);
-      KultirasSetup.Kultiras?.Player?.SetTeam(TeamSetup.Alliance);
-      ZandalarSetup.Zandalar?.Player?.SetTeam(TeamSetup.Horde);
+      //KultirasSetup.Kultiras?.Player?.SetTeam(TeamSetup.Alliance);
+      //ZandalarSetup.Zandalar?.Player?.SetTeam(TeamSetup.Horde);
     }
 
     /// <inheritdoc/>
@@ -92,8 +92,8 @@ namespace WarcraftLegacies.Source.Quests.KulTiras
       }
       _proudmooreCapitalShip.Pause(false); 
       IssuePointOrder(_proudmooreCapitalShip, "move", Regions.SouthshoreUnlock.Center.X, Regions.SouthshoreUnlock.Center.Y);
-      KultirasSetup.Kultiras?.Player?.SetTeam(TeamSetup.Alliance);
-      ZandalarSetup.Zandalar?.Player?.SetTeam(TeamSetup.Horde);
+      //KultirasSetup.Kultiras?.Player?.SetTeam(TeamSetup.Alliance);
+      //ZandalarSetup.Zandalar?.Player?.SetTeam(TeamSetup.Horde);
     }
   }
 }

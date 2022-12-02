@@ -35,7 +35,7 @@ namespace WarcraftLegacies.Source.Quests.Legion
       LegionSetup.Legion.ModObjectLimit(FourCC("E01O"), 1); //Lilian
       LegionSetup.Legion.ModObjectLimit(FourCC("Uvar"), 1); //Vari
 
-      completingFaction.Player?.SetTeam(TeamSetup.Forsaken);
+      //completingFaction.Player?.SetTeam(TeamSetup.Forsaken);
       completingFaction.Name = "|cff8080ffInsurgents|r";
       completingFaction.Icon = "ReplaceableTextures\\CommandButtons\\BTNHeroDreadLord.blp";
       SetPlayerColor(completingFaction.Player, PLAYER_COLOR_LIGHT_BLUE);

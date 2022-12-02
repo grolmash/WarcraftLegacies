@@ -86,7 +86,7 @@ namespace WarcraftLegacies.Source.Quests.Draenei
         EscapeOutland(completingFaction.Player);
         completingFaction.Player.AdjustPlayerState(PLAYER_STATE_RESOURCE_GOLD, 200);
         completingFaction.Player.AdjustPlayerState(PLAYER_STATE_RESOURCE_LUMBER, 500);
-        completingFaction.Player?.SetTeam(TeamSetup.NightElves);
+        //completingFaction.Player?.SetTeam(TeamSetup.NightElves);
         if (!completingFaction.GetQuestByTitle("The Survivors of Shattrah").ProgressLocked) completingFaction.GetQuestByTitle("The Survivors of Shattrah").Progress = QuestProgress.Failed;
         if (!completingFaction.GetQuestByTitle("Broken Civilisation").ProgressLocked) completingFaction.GetQuestByTitle("Broken Civilisation").Progress = QuestProgress.Failed;
         if (!completingFaction.GetQuestByTitle("The Broken One").ProgressLocked) completingFaction.GetQuestByTitle("The Broken One").Progress = QuestProgress.Failed;

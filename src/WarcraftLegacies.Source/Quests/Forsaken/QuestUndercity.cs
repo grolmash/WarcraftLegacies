@@ -78,7 +78,7 @@ namespace WarcraftLegacies.Source.Quests.Forsaken
         .Show(true)
         .SetWaygateDestination(Regions.Undercity_Interior_2.Center);
       
-      completingFaction.Player?.SetTeam(TeamSetup.Forsaken);
+      //completingFaction.Player?.SetTeam(TeamSetup.Forsaken);
       completingFaction.Name = "Forsaken";
       completingFaction.Icon = "ReplaceableTextures\\CommandButtons\\BTNBansheeRanger.blp";
       SetPlayerState(completingFaction.Player, PLAYER_STATE_FOOD_CAP_CEILING, 300);

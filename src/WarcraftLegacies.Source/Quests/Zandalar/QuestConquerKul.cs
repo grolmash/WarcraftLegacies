@@ -56,8 +56,8 @@ namespace WarcraftLegacies.Source.Quests.Zandalar
     protected override void OnComplete(Faction whichFaction)
     {
       whichFaction.Player?.AddGold(750);
-      KultirasSetup.Kultiras?.Player?.SetTeam(TeamSetup.Alliance);
-      ZandalarSetup.Zandalar?.Player?.SetTeam(TeamSetup.Horde);
+      //KultirasSetup.Kultiras?.Player?.SetTeam(TeamSetup.Alliance);
+      //ZandalarSetup.Zandalar?.Player?.SetTeam(TeamSetup.Horde);
     }
 
     /// <inheritdoc/>
@@ -90,8 +90,8 @@ namespace WarcraftLegacies.Source.Quests.Zandalar
           Regions.TrollSecondChance.Center.X, Regions.TrollSecondChance.Center.Y, 270, 3);
       }
 
-      KultirasSetup.Kultiras?.Player?.SetTeam(TeamSetup.Alliance);
-      ZandalarSetup.Zandalar?.Player?.SetTeam(TeamSetup.Horde);
+      //KultirasSetup.Kultiras?.Player?.SetTeam(TeamSetup.Alliance);
+      //ZandalarSetup.Zandalar?.Player?.SetTeam(TeamSetup.Horde);
     }
   }
 }

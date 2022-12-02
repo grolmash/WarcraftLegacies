@@ -50,7 +50,7 @@ namespace WarcraftLegacies.Source.Quests.Lordaeron
       completingFaction.ModObjectLimit(Constants.UNIT_HLGR_GRAND_MARSHAL_SCARLET, 1);
       completingFaction.ModObjectLimit(Constants.UNIT_E000_IMPROVED_ANCIENT_PROTECTOR_DRUIDS, 1);
 
-      completingFaction.Player?.SetTeam(TeamSetup.ScarletCrusade);
+      //completingFaction.Player?.SetTeam(TeamSetup.ScarletCrusade);
       completingFaction.Name = "Garithos";
       completingFaction.Icon = "ReplaceableTextures\\CommandButtons\\BTNGarithos.blp";
       SetPlayerColor(completingFaction.Player, PLAYER_COLOR_MAROON);

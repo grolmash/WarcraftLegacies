@@ -27,7 +27,7 @@ namespace WarcraftLegacies.Source.Quests.Naga
 
     protected override void OnComplete(Faction completingFaction)
     {
-      if (IllidariSetup.Illidari.Player?.GetTeam() == TeamSetup.Naga) FelHordeSetup.FelHorde.Player?.SetTeam(TeamSetup.Naga);
+      //if (IllidariSetup.Illidari.Player?.GetTeam() == TeamSetup.Naga) FelHordeSetup.FelHorde.Player?.SetTeam(TeamSetup.Naga);
       RemoveUnit(LegendFelHorde.LegendMagtheridon.Unit);
       FelHordeSetup.FelHorde.ModObjectLimit(LegendFelHorde.LegendMagtheridon.UnitType, -Faction.UNLIMITED);
     }

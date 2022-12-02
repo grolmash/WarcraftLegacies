@@ -65,9 +65,7 @@ namespace WarcraftLegacies.Source.Quests.Dragonmaw
         _waygateDragonmawPort.Kill();
         GetExpiredTimer().Destroy();
       });
-      if (completingFaction.Player != null)
-        completingFaction.Player?.SetTeam(TeamSetup.Horde);
-
+      //completingFaction.Player?.SetTeam(TeamSetup.Horde);
     }
   }
 }

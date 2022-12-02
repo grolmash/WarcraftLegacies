@@ -40,7 +40,7 @@ namespace WarcraftLegacies.Source.Quests.Quelthalas
       {
         RemoveUnit(LegendQuelthalas.LegendLorthemar.Unit);
         completingFaction.ModObjectLimit(LegendQuelthalas.LegendLorthemar.UnitType, -Faction.UNLIMITED);
-        completingFaction.Player?.SetTeam(TeamSetup.Legion);
+        //completingFaction.Player?.SetTeam(TeamSetup.Legion);
         var summonKiljaedenQuest = new QuestSummonKil();
         completingFaction.AddQuest(summonKiljaedenQuest);
         summonKiljaedenQuest.DisplayDiscovered(completingFaction);

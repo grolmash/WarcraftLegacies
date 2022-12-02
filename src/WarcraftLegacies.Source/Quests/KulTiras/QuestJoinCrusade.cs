@@ -33,7 +33,7 @@ namespace WarcraftLegacies.Source.Quests.KulTiras
     protected override void OnComplete(Faction completingFaction)
     {
       UnitRemoveAbility(LegendKultiras.LegendAdmiral.Unit, Constants.ABILITY_A0JB_JOIN_THE_CRUSADE_KULTIRASPATH);
-      completingFaction.Player?.SetTeam(TeamSetup.ScarletCrusade);
+      //completingFaction.Player?.SetTeam(TeamSetup.ScarletCrusade);
     }
   }
 }

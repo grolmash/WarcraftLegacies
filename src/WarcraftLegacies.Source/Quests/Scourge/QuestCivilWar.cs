@@ -15,7 +15,7 @@ namespace WarcraftLegacies.Source.Quests.Scourge
 
     protected override void OnComplete(Faction completingFaction)
     {
-      completingFaction.Player?.SetTeam(TeamSetup.Scourge);
+      //completingFaction.Player?.SetTeam(TeamSetup.Scourge);
     }
 
     public QuestCivilWar() : base("Civil War",

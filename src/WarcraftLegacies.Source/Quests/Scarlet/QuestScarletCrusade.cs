@@ -61,7 +61,7 @@ namespace WarcraftLegacies.Source.Quests.Scarlet
         .Show(true)
         .SetWaygateDestination(Regions.Scarlet_Monastery_Interior.Center);
       completingFaction.Player?.RescueGroup(_rescueUnits);
-      completingFaction.Player?.SetTeam(TeamSetup.ScarletCrusade);
+      //completingFaction.Player?.SetTeam(TeamSetup.ScarletCrusade);
       completingFaction.Name = "Scarlet";
       completingFaction.Icon = "ReplaceableTextures\\CommandButtons\\BTNSaidan Dathrohan.blp";
       PlayThematicMusic("war3mapImported\\ScarletTheme.mp3");

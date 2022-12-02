@@ -45,7 +45,7 @@ namespace WarcraftLegacies.Source.Quests.Lordaeron
       completingFaction.ModObjectLimit(Constants.UNIT_H049_RANGER_LORD_FORSAKEN, 1);
       completingFaction.ModObjectLimit(Constants.UNIT_HLGR_GRAND_MARSHAL_SCARLET, 1);
 
-      completingFaction.Player?.SetTeam(TeamSetup.Forsaken);
+      //completingFaction.Player?.SetTeam(TeamSetup.Forsaken);
       completingFaction.Name = "Garithos";
       completingFaction.Icon = "ReplaceableTextures\\CommandButtons\\BTNGarithos.blp";
       SetPlayerColor(completingFaction.Player, PLAYER_COLOR_LIGHT_BLUE);
