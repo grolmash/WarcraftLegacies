@@ -10,12 +10,14 @@ namespace MacroTools.Frames
     private bool _disposed;
     private float _height;
     private float _width;
+    private readonly Frame? _parent;
 
     protected framehandle Handle { get; }
 
-    public Frame Parent
+    public Frame? Parent
     {
-      init => BlzFrameSetParent(Handle, value.Handle);
+      init => BlzFrameSetParent(Handle, value?.Handle);
+      get => _parent;
     }
 
     public void AddFrame(Frame frame)
@@ -88,6 +90,7 @@ namespace MacroTools.Frames
     public Frame(string name, Frame parent, int priority)
     {
       Handle = BlzCreateFrame(name, parent.Handle, priority, 0);
+      _parent = parent;
     }
 
     /// <summary>
@@ -108,11 +111,13 @@ namespace MacroTools.Frames
     public Frame(string name, Frame parent)
     {
       Handle = BlzCreateSimpleFrame(name, parent.Handle, 0);
+      _parent = parent;
     }
 
     public Frame(string typeName, string name, Frame parent, string inherits = "")
     {
       Handle = BlzCreateFrameByType(typeName, name, parent.Handle, inherits, 0);
+      _parent = parent;
     }
 
     /// <summary>

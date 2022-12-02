@@ -1,7 +1,7 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using MacroTools.FactionSystem;
 using WCSharp.Shared.Data;
+using static War3Api.Common;
 
 namespace MacroTools.BookSystem.FactionSelection
 {
@@ -73,8 +73,14 @@ namespace MacroTools.BookSystem.FactionSelection
 
     private void OnFactionScoreStatusChanged(object? sender, Faction faction)
     {
-      if (faction.Status != FactionStatus.Unselected) 
-        ReRender();
+      if (faction.Status != FactionStatus.Unselected)
+      {
+        if (GetLocalPlayer() == GetTriggerPlayer())
+        {
+          Visible = false;
+        }
+      }
+      ReRender();
     }
   }
 }

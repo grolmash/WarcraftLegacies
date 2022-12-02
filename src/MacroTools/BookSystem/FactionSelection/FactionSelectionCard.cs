@@ -1,5 +1,4 @@
-﻿using System;
-using MacroTools.FactionSystem;
+﻿using MacroTools.FactionSystem;
 using MacroTools.Frames;
 using static War3Api.Common;
 
@@ -12,9 +11,9 @@ namespace MacroTools.BookSystem.FactionSelection
     /// </summary>
     public Faction Faction { get; }
 
-    private const float BoxWidth = 0.13f;
-    private const float BoxHeight = 0.086f;
-    
+    private const float BoxWidth = 0.138f;
+    private const float BoxHeight = 0.08f;
+
     public FactionSelectionCard(Faction faction, Frame parent) : base(parent, BoxWidth, BoxHeight)
     {
       Faction = faction;

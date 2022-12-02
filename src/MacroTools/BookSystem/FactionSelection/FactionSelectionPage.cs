@@ -5,11 +5,13 @@ namespace MacroTools.BookSystem.FactionSelection
 {
   public sealed class FactionSelectionPage : Page
   {
+    public EventHandler FactionSelected;
+    
     public FactionSelectionPage()
     {
       Rows = 4;
       Columns = 5;
-      YOffsetTop = 0.06f;
+      YOffsetTop = 0.042f;
       YOffsetBot = 0.05f;
     }
 
