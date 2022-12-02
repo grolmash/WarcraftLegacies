@@ -5,7 +5,6 @@ using MacroTools.PassiveAbilitySystem;
 using MacroTools.UserInterface;
 using WarcraftLegacies.Source.GameLogic;
 using WarcraftLegacies.Source.GameLogic.GameEnd;
-using WarcraftLegacies.Source.GameLogic.TeamFinalization;
 using WarcraftLegacies.Source.Hints;
 using WarcraftLegacies.Source.Mechanics.Quelthalas;
 using WarcraftLegacies.Source.Mechanics.Scourge.Blight;
