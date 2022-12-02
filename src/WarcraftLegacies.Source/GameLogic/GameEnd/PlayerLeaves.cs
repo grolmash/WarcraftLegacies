@@ -16,8 +16,8 @@ namespace WarcraftLegacies.Source.GameLogic.GameEnd
         DisplayTextToPlayer(GetLocalPlayer(), 0, 0, GetPlayerName(triggerPlayer) + "has left the game.");
 
       //Defeat the player
-      if (triggerPlayer.GetFaction() != null && triggerPlayer.GetFaction().ScoreStatus != ScoreStatus.Defeated)
-        triggerPlayer.GetFaction().ScoreStatus = ScoreStatus.Defeated;
+      if (triggerPlayer.GetFaction() != null && triggerPlayer.GetFaction().Status != FactionStatus.Defeated)
+        triggerPlayer.GetFaction().Status = FactionStatus.Defeated;
     }
 
     public static void Setup()

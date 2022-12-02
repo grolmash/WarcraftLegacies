@@ -88,7 +88,7 @@ namespace WarcraftLegacies.Source.Quests.Scourge
       KillUnit(_lordBarov);
 
       var plaguePower = new PlaguePower();
-      if (_preferredPlagueFaction.ScoreStatus == ScoreStatus.Undefeated)
+      if (_preferredPlagueFaction.Status == FactionStatus.Undefeated)
       {
         _preferredPlagueFaction.AddPower(plaguePower);
         CreatePlagueCauldrons(_preferredPlagueFaction.Player);

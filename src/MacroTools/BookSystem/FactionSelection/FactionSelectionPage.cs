@@ -1,34 +1,18 @@
 ﻿using System;
-using System.Collections.Generic;
 using MacroTools.FactionSystem;
 
 namespace MacroTools.BookSystem.FactionSelection
 {
   public sealed class FactionSelectionPage : Page
   {
-    private readonly Dictionary<Faction, FactionSelectionCard> _cardsByFaction = new();
-    
     public FactionSelectionPage()
     {
       Rows = 4;
-      Columns = 4;
-      YOffsetTop = 0.045f;
+      Columns = 5;
+      YOffsetTop = 0.06f;
       YOffsetBot = 0.05f;
     }
 
-    /// <summary>
-    /// Unrenders a <see cref="Faction"/> from this <see cref="FactionSelectionPage"/>.
-    /// </summary>
-    public void RemoveFaction(Faction faction)
-    {
-      if (_cardsByFaction.TryGetValue(faction, out var factionCard))
-      {
-        Cards.Remove(factionCard);
-        _cardsByFaction.Remove(faction);
-        factionCard.Dispose();
-      }
-    }
-    
     /// <summary>
     ///   Renders a Faction on this FactionPage as a FactionCard.
     /// </summary>
@@ -40,7 +24,6 @@ namespace MacroTools.BookSystem.FactionSelection
       PositionFrameAtIndex(factionCard, Cards.Count);
       Cards.Add(factionCard);
       AddFrame(factionCard);
-      _cardsByFaction.Add(faction, factionCard);
     }
   }
 }

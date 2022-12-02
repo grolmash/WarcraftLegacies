@@ -55,7 +55,7 @@ namespace MacroTools.FactionSystem
     private string _icon;
     private string _name;
     private player? _player;
-    private ScoreStatus _scoreStatus = ScoreStatus.Undefeated;
+    private FactionStatus _status = FactionStatus.Unselected;
     private int _undefeatedResearch;
     private int _xp; //Stored by DistributeUnits and given out again by DistributeResources
 
@@ -131,21 +131,24 @@ namespace MacroTools.FactionSystem
     /// </summary>
     public string CinematicMusic { get; init; }
 
-    public ScoreStatus ScoreStatus
+    /// <summary>
+    /// The current game state of the <see cref="Faction"/>.
+    /// </summary>
+    public FactionStatus Status
     {
-      get => _scoreStatus;
+      get => _status;
       set
       {
         //Change defeated/undefeated researches
         foreach (var player in WCSharp.Shared.Util.EnumeratePlayers())
-          if (value == ScoreStatus.Defeated)
+          if (value == FactionStatus.Defeated)
           {
             SetPlayerTechResearched(player, _defeatedResearch, 1);
             SetPlayerTechResearched(player, _undefeatedResearch, 0);
           }
 
         //Remove player from game if necessary
-        if (value == ScoreStatus.Defeated && Player != null)
+        if (value == FactionStatus.Defeated && Player != null)
         {
           FogModifierStart(CreateFogModifierRect(Player, FOG_OF_WAR_VISIBLE,
             WCSharp.Shared.Data.Rectangle.WorldBounds.Rect, false, false));
@@ -154,7 +157,7 @@ namespace MacroTools.FactionSystem
           Leave();
         }
 
-        _scoreStatus = value;
+        _status = value;
         StatusChanged?.Invoke(this, this);
         ScoreStatusChanged?.Invoke(this, this);
       }

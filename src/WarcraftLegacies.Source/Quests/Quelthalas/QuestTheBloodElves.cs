@@ -67,7 +67,7 @@ namespace WarcraftLegacies.Source.Quests.Quelthalas
     {
       LegendQuelthalas.LegendKael.StartingXp = GetHeroXP(LegendQuelthalas.LegendAnasterian.Unit);
       completingFaction.Obliterate();
-      if (completingFaction.ScoreStatus == ScoreStatus.Defeated) return;
+      if (completingFaction.Status == FactionStatus.Defeated) return;
       foreach (var unit in _secondChanceUnits) unit.Rescue(completingFaction.Player);
 
       SetPlayerTechResearched(completingFaction.Player, QuestResearchId, 1);

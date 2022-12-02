@@ -18,7 +18,7 @@ namespace MacroTools.QuestSystem.UtilityStructs
 
     private void OnAnyFactionScoreStatusChanged(object? sender, Faction faction)
     {
-      if (faction.ScoreStatus == ScoreStatus.Defeated) Progress = QuestProgress.Failed;
+      if (faction.Status == FactionStatus.Defeated) Progress = QuestProgress.Failed;
     }
   }
 }

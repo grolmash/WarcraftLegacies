@@ -23,7 +23,7 @@ namespace MacroTools.Cheats
 
         var faction = PlayerData.ByHandle(Player(kickId)).Faction;
         if (faction != null)
-          faction.ScoreStatus = ScoreStatus.Defeated;
+          faction.Status = FactionStatus.Defeated;
         DisplayTextToPlayer(p, 0, 0,
           "|cffD27575CHEAT:|r Attempted to kick player " + GetPlayerName(Player(kickId)) + ".");
       }

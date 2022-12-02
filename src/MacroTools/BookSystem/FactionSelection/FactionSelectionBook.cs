@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+﻿using System;
 using System.Linq;
 using MacroTools.FactionSystem;
 using WCSharp.Shared.Data;
@@ -10,8 +10,6 @@ namespace MacroTools.BookSystem.FactionSelection
   /// </summary>
   public sealed class FactionSelectionBook : Book<FactionSelectionPage>
   {
-    private readonly Dictionary<Faction, FactionSelectionPage> _pagesByFaction = new();
-    
     /// <summary>
     /// Initializes a new instance of the <see cref="FactionSelectionBook"/> class.
     /// </summary>
@@ -22,6 +20,7 @@ namespace MacroTools.BookSystem.FactionSelection
       Title = "Choose your faction";
       Position = new Point(0.36f, 0.35f);
       AddAllFactions();
+      ExitButton.Dispose();
     }
 
     /// <summary>
@@ -46,15 +45,17 @@ namespace MacroTools.BookSystem.FactionSelection
         page.Visible = false; //This avoids a crash to desktop when rerendering a Book that a player has open.
         page.Dispose();
       }
-      _pagesByFaction.Clear();
       Pages.Clear();
-      AddPagesAndPowers();
+      AddPagesAndFactions();
     }
 
-    private void AddPagesAndPowers()
+    private void AddPagesAndFactions()
     {
       var firstPage = AddPage();
       firstPage.Visible = true;
+      foreach (var faction in FactionManager.GetAllFactions())
+        if (faction.Status == FactionStatus.Unselected)
+          AddFaction(faction);
     }
 
     private void AddFaction(Faction faction)
@@ -67,7 +68,13 @@ namespace MacroTools.BookSystem.FactionSelection
       }
 
       lastPage.AddFaction(faction);
-      _pagesByFaction.Add(faction, lastPage);
+      faction.StatusChanged += OnFactionScoreStatusChanged;
+    }
+
+    private void OnFactionScoreStatusChanged(object? sender, Faction faction)
+    {
+      if (faction.Status != FactionStatus.Unselected) 
+        ReRender();
     }
   }
 }

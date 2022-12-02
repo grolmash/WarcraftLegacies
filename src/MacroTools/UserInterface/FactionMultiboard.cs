@@ -147,7 +147,7 @@ namespace MacroTools.UserInterface
         UpdateTeamRow(team);
         row += 1;
         foreach (var faction in team.GetAllFactions())
-          if (faction.Player != null && faction.ScoreStatus != ScoreStatus.Defeated)
+          if (faction.Player != null && faction.Status != FactionStatus.Defeated)
           {
             _rowsByFaction[faction] = row;
             UpdateFactionRow(faction);
