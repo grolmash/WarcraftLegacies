@@ -16,7 +16,6 @@ namespace TestMap.Source.Setup
       LegendSetup.Setup();
       TeamSetup.Setup();
       AllFactionSetup.Setup();
-      PlayerSetup.Setup();
       ArtifactSetup.Setup();
       ControlPointSetup.Setup();
       AllQuestSetup.Setup();

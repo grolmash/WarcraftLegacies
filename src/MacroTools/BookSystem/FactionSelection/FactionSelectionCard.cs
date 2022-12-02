@@ -42,6 +42,7 @@ namespace MacroTools.BookSystem.FactionSelection
         Text = "Choose",
         OnClick = _ =>
         {
+          GetTriggerPlayer().SetFaction(faction);
           faction.Status = FactionStatus.Undefeated;
         }
       };
