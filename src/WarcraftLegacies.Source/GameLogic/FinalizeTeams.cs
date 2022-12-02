@@ -17,13 +17,15 @@ namespace WarcraftLegacies.Source.GameLogic
         .Select(x => x.GetFaction())
         .Where(x => x?.Status == FactionStatus.Undefeated)
         .OrderBy(x => x?.PossibleTeams.Count());
-      foreach (var faction in selectedFactions) 
+      foreach (var faction in selectedFactions)
+      {
         faction?.Player?.SetTeam(GetBestTeamForFaction(faction));
+      }
     }
 
     private static Team GetBestTeamForFaction(Faction faction)
     {
-      var bestNonEmptyTeam = faction.PossibleTeams.Where(x => x.Size != 0).MinBy(x => x.Size);
+      var bestNonEmptyTeam = faction.PossibleTeams.Where(x => x.Size != 0).OrderBy(x => x.Size).FirstOrDefault();
       return bestNonEmptyTeam ?? faction.PossibleTeams.First();
     }
 
@@ -39,19 +41,22 @@ namespace WarcraftLegacies.Source.GameLogic
         {
           if (GetPlayerSlotState(player) == PLAYER_SLOT_STATE_EMPTY) continue;
           var playerFaction = player.GetFaction();
-          if (playerFaction != null) 
+          if (playerFaction != null)
             continue;
           var unselectedFactions = allFactions.Where(x => x.Status == FactionStatus.Unselected).ToList();
+          if (unselectedFactions.Count == 0)
+            throw new Exception($"There were no unselected factions left to give to {GetPlayerName(player)}.");
           var selectedFaction = unselectedFactions[random.Next(0, unselectedFactions.Count - 1)];
           player.SetFaction(selectedFaction);
           selectedFaction.Status = FactionStatus.Undefeated;
+          SetupTeams(allPlayers);
         }
         catch (Exception ex)
         {
           Console.WriteLine($"Failed to finalize teams for player {GetPlayerName(player)}: {ex}");
         }
       }
-      SetupTeams(allPlayers);
+
     }
 
 
