@@ -15,7 +15,7 @@ namespace WarcraftLegacies.Source.Setup
     /// <summary>
     /// An alliance of mortals.
     /// </summary>
-    public Team Alliance { get; }
+    public Team EasternKingdomsAlliance { get; }
     
     /// <summary>
     /// Orcs and other misfits.
@@ -61,17 +61,22 @@ namespace WarcraftLegacies.Source.Setup
     /// The good guys in south Eastern Kingdoms.
     /// </summary>
     public Team SouthAlliance { get; }
+    
+    /// <summary>
+    /// Every single plausibly good-aligned faction in a pile.
+    /// </summary>
+    public Team GrandAlliance { get; }
 
     /// <summary>
     /// Initializes a new instance of the <see cref="TeamSetup"/> class.
     /// </summary>
     public TeamSetup()
     {
-      Alliance = new Team("Alliance")
+      EasternKingdomsAlliance = new Team("Alliance")
       {
         VictoryMusic = "HeroicVictory"
       };
-      FactionManager.Register(Alliance);
+      FactionManager.Register(EasternKingdomsAlliance);
 
       Legion = new Team("Burning Legion")
       {
@@ -120,6 +125,12 @@ namespace WarcraftLegacies.Source.Setup
         VictoryMusic = "HeroicVictory"
       };
       FactionManager.Register(SouthAlliance);
+      
+      GrandAlliance = new Team("Grand Alliance")
+      {
+        VictoryMusic = "HeroicVictory"
+      };
+      FactionManager.Register(GrandAlliance);
       
       Illidari = new Team("Illidari")
       {

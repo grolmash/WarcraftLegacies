@@ -21,7 +21,8 @@ namespace WarcraftLegacies.Source.Setup.FactionSetup
         CinematicMusic = "SadMystery",
         PossibleTeams = new[]
         {
-          teamSetup.Horde
+          teamSetup.Horde,
+          teamSetup.GrandAlliance
         }
       };
 

@@ -24,8 +24,9 @@ namespace WarcraftLegacies.Source.Setup.FactionSetup
         PossibleTeams = new[]
         {
           teamSetup.SouthAlliance,
-          teamSetup.Alliance,
-          teamSetup.OldGods
+          teamSetup.EasternKingdomsAlliance,
+          teamSetup.OldGods,
+          teamSetup.GrandAlliance
         }
       };
 

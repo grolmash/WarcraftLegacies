@@ -18,12 +18,13 @@ namespace WarcraftLegacies.Source.Setup.FactionSetup
         PossibleTeams = new[]
         {
           teamSetup.Horde,
-          teamSetup.Alliance,
+          teamSetup.EasternKingdomsAlliance,
           teamSetup.NorthAlliance,
           teamSetup.SouthAlliance,
           teamSetup.ScarletCrusade,
           teamSetup.OldGods,
-          teamSetup.Illidari
+          teamSetup.Illidari,
+          teamSetup.GrandAlliance
         }
       };
 

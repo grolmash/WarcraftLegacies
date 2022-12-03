@@ -19,7 +19,8 @@ namespace WarcraftLegacies.Source.Setup.FactionSetup
         PossibleTeams = new[]
         {
           teamSetup.Horde,
-          teamSetup.OldGods
+          teamSetup.OldGods,
+          teamSetup.GrandAlliance
         }
       };
 

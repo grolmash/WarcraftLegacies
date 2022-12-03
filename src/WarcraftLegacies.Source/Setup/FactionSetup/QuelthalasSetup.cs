@@ -23,8 +23,9 @@ namespace WarcraftLegacies.Source.Setup.FactionSetup
           PossibleTeams = new[]
           {
             teamSetup.Illidari,
-            teamSetup.Alliance,
-            teamSetup.NorthAlliance
+            teamSetup.EasternKingdomsAlliance,
+            teamSetup.NorthAlliance,
+            teamSetup.GrandAlliance
           }
         };
 

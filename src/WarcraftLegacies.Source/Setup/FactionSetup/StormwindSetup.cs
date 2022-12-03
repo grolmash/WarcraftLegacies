@@ -22,8 +22,9 @@ namespace WarcraftLegacies.Source.Setup.FactionSetup
         StartingLumber = 500,
         PossibleTeams = new[]
         {
-          teamSetup.Alliance,
-          teamSetup.SouthAlliance
+          teamSetup.EasternKingdomsAlliance,
+          teamSetup.SouthAlliance,
+          teamSetup.GrandAlliance
         }
       };
 

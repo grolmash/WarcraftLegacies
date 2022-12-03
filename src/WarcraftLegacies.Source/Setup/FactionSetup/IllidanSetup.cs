@@ -19,7 +19,8 @@ namespace WarcraftLegacies.Source.Setup.FactionSetup
         PossibleTeams = new[]
         {
           teamSetup.NightElves,
-          teamSetup.Illidari
+          teamSetup.Illidari,
+          teamSetup.GrandAlliance
         }
       };
 

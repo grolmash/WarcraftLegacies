@@ -20,8 +20,9 @@ namespace WarcraftLegacies.Source.Setup.FactionSetup
         CinematicMusic = "SadMystery",
         PossibleTeams = new[]
         {
-          teamSetup.Alliance,
-          teamSetup.NorthAlliance
+          teamSetup.EasternKingdomsAlliance,
+          teamSetup.NorthAlliance,
+          teamSetup.GrandAlliance
         }
       };
 

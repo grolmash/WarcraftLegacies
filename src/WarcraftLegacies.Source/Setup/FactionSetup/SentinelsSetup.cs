@@ -21,6 +21,7 @@ namespace WarcraftLegacies.Source.Setup.FactionSetup
         PossibleTeams = new[]
         {
           teamSetup.NightElves,
+          teamSetup.GrandAlliance
         }
       };
 

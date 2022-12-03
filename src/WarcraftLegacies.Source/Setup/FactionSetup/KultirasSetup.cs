@@ -23,7 +23,8 @@ namespace WarcraftLegacies.Source.Setup.FactionSetup
             {
               teamSetup.SouthAlliance,
               teamSetup.NorthAlliance,
-              teamSetup.Alliance
+              teamSetup.EasternKingdomsAlliance,
+              teamSetup.GrandAlliance
             }
           };
 
