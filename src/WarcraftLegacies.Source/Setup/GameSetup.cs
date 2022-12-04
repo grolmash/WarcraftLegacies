@@ -111,7 +111,7 @@ namespace WarcraftLegacies.Source.Setup
       RemoveUnusedAreas.Run();
       var factionSelectionManager = new FactionSelectionManager(FactionManager.GetAllFactions());
       FactionSelectionBook.Display(factionSelectionManager);
-      new FinalizeTeams(factionSelectionManager).Run();
+      factionSelectionManager.Run();
     }
   }
 }

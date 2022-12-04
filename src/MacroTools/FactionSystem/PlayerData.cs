@@ -107,7 +107,7 @@ namespace MacroTools.FactionSystem
           else
           {
             throw new Exception(
-              $"Attempted to Person {GetPlayerName(Player)} to already occupied faction with name {value.Name}");
+              $"Attempted to assign player {GetPlayerName(Player)} to already occupied faction with name {value.Name}");
           }
         }
 

@@ -10,6 +10,7 @@ namespace MacroTools.FactionSelectionSystem.UserInterface
   /// </summary>
   public sealed class FactionSelectionBook : Book<FactionSelectionPage>
   {
+    private static FactionSelectionBook? _instance;
     private readonly FactionSelectionManager _manager;
 
     /// <summary>
@@ -24,6 +25,11 @@ namespace MacroTools.FactionSelectionSystem.UserInterface
       Position = new Point(0.36f, 0.35f);
       AddAllFactionSelections();
       ExitButton.Dispose();
+      manager.Finished += (_, _) =>
+      {
+        _instance?.Dispose();
+        _instance = null;
+      };
     }
 
     /// <summary>
@@ -31,8 +37,8 @@ namespace MacroTools.FactionSelectionSystem.UserInterface
     /// </summary>
     public static void Display(FactionSelectionManager manager)
     {
-      var book = new FactionSelectionBook(manager);
-      book.Visible = true;
+      _instance = new FactionSelectionBook(manager);
+      _instance.Visible = true;
     }
     
     private void AddAllFactionSelections()
