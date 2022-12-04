@@ -22,7 +22,7 @@ namespace WarcraftLegacies.Source.GameLogic
     {
       _factionSelectionManager = factionSelectionManager;
     }
-    
+
     /// <summary>
     ///   After a short delay, removes players from the game if their slot is unoccupied.
     /// </summary>
@@ -32,8 +32,8 @@ namespace WarcraftLegacies.Source.GameLogic
       TriggerRegisterTimerEvent(trig, 10, false);
       TriggerAddAction(trig, Action);
     }
-    
-    private void SetupTeams(IEnumerable<player> allPlayers)
+
+    private void SetupTeams()
     {
       foreach (var factionSelection in _factionSelectionManager.GetAllFactionSelections())
       {
@@ -48,32 +48,38 @@ namespace WarcraftLegacies.Source.GameLogic
       return bestNonEmptyTeam ?? faction.PossibleTeams.First();
     }
 
-    private void Action()
+    private void EnsureAllPlayersHaveFactions(List<player> allPlayers)
     {
       var random = new Random();
-      var allFactions = FactionManager.GetAllFactions();
-
-      var allPlayers = WCSharp.Shared.Util.EnumeratePlayers().ToList();
       foreach (var player in allPlayers)
       {
-        try
-        {
-          if (GetPlayerSlotState(player) == PLAYER_SLOT_STATE_EMPTY) continue;
-          var playerFaction = player.GetFaction();
-          if (playerFaction != null)
-            continue;
-          var unselectedFactions = allFactions.Where(x => x.Status == FactionStatus.Unselected).ToList();
-          if (unselectedFactions.Count == 0)
-            throw new Exception($"There were no unselected factions left to give to {GetPlayerName(player)}.");
-          var selectedFaction = unselectedFactions[random.Next(unselectedFactions.Count)];
-          player.SetFaction(selectedFaction);
-          selectedFaction.Status = FactionStatus.Undefeated;
-          SetupTeams(allPlayers);
-        }
-        catch (Exception ex)
-        {
-          Console.WriteLine($"Failed to finalize teams for player {GetPlayerName(player)}: {ex}");
-        }
+        if (GetPlayerSlotState(player) == PLAYER_SLOT_STATE_EMPTY) continue;
+        var playerFaction = player.GetFaction();
+        if (playerFaction != null)
+          continue;
+        var unselectedFactions = _factionSelectionManager.GetAllFactionSelections()
+          .Where(x => x.Player == null)
+          .Select(x => x.Faction)
+          .ToList();
+        if (unselectedFactions.Count == 0)
+          throw new Exception($"There were no unselected factions left to give to {GetPlayerName(player)}.");
+        var selectedFaction = unselectedFactions[random.Next(unselectedFactions.Count)];
+        player.SetFaction(selectedFaction);
+        selectedFaction.Status = FactionStatus.Undefeated;
+      }
+    }
+
+    private void Action()
+    {
+      try
+      {
+        var allPlayers = WCSharp.Shared.Util.EnumeratePlayers().ToList();
+        EnsureAllPlayersHaveFactions(allPlayers);
+        SetupTeams();
+      }
+      catch (Exception ex)
+      {
+        Console.WriteLine($"Failed to run {nameof(FinalizeTeams)}: {ex}");
       }
     }
   }
