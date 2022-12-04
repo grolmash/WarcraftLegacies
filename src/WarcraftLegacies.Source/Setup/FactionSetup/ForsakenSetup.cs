@@ -16,7 +16,6 @@ namespace WarcraftLegacies.Source.Setup.FactionSetup
         StartingLumber = 100,
         PossibleTeams = new[]
         {
-          teamSetup.Forsaken,
           teamSetup.Scourge,
           teamSetup.Legion
         }

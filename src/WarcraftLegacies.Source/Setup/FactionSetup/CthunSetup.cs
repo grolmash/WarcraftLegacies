@@ -57,7 +57,7 @@ namespace WarcraftLegacies.Source.Setup.FactionSetup
       Cthun.ModObjectLimit(FourCC("R07I"), Faction.UNLIMITED); //Shadow weaver training
       Cthun.ModObjectLimit(FourCC("R07J"), Faction.UNLIMITED); //Shadow weaver training
 
-      //Cthun.ConfigureStartingFeatures(Player(21));
+      Cthun.ConfigureStartingFeatures(Player(21));
       FactionManager.Register(Cthun);
     }
   }
