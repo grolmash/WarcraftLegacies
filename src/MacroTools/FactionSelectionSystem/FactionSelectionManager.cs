@@ -33,7 +33,7 @@ namespace MacroTools.FactionSelectionSystem
       _factionSelections = factions.Select(x => new FactionSelection
       {
         Faction = x,
-        Player = x.PriorityPicker
+        Player = GetPlayerSlotState(x.PriorityPicker) == PLAYER_SLOT_STATE_PLAYING ? x.PriorityPicker : null
       });
       foreach (var factionSelection in _factionSelections) 
         factionSelection.Selected += OnFactionSelected;
