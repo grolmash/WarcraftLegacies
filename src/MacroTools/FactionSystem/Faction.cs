@@ -90,6 +90,11 @@ namespace MacroTools.FactionSystem
     /// </summary>
     public IEnumerable<Team> PossibleTeams { get; init; } = new List<Team>();
     
+    /// <summary>
+    /// The player that has priority for picking this faction.
+    /// </summary>
+    public player? PriorityPicker { get; private set; }
+    
     static Faction()
     {
       PlayerUnitEvents.Register(ResearchEvent.IsFinished, () =>
@@ -644,6 +649,7 @@ namespace MacroTools.FactionSystem
     /// </summary>
     public void ConfigureStartingFeatures(player player)
     {
+      PriorityPicker = player;
       StartingUnits = CreateGroup().EnumUnitsOfPlayer(player).EmptyToList();
       foreach (var unit in StartingUnits) 
         ShowUnit(unit, false);

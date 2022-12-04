@@ -1,5 +1,7 @@
 using MacroTools;
-using MacroTools.BookSystem.FactionSelection;
+using MacroTools.FactionSelectionSystem;
+using MacroTools.FactionSelectionSystem.UserInterface;
+using MacroTools.FactionSystem;
 using MacroTools.Mechanics;
 using MacroTools.PassiveAbilitySystem;
 using MacroTools.UserInterface;
@@ -99,7 +101,6 @@ namespace WarcraftLegacies.Source.Setup
       StartingQuestPopup.Setup(63);
       RefundZeroLimitUnits.Setup();
       HeroGlowFix.Setup();
-      FinalizeTeams.Setup();
       PlayerLeaves.Setup();
       FloatingTextSetup.Setup(60, 10);
       AmbianceSetup.Setup();
@@ -108,7 +109,9 @@ namespace WarcraftLegacies.Source.Setup
       DemonGateSetup.Setup();
       SummonRallyPoints.Setup();
       RemoveUnusedAreas.Run();
-      FactionSelectionBook.Display();
+      var factionSelectionManager = new FactionSelectionManager(FactionManager.GetAllFactions());
+      FactionSelectionBook.Display(factionSelectionManager);
+      new FinalizeTeams(factionSelectionManager).Run();
     }
   }
 }

@@ -1,11 +1,11 @@
 ﻿using System;
-using MacroTools.FactionSystem;
+using MacroTools.BookSystem;
 
-namespace MacroTools.BookSystem.FactionSelection
+namespace MacroTools.FactionSelectionSystem.UserInterface
 {
   public sealed class FactionSelectionPage : Page
   {
-    public EventHandler FactionSelected;
+    public FactionSelectionManager Manager { get; set; }
     
     public FactionSelectionPage()
     {
@@ -18,11 +18,11 @@ namespace MacroTools.BookSystem.FactionSelection
     /// <summary>
     ///   Renders a Faction on this FactionPage as a FactionCard.
     /// </summary>
-    public void AddFaction(Faction faction)
+    public void AddFactionSelection(FactionSelection factionSelection)
     {
       if (CardCount >= CardLimit)
         throw new Exception($"FactionPage is already at the card limit of {CardLimit} cards.");
-      var factionCard = new FactionSelectionCard(faction, this);
+      var factionCard = new FactionSelectionCard(factionSelection, this);
       PositionFrameAtIndex(factionCard, Cards.Count);
       Cards.Add(factionCard);
       AddFrame(factionCard);

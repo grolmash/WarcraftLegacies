@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using MacroTools.FactionSelectionSystem;
 using MacroTools.FactionSystem;
 using static War3Api.Common;
 
@@ -9,17 +10,35 @@ namespace WarcraftLegacies.Source.GameLogic
   /// <summary>
   /// Put players into their appropriate teams once everybody has finished picking their faction.
   /// </summary>
-  public static class FinalizeTeams
+  public sealed class FinalizeTeams
   {
-    private static void SetupTeams(IEnumerable<player> allPlayers)
+    private readonly FactionSelectionManager _factionSelectionManager;
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="FinalizeTeams"/> class.
+    /// </summary>
+    /// <param name="factionSelectionManager"></param>
+    public FinalizeTeams(FactionSelectionManager factionSelectionManager)
     {
-      var selectedFactions = allPlayers
-        .Select(x => x.GetFaction())
-        .Where(x => x?.Status == FactionStatus.Undefeated)
-        .OrderBy(x => x?.PossibleTeams.Count());
-      foreach (var faction in selectedFactions)
+      _factionSelectionManager = factionSelectionManager;
+    }
+    
+    /// <summary>
+    ///   After a short delay, removes players from the game if their slot is unoccupied.
+    /// </summary>
+    public void Run()
+    {
+      var trig = CreateTrigger();
+      TriggerRegisterTimerEvent(trig, 10, false);
+      TriggerAddAction(trig, Action);
+    }
+    
+    private void SetupTeams(IEnumerable<player> allPlayers)
+    {
+      foreach (var factionSelection in _factionSelectionManager.GetAllFactionSelections())
       {
-        faction?.Player?.SetTeam(GetBestTeamForFaction(faction));
+        factionSelection.Player?.SetFaction(factionSelection.Faction);
+        factionSelection.Player?.SetTeam(GetBestTeamForFaction(factionSelection.Faction));
       }
     }
 
@@ -29,7 +48,7 @@ namespace WarcraftLegacies.Source.GameLogic
       return bestNonEmptyTeam ?? faction.PossibleTeams.First();
     }
 
-    private static void Action()
+    private void Action()
     {
       var random = new Random();
       var allFactions = FactionManager.GetAllFactions();
@@ -56,18 +75,6 @@ namespace WarcraftLegacies.Source.GameLogic
           Console.WriteLine($"Failed to finalize teams for player {GetPlayerName(player)}: {ex}");
         }
       }
-
-    }
-
-
-    /// <summary>
-    ///   After a short delay, removes players from the game if their slot is unoccupied.
-    /// </summary>
-    public static void Setup()
-    {
-      var trig = CreateTrigger();
-      TriggerRegisterTimerEvent(trig, 10, false);
-      TriggerAddAction(trig, Action);
     }
   }
 }
