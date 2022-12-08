@@ -15,7 +15,9 @@ namespace MacroTools.FactionSelectionSystem
     public void SelectForPlayer(player? whichPlayer)
     {
       Player = whichPlayer;
+      Console.WriteLine($"start invoke {Faction.Name} for {GetPlayerName(whichPlayer)}");
       Selected?.Invoke(this, this);
+      Console.WriteLine("end invoke");
     }
   }
 }

@@ -38,10 +38,7 @@ namespace MacroTools.FactionSelectionSystem.UserInterface
         Width = 0.062f,
         Height = 0.027f,
         Text = "Choose",
-        OnClick = _ =>
-        {
-          factionSelection.SelectForPlayer(GetTriggerPlayer());
-        }
+        OnClick = factionSelection.SelectForPlayer
       };
       _chooseButton.SetPoint(FRAMEPOINT_LEFT, this, FRAMEPOINT_LEFT, 0.057f, -0.009f);
       AddFrame(_chooseButton);

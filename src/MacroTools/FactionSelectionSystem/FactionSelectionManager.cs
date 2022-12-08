@@ -16,14 +16,14 @@ namespace MacroTools.FactionSelectionSystem
     /// <summary>
     /// Returns all factions that can be selected along with the player currently selecting them.
     /// </summary>
-    public IEnumerable<FactionSelection> GetAllFactionSelections() => 
+    public IEnumerable<FactionSelection> GetAllFactionSelections() =>
       _factionSelections.ToList().AsReadOnly();
 
     /// <summary>
     /// Fired when faction selection has finished.
     /// </summary>
     public event EventHandler? Finished;
-    
+
     /// <summary>
     /// Initializes a new instance of the <see cref="FactionSelectionManager"/> class.
     /// </summary>
@@ -35,8 +35,11 @@ namespace MacroTools.FactionSelectionSystem
         Faction = x,
         Player = GetPlayerSlotState(x.PriorityPicker) == PLAYER_SLOT_STATE_PLAYING ? x.PriorityPicker : null
       });
-      foreach (var factionSelection in _factionSelections) 
+      foreach (var factionSelection in _factionSelections)
+      {
+        Console.WriteLine("register event");
         factionSelection.Selected += OnFactionSelected;
+      }
     }
 
     /// <summary>
@@ -97,12 +100,20 @@ namespace MacroTools.FactionSelectionSystem
         Console.WriteLine($"Failed to run {nameof(FinalizeLobby)}: {ex}");
       }
     }
-    
+
     private void OnFactionSelected(object? sender, FactionSelection selectedFaction)
     {
-      foreach (var factionSelection in _factionSelections.Where(x =>
-                 x.Player != null && x.Player == selectedFaction.Player && x != selectedFaction))
-        factionSelection.SelectForPlayer(null);
+      try
+      {
+        Console.WriteLine("AAAAA");
+        foreach (var factionSelection in _factionSelections.Where(x =>
+                   x.Player != null && x.Player == selectedFaction.Player && x != selectedFaction))
+          factionSelection.SelectForPlayer(null);
+      }
+      catch (Exception ex)
+      {
+        Console.WriteLine($"Failed to execute {nameof(OnFactionSelected)}: {ex}");
+      }
     }
   }
 }
