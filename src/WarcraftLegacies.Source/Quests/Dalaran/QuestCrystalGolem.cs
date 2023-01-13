@@ -1,7 +1,9 @@
 using MacroTools.ControlPointSystem;
+using MacroTools.Extensions;
 using MacroTools.FactionSystem;
+using MacroTools.ObjectiveSystem.Objectives.ControlPointBased;
+using MacroTools.ObjectiveSystem.Objectives.LegendBased;
 using MacroTools.QuestSystem;
-using MacroTools.QuestSystem.UtilityStructs;
 using WarcraftLegacies.Source.Setup.Legends;
 using static War3Api.Common;
 
@@ -13,12 +15,12 @@ namespace WarcraftLegacies.Source.Quests.Dalaran
       "The living crystal of the Crystalsong Forest suffers from its proximity to the Legion. Freed from that corruption, it could be used to empower Dalaran's constructs."
       , "ReplaceableTextures\\CommandButtons\\BTNRockGolem.blp")
     {
-      AddObjective(new ObjectiveControlPoint(ControlPointManager.GetFromUnitType(FourCC("n02R"))));
-      AddObjective(new ObjectiveControlLegend(LegendNeutral.DraktharonKeep, false));
+      AddObjective(new ObjectiveControlPoint(ControlPointManager.Instance.GetFromUnitType(FourCC("n02R"))));
+      AddObjective(new ObjectiveControlCapital(LegendNeutral.DraktharonKeep, false));
       ResearchId = FourCC("R045");
     }
 
-    protected override string CompletionPopup => "Dalaran's Earth Golems have been infused with living crystal.";
+    protected override string RewardFlavour => "Dalaran's Earth Golems have been infused with living crystal.";
 
     protected override string RewardDescription => "Transform your Earth Golems into Crystal Golems";
 

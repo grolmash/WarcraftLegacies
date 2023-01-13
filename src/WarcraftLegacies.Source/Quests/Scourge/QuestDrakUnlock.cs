@@ -2,8 +2,11 @@
 using MacroTools.ControlPointSystem;
 using MacroTools.Extensions;
 using MacroTools.FactionSystem;
+using MacroTools.ObjectiveSystem.Objectives.ControlPointBased;
+using MacroTools.ObjectiveSystem.Objectives.FactionBased;
+using MacroTools.ObjectiveSystem.Objectives.LegendBased;
+using MacroTools.ObjectiveSystem.Objectives.TimeBased;
 using MacroTools.QuestSystem;
-using MacroTools.QuestSystem.UtilityStructs;
 using WarcraftLegacies.Source.Setup.Legends;
 using WCSharp.Shared.Data;
 using static War3Api.Common;
@@ -25,8 +28,8 @@ namespace WarcraftLegacies.Source.Quests.Scourge
       "Draktharon Keep", "Drak'tharon Keep will be the perfect place for an outpost by the sea.",
       "ReplaceableTextures\\CommandButtons\\BTNUndeadShipyard.blp")
     {
-      AddObjective(new ObjectiveControlPoint(ControlPointManager.GetFromUnitType(Constants.UNIT_N030_DRAK_THARON_KEEP_30GOLD_MIN)));
-      AddObjective(new ObjectiveControlLegend(LegendNeutral.DraktharonKeep, false));
+      AddObjective(new ObjectiveControlPoint(ControlPointManager.Instance.GetFromUnitType(Constants.UNIT_N030_DRAK_THARON_KEEP_30GOLD_MIN)));
+      AddObjective(new ObjectiveControlCapital(LegendNeutral.DraktharonKeep, false));
       AddObjective(new ObjectiveExpire(1140));
       AddObjective(new ObjectiveSelfExists());
       ResearchId = Constants.UPGRADE_R08J_QUEST_COMPLETED_DRAK_THARON_KEEP;
@@ -34,7 +37,7 @@ namespace WarcraftLegacies.Source.Quests.Scourge
     }
 
     /// <inheritdoc/>
-    protected override string CompletionPopup => "Drak'tharon Keep is now under the control of the Scourge.";
+    protected override string RewardFlavour => "Drak'tharon Keep is now under the control of the Scourge.";
 
     /// <inheritdoc/>
     protected override string RewardDescription => "Control of all buildings in Drak'tharon Keep";

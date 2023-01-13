@@ -1,5 +1,4 @@
-﻿using MacroTools.FactionSystem;
-using WarcraftLegacies.Source.Setup.FactionSetup;
+﻿using MacroTools.Extensions;
 using static War3Api.Common;
 
 namespace WarcraftLegacies.Source.GameLogic
@@ -70,17 +69,10 @@ namespace WarcraftLegacies.Source.GameLogic
       
       FogEnable(false);
       FogMaskEnable(false);
-      
-      ForsakenSetup.Forsaken?.Player?.SetupCamera(Cameras.Forsaken1, true, 0);
 
       Player(21).ApplyCameraField(CAMERA_FIELD_TARGET_DISTANCE, 2400, 1.00f);
       Player(19).ApplyCameraField(CAMERA_FIELD_TARGET_DISTANCE, 2400, 1.00f);
       Player(8).ApplyCameraField(CAMERA_FIELD_TARGET_DISTANCE, 2400, 1.00f);
-
-      VolumeGroupSetVolume(SOUND_VOLUMEGROUP_MUSIC, 0.45f);
-      VolumeGroupSetVolume(SOUND_VOLUMEGROUP_AMBIENTSOUNDS, 0);
-      VolumeGroupSetVolume(SOUND_VOLUMEGROUP_UI, 0);
-      VolumeGroupSetVolume(SOUND_VOLUMEGROUP_SPELLS, 0.4f);
 
       ShowInterface(false, 0.5f);
       ForceCinematicSubtitles(true);

@@ -1,7 +1,9 @@
 using MacroTools.ControlPointSystem;
 using MacroTools.FactionSystem;
+using MacroTools.ObjectiveSystem.Objectives.ControlPointBased;
+using MacroTools.ObjectiveSystem.Objectives.FactionBased;
+using MacroTools.ObjectiveSystem.Objectives.LegendBased;
 using MacroTools.QuestSystem;
-using MacroTools.QuestSystem.UtilityStructs;
 using WarcraftLegacies.Source.Setup.Legends;
 using static War3Api.Common;
 
@@ -14,14 +16,14 @@ namespace WarcraftLegacies.Source.Quests.Forsaken
       "ReplaceableTextures\\CommandButtons\\BTNPaleValkyr.blp")
     {
       AddObjective(new ObjectiveLegendNotPermanentlyDead(LegendForsaken.SylvanasUndead));
-      AddObjective(new ObjectiveControlPoint(ControlPointManager.GetFromUnitType(FourCC("n02J"))));
-      AddObjective(new ObjectiveControlPoint(ControlPointManager.GetFromUnitType(FourCC("n03U"))));
-      AddObjective(new ObjectiveLegendDead(LegendScourge.LegendLichking));
+      AddObjective(new ObjectiveControlPoint(ControlPointManager.Instance.GetFromUnitType(FourCC("n02J"))));
+      AddObjective(new ObjectiveControlPoint(ControlPointManager.Instance.GetFromUnitType(FourCC("n03U"))));
+      AddObjective(new ObjectiveCapitalDead(LegendScourge.LegendLichking));
       AddObjective(new ObjectiveSelfExists());
     }
 
     //Todo: bad flavour
-    protected override string CompletionPopup => "Enable up to 9 Val'kyr join their ranks.";
+    protected override string RewardFlavour => "Enable up to 9 Val'kyr join their ranks.";
 
     protected override string RewardDescription => "Enable 9 Val'kyr to be raised";
 

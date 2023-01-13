@@ -1,58 +1,62 @@
-﻿using MacroTools.Extensions;
+﻿using System.Collections.Generic;
+using MacroTools.ControlPointSystem;
+using MacroTools.Extensions;
 using MacroTools.FactionSystem;
+using MacroTools.ObjectiveSystem.Objectives.ControlPointBased;
+using MacroTools.ObjectiveSystem.Objectives.FactionBased;
 using MacroTools.QuestSystem;
-using MacroTools.QuestSystem.UtilityStructs;
 using static War3Api.Common;
 
 
 namespace WarcraftLegacies.Source.Quests.Goblin
 {
+  /// <summary>
+  /// The Goblins can acquire Kezan.
+  /// </summary>
   public sealed class QuestBusinessExpansion : QuestData
   {
-    private static readonly int QuestResearchId = FourCC("R07G");
+    private readonly List<unit> _rescueUnits;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="QuestBusinessExpansion"/>.
+    /// </summary>
     public QuestBusinessExpansion() : base("Business Expansion",
-      "Trade Prince Gallywix will need a great amount of wealth to rule the future Goblin Empire; he needs to expand his business all over the world quickly.",
+      "Trade Prince Gallywix will need a great amount of wealth to join the Goblin Empire; he needs to expand his business all over the world quickly.",
       "ReplaceableTextures\\CommandButtons\\BTNGoblinPrince.blp")
     {
-      AddObjective(new ObjectiveTrain(FourCC("nzep"), FourCC("o04M"), 16));
-      AddObjective(new ObjectiveTrain(FourCC("o04S"), FourCC("o04M"), 10));
-      ResearchId = QuestResearchId;
+      AddObjective(new ObjectiveControlLevel(
+        ControlPointManager.Instance.GetFromUnitType(Constants.UNIT_N05C_GADGETZAN_10GOLD_MIN), 10));
+      AddObjective(new ObjectiveControlLevel(
+        ControlPointManager.Instance.GetFromUnitType(Constants.UNIT_N0A6_RATCHET_10GOLD_MIN), 10));
+      AddObjective(new ObjectiveControlLevel(
+        ControlPointManager.Instance.GetFromUnitType(Constants.UNIT_N09D_AUBERDINE_25GOLD_MIN), 10));
+      AddObjective(new ObjectiveControlLevel(
+        ControlPointManager.Instance.GetFromUnitType(Constants.UNIT_N05U_FEATHERMOON_STRONGHOLD_20GOLD_MIN), 10));
+      AddObjective(new ObjectiveSelfExists());
+      ResearchId = Constants.UPGRADE_R07G_QUEST_COMPLETED_BUSINESS_EXPANSION;
+      Required = true;
+      _rescueUnits = Regions.KezanUnlock.PrepareUnitsForRescue(RescuePreparationMode.HideNonStructures,
+        filterUnit => filterUnit.GetTypeId() != FourCC("ngme"));
     }
 
-    protected override string RewardDescription => "The shipyard will be buildable";
+    /// <inheritdoc />
+    protected override string RewardFlavour => "Our trade empire has grown large enough to earn the attention of the Trade Princes of Kezan. Their investments are already flowing in, and the isle of Kezan is now under Bilgewater control.";
 
-    protected override string CompletionPopup => "You can now build shipyards and ships";
+    /// <inheritdoc />
+    protected override string RewardDescription => "You unlock Kezan and can now train Traders";
 
-    private static void GrantGadetzan(player whichPlayer)
-    {
-      group tempGroup = CreateGroup();
-
-      //Transfer all Neutral Passive units in Gadetzan
-      GroupEnumUnitsInRect(tempGroup, Regions.GadgetUnlock.Rect, null);
-      unit u = FirstOfGroup(tempGroup);
-      while (true)
-      {
-        if (u == null) break;
-
-        if (GetOwningPlayer(u) == Player(PLAYER_NEUTRAL_PASSIVE)) u.Rescue(whichPlayer);
-
-        GroupRemoveUnit(tempGroup, u);
-        u = FirstOfGroup(tempGroup);
-      }
-
-      DestroyGroup(tempGroup);
-    }
-
+    /// <inheritdoc />
     protected override void OnFail(Faction completingFaction)
     {
-      GrantGadetzan(Player(PLAYER_NEUTRAL_AGGRESSIVE));
+      Player(PLAYER_NEUTRAL_AGGRESSIVE).RescueGroup(_rescueUnits);
     }
 
+    /// <inheritdoc />
     protected override void OnComplete(Faction completingFaction)
     {
-      GrantGadetzan(completingFaction.Player);
-      if (GetLocalPlayer() == completingFaction.Player) PlayThematicMusic("war3mapImported\\GoblinTheme.mp3");
+      completingFaction.Player?.RescueGroup(_rescueUnits);
+      if (GetLocalPlayer() == completingFaction.Player) 
+        PlayThematicMusic("war3mapImported\\GoblinTheme.mp3");
     }
   }
 }

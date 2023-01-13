@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using WarcraftLegacies.Source.Quests;
 using WarcraftLegacies.Source.Quests.Sentinels;
 using WarcraftLegacies.Source.Setup.FactionSetup;
 using WCSharp.Shared.Data;
@@ -7,7 +8,7 @@ namespace WarcraftLegacies.Source.Setup.QuestSetup
 {
   public static class SentinelsQuestSetup
   {
-    public static void Setup()
+    public static void Setup(ArtifactSetup artifactSetup)
     {
       var sentinels = SentinelsSetup.Sentinels;
 
@@ -19,9 +20,10 @@ namespace WarcraftLegacies.Source.Setup.QuestSetup
       sentinels.AddQuest(new QuestFeathermoon(Regions.FeathermoonUnlock));
       sentinels.AddQuest(new QuestSentinelsKillWarsong());
       sentinels.AddQuest(new QuestSentinelsKillFrostwolf());
-      //sentinels.AddQuest(new QuestMaievOutland(Regions.MaievStartUnlock));
-      sentinels.AddQuest(new QuestScepterOfTheQueenSentinels(Regions.HighBourne));
+      sentinels.AddQuest(new QuestScepterOfTheQueenSentinels(Regions.TheAthenaeum, artifactSetup.ScepterOfTheQueen));
       sentinels.AddQuest(new QuestVaultoftheWardens());
+      sentinels.AddQuest(new QuestBlackrookHold());
+      sentinels.AddQuest(new QuestMaievOutland(Regions.MaievStartUnlock));
     }
   }
 }

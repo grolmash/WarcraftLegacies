@@ -1,9 +1,10 @@
 using System.Collections.Generic;
 using MacroTools.Extensions;
 using MacroTools.FactionSystem;
+using MacroTools.ObjectiveSystem.Objectives.FactionBased;
+using MacroTools.ObjectiveSystem.Objectives.TimeBased;
+using MacroTools.ObjectiveSystem.Objectives.UnitBased;
 using MacroTools.QuestSystem;
-using MacroTools.QuestSystem.UtilityStructs;
-using MacroTools.Wrappers;
 using WCSharp.Shared.Data;
 using static War3Api.Common;
 
@@ -24,7 +25,7 @@ namespace WarcraftLegacies.Source.Quests.Warsong
       AddObjective(new ObjectiveSelfExists());
       ResearchId = FourCC("R05R");
 
-      foreach (var unit in new GroupWrapper().EnumUnitsInRect(rescueRect).EmptyToList())
+      foreach (var unit in CreateGroup().EnumUnitsInRect(rescueRect).EmptyToList())
         if (GetOwningPlayer(unit) == Player(PLAYER_NEUTRAL_PASSIVE))
         {
           SetUnitInvulnerable(unit, true);
@@ -32,7 +33,7 @@ namespace WarcraftLegacies.Source.Quests.Warsong
         }
     }
 
-    protected override string CompletionPopup => "Control of all units in Orgrimmar, able to train Varok";
+    protected override string RewardFlavour => "Control of all units in Orgrimmar, able to train Varok";
 
     protected override string RewardDescription => "Control of all units in Orgrimmar, able to train Varok";
 

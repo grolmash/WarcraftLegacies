@@ -1,4 +1,5 @@
-using MacroTools.FactionSystem;
+using MacroTools.Extensions;
+using MacroTools.LegendSystem;
 using WCSharp.Events;
 using static War3Api.Common;
 
@@ -15,10 +16,10 @@ namespace WarcraftLegacies.Source.GameLogic
     /// </summary>
     public static void Setup()
     {
-      PlayerUnitEvents.Register(PlayerUnitEvent.HeroTypeFinishesRevive, () =>
+      PlayerUnitEvents.Register(HeroTypeEvent.FinishesRevive, () =>
       {
         var triggerUnit = GetTriggerUnit();
-        var revivedLegend = Legend.GetFromUnit(triggerUnit);
+        var revivedLegend = LegendaryHeroManager.GetFromUnit(triggerUnit);
         if (revivedLegend?.HasCustomColor == true)
         {
           SetUnitColor(triggerUnit, revivedLegend.PlayerColor);

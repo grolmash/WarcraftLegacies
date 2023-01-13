@@ -3,8 +3,10 @@ using MacroTools.QuestSystem;
 using System.Collections.Generic;
 using static War3Api.Common;
 using MacroTools.Extensions;
-using MacroTools.QuestSystem.UtilityStructs;
 using MacroTools.ControlPointSystem;
+using MacroTools.ObjectiveSystem.Objectives.ControlPointBased;
+using MacroTools.ObjectiveSystem.Objectives.FactionBased;
+using MacroTools.ObjectiveSystem.Objectives.TimeBased;
 
 namespace WarcraftLegacies.Source.Quests.Gilneas
 {
@@ -20,8 +22,8 @@ namespace WarcraftLegacies.Source.Quests.Gilneas
     /// </summary>
     public QuestKeelHarbor() : base("Keel Harbor", "The final village is the coastal harbor near the capital.", "ReplaceableTextures\\CommandButtons\\BTNGilneasShipyard.blp")
     {
-      AddObjective(new ObjectiveControlPoint(ControlPointManager.GetFromUnitType(Constants.UNIT_N08X_KEEL_HARBOR_10GOLD_MIN)));
-      AddObjective(new ObjectiveControlPoint(ControlPointManager.GetFromUnitType(Constants.UNIT_N031_DUSKHAVEN_20GOLD_MIN)));
+      AddObjective(new ObjectiveControlPoint(ControlPointManager.Instance.GetFromUnitType(Constants.UNIT_N08X_KEEL_HARBOR_10GOLD_MIN)));
+      AddObjective(new ObjectiveControlPoint(ControlPointManager.Instance.GetFromUnitType(Constants.UNIT_N031_DUSKHAVEN_20GOLD_MIN)));
       AddObjective(new ObjectiveExpire(1200));
       AddObjective(new ObjectiveSelfExists());
       _rescueUnits = Regions.GilneasUnlock3.PrepareUnitsForRescue(RescuePreparationMode.HideNonStructures);
@@ -29,7 +31,7 @@ namespace WarcraftLegacies.Source.Quests.Gilneas
     }
 
     /// <inheritdoc/>
-    protected override string CompletionPopup => "Keel Harbor has been liberated.";
+    protected override string RewardFlavour => "Keel Harbor has been liberated.";
 
     /// <inheritdoc/>
     protected override string RewardDescription => "Control of all buildings in Keel Harbor.";

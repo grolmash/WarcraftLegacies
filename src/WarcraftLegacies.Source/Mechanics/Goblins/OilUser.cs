@@ -1,7 +1,5 @@
 ﻿using System;
-using MacroTools.Buffs;
 using MacroTools.Extensions;
-using MacroTools.FactionSystem;
 using MacroTools.PassiveAbilitySystem;
 using MacroTools.Powers;
 using WCSharp.Buffs;
@@ -14,18 +12,21 @@ namespace WarcraftLegacies.Source.Mechanics.Goblins
   /// </summary>
   public sealed class OilUser : PassiveAbility
   {
+    /// <inheritdoc />
     public OilUser(int unitTypeId) : base(unitTypeId)
     {
     }
 
+    /// <inheritdoc />
     public override void OnCreated(unit createdUnit)
     {
       var owningFaction = createdUnit.OwningPlayer().GetFaction();
       var oilPower = owningFaction?.GetPowerByType<OilPower>();
       if (oilPower == null)
       {
+        var unitPosition = createdUnit.GetPosition();
         throw new Exception(
-          $"Oil user {GetUnitName(GetTriggerUnit())} was created but owning faction {owningFaction?.Name} doesn't have a power that stores oil.");
+          $"Oil user {GetUnitName(createdUnit)} at ({unitPosition.X}, {unitPosition.Y}) was created but owning player {owningFaction?.Name ?? GetPlayerName(createdUnit.OwningPlayer())} doesn't have a power that stores oil.");
       }
 
       var oilBuff = new OilUserBuff(createdUnit, oilPower);

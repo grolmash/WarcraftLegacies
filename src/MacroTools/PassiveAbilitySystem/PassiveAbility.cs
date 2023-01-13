@@ -53,6 +53,13 @@ namespace MacroTools.PassiveAbilitySystem
     }
     
     /// <summary>
+    /// Fired when the unit starts the effect of a spell.
+    /// </summary>
+    public virtual void OnSpellEffect()
+    {
+    }
+    
+    /// <summary>
     /// Fired when a unit of the matching unit type finishes being constructed.
     /// </summary>
     public virtual void OnConstruction()
@@ -78,6 +85,13 @@ namespace MacroTools.PassiveAbilitySystem
     /// Fired when the unit trains another unit from itself.
     /// </summary>
     public virtual void OnTrainedUnit()
+    {
+    }
+
+    /// <summary>
+    /// Fired when the unit cancels a research.
+    /// </summary>
+    public virtual void OnCancelUpgrade()
     {
     }
 

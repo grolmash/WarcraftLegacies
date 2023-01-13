@@ -43,17 +43,17 @@ namespace MacroTools.Powers
 
     /// <inheritdoc />
     public override void OnRemove(player whichPlayer) => 
-      PlayerUnitEvents.Unregister(CustomPlayerUnitEvents.PlayerDealsDamage, GetPlayerId(whichPlayer));
+      PlayerUnitEvents.Unregister(CustomPlayerUnitEvents.PlayerDealsDamage, OnDamage, GetPlayerId(whichPlayer));
 
     private void OnDamage()
     {
       if (!BlzGetEventIsAttack() || (ValidUnitTypes != null && !ValidUnitTypes.Contains(GetEventDamageSource().GetTypeId()))) 
         return;
 
-      if (!IsHeroUnitId(GetEventDamageSource().GetTypeId()) && GetRandomReal(0, 1) < _damageChance)
+      if (!IsHeroUnitId(GetEventDamageSource().GetTypeId()) && !(GetRandomReal(0, 1) < _damageChance)) 
         return;
       
-      GetTriggerUnit().Damage(GetEventDamageSource(), _damageDealt, ATTACK_TYPE_MAGIC);
+      GetTriggerUnit().TakeDamage(GetEventDamageSource(), _damageDealt);
       AddSpecialEffect(Effect, GetUnitX(GetTriggerUnit()), GetUnitY(GetTriggerUnit()))
         .SetLifespan(1);
     }

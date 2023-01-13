@@ -2,8 +2,11 @@
 using MacroTools.ControlPointSystem;
 using MacroTools.Extensions;
 using MacroTools.FactionSystem;
+using MacroTools.ObjectiveSystem.Objectives.ControlPointBased;
+using MacroTools.ObjectiveSystem.Objectives.FactionBased;
+using MacroTools.ObjectiveSystem.Objectives.TimeBased;
+using MacroTools.ObjectiveSystem.Objectives.UnitBased;
 using MacroTools.QuestSystem;
-using MacroTools.QuestSystem.UtilityStructs;
 using WCSharp.Shared.Data;
 using static War3Api.Common;
 
@@ -24,12 +27,12 @@ namespace WarcraftLegacies.Source.Quests.Stormwind
     /// <param name="rescueRect">Units in this area will be made invulnerable, then rescued when the quest is completed.</param>
     public QuestStormwindCity(Rectangle rescueRect) : base("Clear the Outskirts",
       "The outskirts of Stormwind are infested by evil creatures. Kill their leaders and regain control of the Towns.",
-      "ReplaceableTextures\\CommandButtons\\BTNNobbyMansionCastle.blp")
+      "ReplaceableTextures\\CommandButtons\\BTNStormwindCastle.blp")
     {
-      AddObjective(new ObjectiveControlPoint(ControlPointManager.GetFromUnitType(Constants.UNIT_N00V_DUSKWOOD_10GOLD_MIN)));
-      AddObjective(new ObjectiveControlPoint(ControlPointManager.GetFromUnitType(Constants.UNIT_N00Z_ELWYNN_FOREST_20GOLD_MIN)));
-      AddObjective(new ObjectiveControlPoint(ControlPointManager.GetFromUnitType(Constants.UNIT_N011_REDRIDGE_MOUNTAINS_10GOLD_MIN)));
-      AddObjective(new ObjectiveUpgrade(Constants.UNIT_H06N_CASTLE_STORMWIND, Constants.UNIT_H06K_TOWN_HALL_STORMWIND));
+      AddObjective(new ObjectiveControlPoint(ControlPointManager.Instance.GetFromUnitType(Constants.UNIT_N00V_DUSKWOOD_10GOLD_MIN)));
+      AddObjective(new ObjectiveControlPoint(ControlPointManager.Instance.GetFromUnitType(Constants.UNIT_N00Z_ELWYNN_FOREST_20GOLD_MIN)));
+      AddObjective(new ObjectiveControlPoint(ControlPointManager.Instance.GetFromUnitType(Constants.UNIT_N011_REDRIDGE_MOUNTAINS_10GOLD_MIN)));
+      AddObjective(new ObjectiveUpgrade(Constants.UNIT_H06N_CASTLE_STORMWIND_T3, Constants.UNIT_H06K_TOWN_HALL_STORMWIND_T1));
       AddObjective(new ObjectiveExpire(1020));
       AddObjective(new ObjectiveSelfExists());
       _rescueUnits = rescueRect.PrepareUnitsForRescue(RescuePreparationMode.HideNonStructures);
@@ -39,7 +42,7 @@ namespace WarcraftLegacies.Source.Quests.Stormwind
 
     //Todo: bad flavour
     /// <inheritdoc />
-    protected override string CompletionPopup =>
+    protected override string RewardFlavour =>
       "Stormwind has been liberated, and its military is now free to assist the Alliance.";
 
     /// <inheritdoc />

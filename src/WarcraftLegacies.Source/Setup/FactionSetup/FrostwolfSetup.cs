@@ -16,15 +16,16 @@ namespace WarcraftLegacies.Source.Setup.FactionSetup
         "ReplaceableTextures\\CommandButtons\\BTNThrall.blp")
       {
         UndefeatedResearch = Constants.UPGRADE_R05V_FROSTWOLF_EXISTS,
-        StartingGold = 150,
+        StartingGold = 200,
         StartingLumber = 500,
         CinematicMusic = "SadMystery",
+        ControlPointDefenderUnitTypeId = Constants.UNIT_N0B6_CONTROL_POINT_DEFENDER_FROSTWOLF,
         IntroText = @"You are playing as the honorable |cffff0000Frostwolf Clan|r.
 
-You have been shipwrecked. Gather enough resources to sail South-West to Kalimdor. Until you reach Kalimdor, you will be unable to train any more peons or research new tech. 
+You begin in the Salt Flats, separated from your ally, the Warsong Clan in the North.
 
-Once you land, you will find a Tauren caravan with a Great Hall packed in it's inventory. 
-Escort the kodo to Thunderbluff, where you will find a goldmine waiting for you."
+Salvage the wrecked ships, establish a base and gather your troops to move inland and assist your ally against the Night Elf threat."
+
       };
 
       Frostwolf.ModObjectLimit(Constants.UNIT_OGRE_GREAT_HALL_FROSTWOLF, Faction.UNLIMITED);
@@ -37,9 +38,10 @@ Escort the kodo to Thunderbluff, where you will find a goldmine waiting for you.
       Frostwolf.ModObjectLimit(Constants.UNIT_OSLD_SPIRIT_LODGE_FROSTWOLF, Faction.UNLIMITED);
       Frostwolf.ModObjectLimit(Constants.UNIT_OTRB_BURROW_FROSTWOLF, Faction.UNLIMITED);
       Frostwolf.ModObjectLimit(Constants.UNIT_OWTW_WATCH_TOWER_FROSTWOLF, Faction.UNLIMITED);
-      Frostwolf.ModObjectLimit(Constants.UNIT_O002_IMPROVED_WATCH_TOWER_FROSTWOLF, Faction.UNLIMITED);
+      Frostwolf.ModObjectLimit(Constants.UNIT_O002_IMPROVED_WATCH_TOWER_FROSTWOLF_TOWER_2, Faction.UNLIMITED);
       Frostwolf.ModObjectLimit(Constants.UNIT_OVLN_VOODOO_LOUNGE_FROSTWOLF, Faction.UNLIMITED);
       Frostwolf.ModObjectLimit(Constants.UNIT_OSHY_HORDE_PIER_FROSTWOLF, Faction.UNLIMITED);
+      Frostwolf.ModObjectLimit(Constants.UNIT_OOSC_PACK_KODO_FROSTWOLF, Faction.UNLIMITED);
 
       Frostwolf.ModObjectLimit(FourCC("opeo"), Faction.UNLIMITED); //Peon
       Frostwolf.ModObjectLimit(FourCC("ogru"), Faction.UNLIMITED); //Grunt
@@ -52,9 +54,16 @@ Escort the kodo to Thunderbluff, where you will find a goldmine waiting for you.
       Frostwolf.ModObjectLimit(FourCC("ospw"), Faction.UNLIMITED); //Spirit Walker
       Frostwolf.ModObjectLimit(FourCC("o00A"), 6); //Far Seer
       Frostwolf.ModObjectLimit(FourCC("obot"), Faction.UNLIMITED); //Transport Ship
-      Frostwolf.ModObjectLimit(FourCC("odes"), Faction.UNLIMITED); //Orc Frigate
-      Frostwolf.ModObjectLimit(FourCC("oosc"), Faction.UNLIMITED); //Pack Kodo
-      Frostwolf.ModObjectLimit(FourCC("ojgn"), 6); //Juggernaught
+
+      //Ship
+      Frostwolf.ModObjectLimit(FourCC("obot"), Faction.UNLIMITED); //Transport Ship
+      Frostwolf.ModObjectLimit(FourCC("h0AS"), Faction.UNLIMITED); //Scout
+      Frostwolf.ModObjectLimit(FourCC("h0AP"), Faction.UNLIMITED); //Frigate
+      Frostwolf.ModObjectLimit(FourCC("h0B2"), Faction.UNLIMITED); //Fireship
+      Frostwolf.ModObjectLimit(FourCC("h0AY"), Faction.UNLIMITED); //Galley
+      Frostwolf.ModObjectLimit(FourCC("h0B5"), Faction.UNLIMITED); //Boarding
+      Frostwolf.ModObjectLimit(FourCC("h0BC"), Faction.UNLIMITED); //Juggernaut
+      Frostwolf.ModObjectLimit(FourCC("h0AO"), 6); //Bombard
 
       Frostwolf.ModObjectLimit(FourCC("h00C"), 1); //Drek)thar
       Frostwolf.ModObjectLimit(FourCC("Othr"), 1); //Thrall
@@ -81,12 +90,10 @@ Escort the kodo to Thunderbluff, where you will find a goldmine waiting for you.
       Frostwolf.ModAbilityAvailability(Constants.ABILITY_A0M4_BATTLE_STATIONS_PINK_GREY_ORC_BURROW_BLOODPACT, -1);
       Frostwolf.ModAbilityAvailability(Constants.ABILITY_ABTL_BATTLE_STATIONS_FROSTWOLF_WARSONG_BURROW, 1);
       
-      Frostwolf.AddGoldMine(preplacedUnitSystem.GetUnit(FourCC("ngol"), new Point(-1789, -1697)));
-      Frostwolf.AddGoldMine(preplacedUnitSystem.GetUnit(FourCC("ngol"), new Point(-14466, -4703)));
-
-      FrostwolftructurePackingConfig.Setup();
-      FrostwolfStructurePackingInit.Setup();
+      Frostwolf.AddGoldMine(preplacedUnitSystem.GetUnit(FourCC("ngol"), new Point(-8793, -11350)));
+      Frostwolf.AddGoldMine(preplacedUnitSystem.GetUnit(FourCC("ngol"), new Point(-14457, -4701)));
       
+      FrostwolfStructurePackingConfig.Setup();
       FactionManager.Register(Frostwolf);
     }
   }

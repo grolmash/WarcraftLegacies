@@ -1,5 +1,7 @@
-﻿using MacroTools.QuestSystem;
-using MacroTools.QuestSystem.UtilityStructs;
+﻿using MacroTools.ObjectiveSystem.Objectives;
+using MacroTools.ObjectiveSystem.Objectives.TimeBased;
+using MacroTools.ObjectiveSystem.Objectives.UnitBased;
+using MacroTools.QuestSystem;
 using static War3Api.Common;
 
 namespace TestMap.Source.Quests
@@ -16,6 +18,6 @@ namespace TestMap.Source.Quests
     
     protected override string RewardDescription => "The Tomb of Sargeras has been opened.";
 
-    protected override string CompletionPopup => "The Tomb of Sargeras has been opened.";
+    protected override string RewardFlavour => "The Tomb of Sargeras has been opened.";
   }
 }

@@ -1,15 +1,20 @@
-using MacroTools;
+﻿using MacroTools;
+using MacroTools.ControlPointSystem;
 using MacroTools.Mechanics;
 using MacroTools.PassiveAbilitySystem;
 using MacroTools.UserInterface;
+using WarcraftLegacies.Source.ArtifactBehaviour;
 using WarcraftLegacies.Source.GameLogic;
 using WarcraftLegacies.Source.GameLogic.GameEnd;
-using WarcraftLegacies.Source.Hints;
+using WarcraftLegacies.Source.Mechanics.Frostwolf;
+using WarcraftLegacies.Source.Mechanics.Neutral;
 using WarcraftLegacies.Source.Mechanics.Quelthalas;
+using WarcraftLegacies.Source.Mechanics.Scourge;
 using WarcraftLegacies.Source.Mechanics.Scourge.Blight;
 using WarcraftLegacies.Source.Rocks;
 using WarcraftLegacies.Source.Setup.FactionSetup;
 using WarcraftLegacies.Source.UnitTypes;
+using static War3Api.Common;
 
 namespace WarcraftLegacies.Source.Setup
 {
@@ -23,19 +28,34 @@ namespace WarcraftLegacies.Source.Setup
     /// </summary>
     public static void Setup()
     {
+      ControlPointManager.Instance = new ControlPointManager
+      {
+        MaxHitpoints = 1600,
+        IncreaseControlLevelAbilityTypeId = Constants.ABILITY_A0A8_FORTIFY_CONTROL_POINTS_SHARED,
+        ControlLevelSettings = new ControlLevelSettings
+        {
+          DefaultDefenderUnitTypeId = Constants.UNIT_H03W_CONTROL_POINT_DEFENDER_LORDAERON,
+          DamageBase = 12,
+          DamagePerControlLevel = 1,
+          ArmorPerControlLevel = 1,
+          HitPointsPerControlLevel = 80,
+          ControlLevelMaximum = 20
+        }
+      };
       var preplacedUnitSystem = new PreplacedUnitSystem();
       SoundLibrary.Setup();
-      AllLegendSetup.Setup(preplacedUnitSystem);
+      var artifactSetup = new ArtifactSetup(preplacedUnitSystem);
+      AllLegendSetup.Setup(preplacedUnitSystem, artifactSetup);
       ShoreSetup.Setup();
       ControlPointSetup.Setup();
       InstanceSetup.Setup(preplacedUnitSystem);
       TeamSetup.Setup();
-      AllFactionSetup.Setup(preplacedUnitSystem);
+      AllFactionSetup.Setup(preplacedUnitSystem, artifactSetup);
+      SharedFactionConfigSetup.Setup();
       PlayerSetup.Setup();
       NeutralHostileSetup.Setup();
-      ArtifactSetup.Setup(preplacedUnitSystem);
-      AllQuestSetup.Setup(preplacedUnitSystem);
-      ObserverSetup.Setup();
+      AllQuestSetup.Setup(preplacedUnitSystem, artifactSetup);
+      ObserverSetup.Setup(new[] { Player(21) });
       SpellsSetup.Setup();
       CheatSetup.Setup();
       CommandSetup.Setup();
@@ -45,12 +65,12 @@ namespace WarcraftLegacies.Source.Setup
       FactionMultiboard.Setup();
       BookSetup.Setup();
       HintConfig.Setup();
-      WaygateManager.Setup(Constants.UNIT_N0AO_WAY_GATE_DALARAN);
+      WaygateManager.Setup(Constants.UNIT_N0AO_WAY_GATE_DALARAN_OTHER);
       BlightSystem.Setup(ScourgeSetup.Scourge);
       BlightSetup.Setup(preplacedUnitSystem);
       QuestMenuSetup.Setup();
       CinematicMode.Start(59);
-      DialogueSetup.Setup();
+      DialogueSetup.Setup(preplacedUnitSystem);
       DisplayIntroText.Setup(10);
       GameSettings.Setup();
       InfoQuests.Setup();
@@ -65,7 +85,6 @@ namespace WarcraftLegacies.Source.Setup
       ShipyardBanZones.Setup(new[]
       {
         Regions.CaerDarrowShipyard,
-        Regions.InstanceNazjatar,
         Regions.Arathi_Ships,
         Regions.Auberdine_Ships,
         Regions.Kali_Ships,
@@ -75,8 +94,6 @@ namespace WarcraftLegacies.Source.Setup
         Regions.Auberdine_Ships_2,
         Regions.Outland_Ships,
         Regions.Northern_Kali_Ships,
-        Regions.Scholo_Ships,
-        Regions.DalaranDungeon,
         Regions.Stromwind_antiship,
         Regions.StratholmeShipyard,
         Regions.Gilneas_Canals,
@@ -87,17 +104,10 @@ namespace WarcraftLegacies.Source.Setup
         Regions.South_EK_Ships,
         Regions.IcecrownShipyard,
         Regions.Loch_Modan_Ships,
-        Regions.Tomb_Of_Sargeras_Ships,
         Regions.Quel_Ships_1,
         Regions.Quel_Ships_2,
         Regions.Quel_Ships_3
       });
-      //Todo: uncomment below
-      // foreach (var player in WCSharp.Shared.Util.EnumeratePlayers())
-      // {
-      //   var newFogModifier = CreateFogModifierRect(player, FOG_OF_WAR_VISIBLE, Regions.MercTavern, true, true);
-      //   FogModifierStart(newFogModifier);
-      // }
       BlockerSetup.Setup();
       NeutralVictimAndPassiveSetup.Setup();
       GateSetup.Setup();
@@ -113,6 +123,16 @@ namespace WarcraftLegacies.Source.Setup
       IncompatibleResearchSetup.Setup();
       DemonGateSetup.Setup();
       SummonRallyPoints.Setup();
+      RemoveUnusedAreas.Run();
+      EyeOfSargerasCooldowns.Setup();
+      CapturableUnitSetup.Setup(preplacedUnitSystem);
+      GilneasGateTowers.Setup(preplacedUnitSystem);
+      EyeOfSargerasPickup.Setup();
+      SacrificeAcolyte.Setup();
+      IntegrityChecker.Setup(true);
+      PeonsStartHarvestingShips.Setup(preplacedUnitSystem);
+      DarkPortalControlNexusSetup.Setup(preplacedUnitSystem);
+      BlackPortalControlNexusSetup.Setup(preplacedUnitSystem);
     }
   }
 }

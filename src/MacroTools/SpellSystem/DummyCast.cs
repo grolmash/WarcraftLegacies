@@ -1,4 +1,4 @@
-using MacroTools.Wrappers;
+using MacroTools.Extensions;
 using WCSharp.Shared.Data;
 using static War3Api.Common;
 
@@ -15,10 +15,10 @@ namespace MacroTools.SpellSystem
 
     public static void ChannelOnPoint(unit caster, int abilityId, string orderId, int level, Point targetPoint, float duration)
     {
-      var u = CreateUnit(GetOwningPlayer(caster), DummyCaster.UnitTypeId, targetPoint.X, targetPoint.Y, 0);
-      UnitAddAbility(u, abilityId);
-      IssueImmediateOrder(u, orderId);
-      UnitApplyTimedLife(u, FourCC("BLTF"), duration);
+      CreateUnit(GetOwningPlayer(caster), DummyCaster.UnitTypeId, targetPoint.X, targetPoint.Y, 0)
+        .AddAbility(abilityId)
+        .IssueOrder(orderId)
+        .SetTimedLife(duration);
     }
     
     public static void DummyChannelInstantFromPoint(player whichPlayer, int abilId, string orderId, int level,
@@ -30,15 +30,19 @@ namespace MacroTools.SpellSystem
       UnitApplyTimedLife(u, FourCC("BTLF"), duration);
     }
 
-    public static void DummyCastUnit(player whichPlayer, int abilId, string orderId, int level, unit u)
+    /// <summary>
+    /// Causes the specified ability to be cast from the specified object at the specified target.
+    /// </summary>
+    public static void DummyCastUnit(unit caster, int abilId, string orderId, int level, unit target, DummyCastOriginType originType)
     {
-      SetUnitOwner(DummyCaster.DummyUnit, whichPlayer, false);
-      SetUnitX(DummyCaster.DummyUnit, GetUnitX(u));
-      SetUnitY(DummyCaster.DummyUnit, GetUnitY(u));
-      UnitAddAbility(DummyCaster.DummyUnit, abilId);
-      SetUnitAbilityLevel(DummyCaster.DummyUnit, abilId, level);
-      IssueTargetOrder(DummyCaster.DummyUnit, orderId, u);
-      UnitRemoveAbility(DummyCaster.DummyUnit, abilId);
+      var originPoint = originType == DummyCastOriginType.Caster ? caster.GetPosition() : target.GetPosition();
+      DummyCaster.DummyUnit
+        .SetOwner(caster.OwningPlayer())
+        .SetPosition(originPoint)
+        .AddAbility(abilId)
+        .SetAbilityLevel(abilId, level)
+        .IssueOrder(orderId, target)
+        .RemoveAbility(abilId);
     }
 
     public static void DummyCastPoint(player whichPlayer, int abilId, string orderId, int level, float x, float y)
@@ -109,13 +113,13 @@ namespace MacroTools.SpellSystem
     }
 
     public static void DummyCastOnUnitsInCircle(unit caster, int abilId, string orderId, int level, Point center,
-      float radius, CastFilter castFilter)
+      float radius, CastFilter castFilter, DummyCastOriginType originType)
     {
-      foreach (var target in new GroupWrapper()
+      foreach (var target in CreateGroup()
                  .EnumUnitsInRange(center, radius).EmptyToList()
                  .FindAll(unit => castFilter(caster, unit)))
       {
-        DummyCastUnit(GetOwningPlayer(caster), abilId, orderId, level, target);
+        DummyCastUnit(caster, abilId, orderId, level, target, originType);
       }
     }
   }

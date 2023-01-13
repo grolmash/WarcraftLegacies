@@ -1,8 +1,8 @@
 using MacroTools.ArtifactSystem;
 using MacroTools.Extensions;
 using MacroTools.FactionSystem;
+using MacroTools.ObjectiveSystem.Objectives.LegendBased;
 using MacroTools.QuestSystem;
-using MacroTools.QuestSystem.UtilityStructs;
 using WarcraftLegacies.Source.Setup.Legends;
 using static War3Api.Common;
 
@@ -14,12 +14,12 @@ namespace WarcraftLegacies.Source.Quests.Dalaran
       "Scholomance is home to a wide variety of profane artifacts. Bring Jaina there to see what might be discovered.",
       "ReplaceableTextures\\CommandButtons\\BTNSoulGem.blp")
     {
-      AddObjective(new ObjectiveLegendInRect(LegendDalaran.LegendJaina, Regions.Jaina_soul_gem, "Scholomance"));
-      AddObjective(new ObjectiveLegendDead(LegendForsaken.Scholomance));
+      AddObjective(new ObjectiveLegendInRect(LegendDalaran.LegendJaina, Regions.CaerDarrow, "Caer Darrow"));
+      AddObjective(new ObjectiveControlCapital(LegendNeutral.Caerdarrow, false));
     }
     
     /// <inheritdoc />
-    protected override string CompletionPopup =>
+    protected override string RewardFlavour =>
       "Jaina Proudmoore has discovered the Soul Gem within the ruined vaults at Scholomance.";
 
     /// <inheritdoc />

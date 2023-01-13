@@ -3,6 +3,7 @@ using MacroTools.PassiveAbilitySystem;
 using MacroTools.Spells;
 using MacroTools.SpellSystem;
 using WarcraftLegacies.Source.Setup.Spells;
+using WarcraftLegacies.Source.Spells;
 using static War3Api.Common;
 
 namespace WarcraftLegacies.Source.Setup
@@ -21,17 +22,6 @@ namespace WarcraftLegacies.Source.Setup
         SpecialEffect = @"Abilities\Spells\Orc\WarStomp\WarStompCaster.mdl"
       };
       SpellSystem.Register(warStompImmoltar);
-
-      var warStompKazzak = new Stomp(Constants.ABILITY_A0AW_WAR_STOMP_BLUE_DOOM_GUARD_TEAL_KAZZAK)
-      {
-        Radius = 300,
-        DamageBase = 25,
-        DurationBase = 3,
-        StunAbilityId = FourCC("A0WN"),
-        StunOrderString = "thunderbolt",
-        SpecialEffect = @"Abilities\Spells\Orc\WarStomp\WarStompCaster.mdl"
-      };
-      SpellSystem.Register(warStompKazzak);
 
       var thunderClap = new Stomp(FourCC("A0QC"))
       {
@@ -80,7 +70,8 @@ namespace WarcraftLegacies.Source.Setup
         DummyAbilityOrderString = "thunderbolt",
         Radius = 250,
         CastFilter = CastFilters.IsTargetEnemyAndAlive,
-        TargetType = SpellTargetType.Point
+        TargetType = SpellTargetType.Point,
+        DummyCastOriginType = DummyCastOriginType.Caster
       };
       SpellSystem.Register(scattershot);
 
@@ -130,15 +121,12 @@ namespace WarcraftLegacies.Source.Setup
       };
       SpellSystem.Register(massSimulacrum);
 
-      var bombingRun = new ChannelAnySpell(Constants.ABILITY_A0S1_BOMBING_RUN_DARK_GREEN)
+      var bombingRun = new ChannelAnySpell(Constants.ABILITY_A0S5_BOMBING_RUN_STORMWIND_DUMMY)
       {
-        DummyAbilityId = FourCC("A0S1"),
+        DummyAbilityId = Constants.ABILITY_A0S1_BOMBING_RUN_STORMWIND,
         DummyAbilityOrderString = "locustswarm"
       };
       SpellSystem.Register(bombingRun);
-
-      var executeWarsong = new Execute(Constants.UNIT_O021_RAVAGER_WARSONG);
-      PassiveAbilityManager.Register(executeWarsong);
 
       var maievVengeance = new Vengeance(Constants.UNIT_EWRD_LEADER_OF_THE_WATCHERS_SENTINELS,
         Constants.ABILITY_A017_TAKE_VENGEANCE_SENTINELS_MAIEV)
@@ -182,7 +170,7 @@ namespace WarcraftLegacies.Source.Setup
       };
       SpellSystem.Register(stormEarthandFire);
       //Todo: inappropriately named
-      var manaSyphon = new GrantMana(Constants.ABILITY_A0RG_MANA_SYPHON_ARATHOR_MAGE_TOWER)
+      var manaSyphon = new GrantMana(Constants.ABILITY_A0RG_MANA_SYPHON_STORMWIND_MAGE_TOWER)
       {
         ManaToGrant = 250
       };
@@ -194,44 +182,11 @@ namespace WarcraftLegacies.Source.Setup
       var overclock = new CooldownReset(Constants.ABILITY_A0RA_OVERCLOCK_GAZLOWEE);
       SpellSystem.Register(overclock);
 
-      var ascendance = new Ascendance(Constants.ABILITY_AEME_ASCENDANCE_TEAL_ZULUHED)
-      {
-        DurationBase = 15,
-        DurationLevel = 15,
-        HealBase = 50,
-        HealLevel = 100,
-        Radius = 600,
-        AbilitiesToRemove = new[]
-        {
-          Constants.ABILITY_HEAL_HEALING_WAVE_TEAL_ZULUHED,
-          Constants.ABILITY_A0B4_BLOODLUST_TOTEM_TEAL_ZULUHED,
-          Constants.ABILITY_AHAB_BRILLIANCE_AURA_ZULUHED_JAINA_MALFURION_VOL_JIN_JERGOSH,
-          Constants.ABILITY_AEME_ASCENDANCE_TEAL_ZULUHED
-        }
-      };
-      SpellSystem.Register(ascendance);
-
       var unholyArmor = new UnholyArmor(Constants.ABILITY_A0F8_UNHOLY_ARMOR_FEL_HORDE_FEL_WARLOCK)
       {
         PercentageDamage = 0.06f
       };
       SpellSystem.Register(unholyArmor);
-
-      PassiveAbilityManager.Register(new RegionRestricted(Constants.UNIT_H097_GUARD_POST_SCARLET,
-        new[]
-        {
-          Regions.HeartglenTaxe,
-          Regions.StrahnbradTaxe,
-          Regions.AndhoralTaxe,
-          Regions.TirisfalTaxe,
-          Regions.HavenshireTaxe,
-          Regions.CorinTaxe
-        }));
-
-      PassiveAbilityManager.Register(new ProvidesIncome(Constants.UNIT_H09N_PALISADE_FORT_SCARLET, 15));
-      PassiveAbilityManager.Register(new ProvidesIncome(Constants.UNIT_H09P_SCARLET_KEEP_SCARLET, 60));
-      PassiveAbilityManager.Register(new ProvidesIncome(Constants.UNIT_H09O_CRIMSON_CASTLE_SCARLET, 80));
-      PassiveAbilityManager.Register(new ProvidesIncome(Constants.UNIT_H09Q_ROYAL_FORTRESS_SCARLET, 100));
 
       var electricStrike = new ElectricStrike(Constants.ABILITY_A0RC_ELECTRIC_STRIKE_DARK_GREEN_WIZARD_S_SANCTUM)
       {
@@ -243,6 +198,10 @@ namespace WarcraftLegacies.Source.Setup
         Effect = "Abilities\\Spells\\Human\\Thunderclap\\ThunderClapCaster.mdl"
       };
       SpellSystem.Register(electricStrike);
+
+      SpellSystem.Register(new MakeCasterVulnerable(Constants.ABILITY_A00M_SCROLL_TELE));
+      SpellSystem.Register(new MakeCasterVulnerable(Constants.ABILITY_A0CS_VASSAL_SCROLL_TELE));
+      SpellSystem.Register(new MakeCasterVulnerable(Constants.ABILITY_A002_SCROLL_TELE_TOWN));
       
       FrostwolfSpellSetup.Setup();
       LegionSpellSetup.Setup();
@@ -254,9 +213,12 @@ namespace WarcraftLegacies.Source.Setup
       QuelthalasSpellSetup.Setup();
       KulTirasSpellSetup.Setup();
       StormwindSpellSetup.Setup();
-      ForsakenSpellSetup.Setup();
       DragonmawSpellSetup.Setup();
       IllidariSpellSetup.Setup();
+      FelHordeSpellSetup.Setup();
+      DraeneiSpellSetup.Setup();
+      WarsongSpellSetup.Setup();
+      IronforgeSpellSetup.Setup();
     }
   }
 }

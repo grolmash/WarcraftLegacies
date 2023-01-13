@@ -2,9 +2,11 @@
 using MacroTools.ControlPointSystem;
 using MacroTools.Extensions;
 using MacroTools.FactionSystem;
+using MacroTools.ObjectiveSystem.Objectives.ControlPointBased;
+using MacroTools.ObjectiveSystem.Objectives.FactionBased;
+using MacroTools.ObjectiveSystem.Objectives.LegendBased;
+using MacroTools.ObjectiveSystem.Objectives.TimeBased;
 using MacroTools.QuestSystem;
-using MacroTools.QuestSystem.UtilityStructs;
-using MacroTools.Wrappers;
 using WarcraftLegacies.Source.Setup.Legends;
 using WCSharp.Shared.Data;
 using static War3Api.Common;
@@ -27,13 +29,13 @@ namespace WarcraftLegacies.Source.Quests.Dragonmaw
       _waygateA = waygateA;
       _waygateB = waygateB;
       AddObjective(new ObjectiveLegendDead(LegendNeutral.Vaelastrasz));
-      AddObjective(new ObjectiveControlPoint(ControlPointManager.GetFromUnitType(FourCC("n03X"))));
-      AddObjective(new ObjectiveControlPoint(ControlPointManager.GetFromUnitType(FourCC("n09F"))));
+      AddObjective(new ObjectiveControlPoint(ControlPointManager.Instance.GetFromUnitType(FourCC("n03X"))));
+      AddObjective(new ObjectiveControlPoint(ControlPointManager.Instance.GetFromUnitType(FourCC("n09F"))));
       AddObjective(new ObjectiveExpire(480));
       AddObjective(new ObjectiveSelfExists());
       ResearchId = Constants.UPGRADE_R06Y_QUEST_COMPLETED_THE_CURSED_FORTRESS;
 
-      foreach (var unit in new GroupWrapper().EnumUnitsInRect(rescueRect).EmptyToList())
+      foreach (var unit in CreateGroup().EnumUnitsInRect(rescueRect).EmptyToList())
         if (GetOwningPlayer(unit) == Player(PLAYER_NEUTRAL_PASSIVE))
         {
           SetUnitInvulnerable(unit, true);
@@ -44,7 +46,7 @@ namespace WarcraftLegacies.Source.Quests.Dragonmaw
     }
 
     //Todo: bad flavour
-    protected override string CompletionPopup =>
+    protected override string RewardFlavour =>
       "Grim Batol is now under our control, and its military is now free to assist the Dragonmaw.";
 
     protected override string RewardDescription =>

@@ -1,10 +1,9 @@
 using System.Collections.Generic;
-using MacroTools.ArtifactSystem;
 using MacroTools.Extensions;
 using MacroTools.FactionSystem;
+using MacroTools.ObjectiveSystem.Objectives.FactionBased;
+using MacroTools.ObjectiveSystem.Objectives.UnitBased;
 using MacroTools.QuestSystem;
-using MacroTools.QuestSystem.UtilityStructs;
-using MacroTools.Wrappers;
 using WCSharp.Shared.Data;
 using static War3Api.Common;
 
@@ -24,7 +23,7 @@ namespace WarcraftLegacies.Source.Quests.Stormwind
       AddObjective(_objectiveAnyUnitInRect);
       AddObjective(new ObjectiveSelfExists());
       ResearchId = Constants.UPGRADE_R01M_QUEST_COMPLETED_STROMGARDE_STORMWIND;
-      foreach (var unit in new GroupWrapper().EnumUnitsInRect(rescueRect).EmptyToList())
+      foreach (var unit in CreateGroup().EnumUnitsInRect(rescueRect).EmptyToList())
         if (GetOwningPlayer(unit) == Player(PLAYER_NEUTRAL_PASSIVE))
         {
           SetUnitInvulnerable(unit, true);
@@ -33,7 +32,7 @@ namespace WarcraftLegacies.Source.Quests.Stormwind
     }
 
     /// <inheritdoc />
-    protected override string CompletionPopup => "Galen Trollbane has pledged his forces to Stormwind's cause.";
+    protected override string RewardFlavour => "Galen Trollbane has pledged his forces to Stormwind's cause.";
 
     /// <inheritdoc />
     protected override string RewardDescription =>
@@ -42,14 +41,13 @@ namespace WarcraftLegacies.Source.Quests.Stormwind
     /// <inheritdoc />
     protected override void OnFail(Faction completingFaction)
     {
-      foreach (var unit in _rescueUnits) unit.Rescue(Player(PLAYER_NEUTRAL_AGGRESSIVE));
-      SetItemPosition(RegisterTrolkalar().Item, 140889, 12363);
+      foreach (var unit in _rescueUnits) 
+        unit.Rescue(Player(PLAYER_NEUTRAL_AGGRESSIVE));
     }
 
     /// <inheritdoc />
     protected override void OnComplete(Faction completingFaction)
     {
-      _objectiveAnyUnitInRect.CompletingUnit?.AddItemSafe(RegisterTrolkalar().Item);
       SetPlayerTechResearched(completingFaction.Player, ResearchId, 1);
       foreach (var unit in _rescueUnits) unit.Rescue(completingFaction.Player);
     }
@@ -59,16 +57,6 @@ namespace WarcraftLegacies.Source.Quests.Stormwind
     {
       whichFaction.ModObjectLimit(ResearchId, Faction.UNLIMITED);
       whichFaction.ModObjectLimit(HeroId, 1);
-    }
-
-    private static Artifact RegisterTrolkalar()
-    {
-      var artifactTrolkalar = new Artifact(CreateItem(Constants.ITEM_I01O_TROL_KALAR, 0, 0))
-      {
-        TitanforgedAbility = Constants.ABILITY_A0VM_TITANFORGED_9_STRENGTH
-      };
-      ArtifactManager.Register(artifactTrolkalar);
-      return artifactTrolkalar;
     }
   }
 }

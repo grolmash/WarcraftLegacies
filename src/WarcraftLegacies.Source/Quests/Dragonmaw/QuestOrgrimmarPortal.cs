@@ -2,8 +2,9 @@
 using MacroTools.Extensions;
 using MacroTools.FactionSystem;
 using MacroTools.QuestSystem;
-using MacroTools.QuestSystem.UtilityStructs;
 using System;
+using MacroTools.ObjectiveSystem.Objectives.LegendBased;
+using MacroTools.ObjectiveSystem.Objectives.QuestBased;
 using WarcraftLegacies.Source.Setup;
 using WarcraftLegacies.Source.Setup.Legends;
 using static War3Api.Common;
@@ -30,13 +31,13 @@ namespace WarcraftLegacies.Source.Quests.Dragonmaw
       _waygateDragonmawPort = waygateDragonmawPort;
 
       AddObjective(new ObjectiveCompleteQuest(prequel));
-      AddObjective(new ObjectiveControlLegend(LegendNeutral.GrimBatol, false));
+      AddObjective(new ObjectiveControlCapital(LegendNeutral.GrimBatol, false));
       waygateDragonmawPort.Show(false);
       Required = true;
     }
 
     /// <inheritdoc />
-    protected override string CompletionPopup =>
+    protected override string RewardFlavour =>
       "The portal to Kalimdor will open at turn 9! Once it does, hurry! it will only last for 60 seconds.";
 
     /// <inheritdoc />

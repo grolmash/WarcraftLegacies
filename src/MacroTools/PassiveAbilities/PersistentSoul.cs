@@ -1,7 +1,6 @@
 ﻿using System.Linq;
 using MacroTools.Extensions;
 using MacroTools.PassiveAbilitySystem;
-using MacroTools.Wrappers;
 using static War3Api.Common;
 
 namespace MacroTools.PassiveAbilities
@@ -47,26 +46,29 @@ namespace MacroTools.PassiveAbilities
     public override void OnDeath()
     {
       var caster = GetTriggerUnit();
-      foreach (var unit in new GroupWrapper().EnumUnitsInRange(caster.GetPosition(), Radius)
+      if (IsUnitType(caster, UNIT_TYPE_SUMMONED))
+        return;
+      foreach (var unit in CreateGroup().EnumUnitsInRange(caster.GetPosition(), Radius)
                  .EmptyToList()
-                 .Where(IsReanimationCandidate)
+                 .Where(x => IsReanimationCandidate(caster, x))
                  .OrderByDescending(x => x.GetLevel())
                  .Take(ReanimationCountLevel * GetUnitAbilityLevel(caster, _abilityTypeId)))
       {
-        Reanimate(unit);
+        Reanimate(caster.OwningPlayer(), unit);
       }
     }
 
-    private static bool IsReanimationCandidate(unit target)
+    private static bool IsReanimationCandidate(unit caster, unit target)
     {
       return !UnitAlive(target) 
              && !IsUnitType(target, UNIT_TYPE_MECHANICAL) 
              && !IsUnitType(target, UNIT_TYPE_STRUCTURE) 
              && !IsUnitType(target, UNIT_TYPE_HERO) 
-             && !IsUnitType(target, UNIT_TYPE_SUMMONED);
+             && !IsUnitType(target, UNIT_TYPE_SUMMONED)
+             && caster != target;
     }
     
-    private void Reanimate(unit whichUnit)
+    private void Reanimate(player castingPlayer, unit whichUnit)
     {
       var whichUnitPosition = whichUnit.GetPosition();
 
@@ -74,11 +76,13 @@ namespace MacroTools.PassiveAbilities
           GetUnitY(whichUnit))
         .SetLifespan();
 
-      var reanimatedUnit = CreateUnit(whichUnit.OwningPlayer(), whichUnit.GetTypeId(), whichUnitPosition.X,
+      var reanimatedUnit = CreateUnit(castingPlayer, whichUnit.GetTypeId(), whichUnitPosition.X,
           whichUnitPosition.Y, whichUnit.GetFacing())
         .SetTimedLife(Duration, BuffId)
         .SetColor(200, 50, 50, 255)
-        .SetExplodeOnDeath(true);
+        .SetExplodeOnDeath(true)
+        .AddType(UNIT_TYPE_UNDEAD)
+        .AddType(UNIT_TYPE_SUMMONED);
       
       whichUnit.Remove();
       

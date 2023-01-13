@@ -1,5 +1,5 @@
-﻿using MacroTools.QuestSystem;
-using MacroTools.QuestSystem.UtilityStructs;
+﻿using MacroTools.ObjectiveSystem.Objectives.TimeBased;
+using MacroTools.QuestSystem;
 using static War3Api.Common;
 
 namespace WarcraftLegacies.Source.Quests.Lordaeron
@@ -9,13 +9,13 @@ namespace WarcraftLegacies.Source.Quests.Lordaeron
   /// </summary>
   public sealed class QuestMograine : QuestData
   {
-    private const int AltarId = Constants.UNIT_HALT_ALTAR_OF_KINGS;
+    private const int AltarId = Constants.UNIT_HALT_ALTAR_OF_KINGS_LORDAERON_ALTAR;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="QuestMograine"/> class.
     /// </summary>
     public QuestMograine() : base("The Exile",
-      "The Lich King, looming over Northrend from Icecrown's peak, is the greatest threat Lordaeron has ever faced. He must be destroyed.",
+      "Mograine has been gone for a long time, if Lordaeron would be in great peril, he would surely come back to defend it!",
       "ReplaceableTextures\\CommandButtons\\BTNAlexandros.blp")
     {
       AddObjective(new ObjectiveTime(720));
@@ -23,8 +23,8 @@ namespace WarcraftLegacies.Source.Quests.Lordaeron
     }
 
     /// <inheritdoc/>
-    protected override string CompletionPopup =>
-      "With the Lich King eliminated, the Kingdom of Lordaeron is free of its greatest threat. Alexandros Mograine gains recognition as a champion of the war, and prepares himself to aid Lordaeron in future conflicts in a greater capacity.";
+    protected override string RewardFlavour =>
+      "With the threat of the Scourge and the Plague, Mograine has returned to help Lordaeorn in their dire times.";
 
     /// <inheritdoc/>
     protected override string RewardDescription =>

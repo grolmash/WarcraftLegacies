@@ -1,6 +1,7 @@
+using MacroTools.Extensions;
 using MacroTools.FactionSystem;
+using MacroTools.ObjectiveSystem.Objectives.LegendBased;
 using MacroTools.QuestSystem;
-using MacroTools.QuestSystem.UtilityStructs;
 using WarcraftLegacies.Source.Setup.Legends;
 using static War3Api.Common;
 
@@ -16,10 +17,10 @@ namespace WarcraftLegacies.Source.Quests.Dalaran
       "The Blue Dragons of Northrend are the wardens of magic on Azeroth. They might be convinced to willingly join the mages of Dalaran.",
       "ReplaceableTextures\\CommandButtons\\BTNAzureDragon.blp")
     {
-      AddObjective(new ObjectiveControlLegend(LegendNeutral.TheNexus, false));
+      AddObjective(new ObjectiveControlCapital(LegendNeutral.TheNexus, false));
     }
 
-    protected override string CompletionPopup =>
+    protected override string RewardFlavour =>
       "The Nexus has been captured. The Blue Dragonflight fights for Dalaran.";
 
     protected override string RewardDescription => "Learn to train Blue Dragons";

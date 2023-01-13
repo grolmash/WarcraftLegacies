@@ -13,17 +13,16 @@ namespace WarcraftLegacies.Source.Setup.FactionSetup
       Goblin = new Faction("Bilgewater", PLAYER_COLOR_LIGHT_GRAY, "|cff808080",
         "ReplaceableTextures\\CommandButtons\\BTNHeroTinker.blp")
       {
-        StartingGold = 150,
+        StartingGold = 200,
         StartingLumber = 500,
+        ControlPointDefenderUnitTypeId = Constants.UNIT_O01C_CONTROL_POINT_DEFENDER_GOBLIN,
         IntroText = @"You are playing as the industrious |cff808080Bilgewater Cartel|r.
 
-Early on you must rely on Traders for resources. 
-Build Trading Zeppelins for Lumber and Traders for Gold.
+You begin in Tanaris with a very small business venture. Expand onto Kalimdor to grow your trade empire.
 
-Some of your more advanced units and buildings require Fuel. Use the Kezan Oil Supply to discover and build new Oil Platforms and start accumulating it. Your global supply is indicated by the mana of the Kezan Oil Supply.
+Your advanced units require Oil to function. Use oil ships to find oil deposits in the Great Sea and build platforms on them.
 
-The Cataclysm is coming, and when it does your Trading Center and Traders will be destroyed. 
-Use your resources to raise an army strong enough to take land elsewhere."
+The Trading Center in Kezan will unlock the ability to train Traders. Be sure to protect the Trading Center once you unlock it, as it will form the backbone of your Goblin Empire."
       };
 
       Goblin.ModObjectLimit(FourCC("o03L"), Faction.UNLIMITED); //Great Hall
@@ -39,8 +38,17 @@ Use your resources to raise an army strong enough to take land elsewhere."
       Goblin.ModObjectLimit(FourCC("o03W"), Faction.UNLIMITED); //Improved Watch Tower
       Goblin.ModObjectLimit(FourCC("o03X"), Faction.UNLIMITED); //Voodoo Lounge
       Goblin.ModObjectLimit(FourCC("o03V"), Faction.UNLIMITED); //Shipyard
-      Goblin.ModObjectLimit(Constants.UNIT_O06G_OIL_RIG_CONSTRUCTOR_GOBLIN, Faction.UNLIMITED);
       Goblin.ModObjectLimit(FourCC("h011"), 1); //Artillery
+
+      //Ship
+      Goblin.ModObjectLimit(Constants.UNIT_O06G_OIL_RIG_CONSTRUCTOR_GOBLIN, Faction.UNLIMITED);
+      Goblin.ModObjectLimit(FourCC("h0AS"), Faction.UNLIMITED); //Scout
+      Goblin.ModObjectLimit(FourCC("h0AP"), Faction.UNLIMITED); //Frigate
+      Goblin.ModObjectLimit(FourCC("h0B2"), Faction.UNLIMITED); //Fireship
+      Goblin.ModObjectLimit(FourCC("h0AY"), Faction.UNLIMITED); //Galley
+      Goblin.ModObjectLimit(FourCC("h0B5"), Faction.UNLIMITED); //Boarding
+      Goblin.ModObjectLimit(FourCC("h0BC"), Faction.UNLIMITED); //Juggernaut
+      Goblin.ModObjectLimit(FourCC("h0AO"), 6); //Bombard
 
       Goblin.ModObjectLimit(Constants.UNIT_O02I_BUILDER_GOBLIN_WORKER, Faction.UNLIMITED);
       Goblin.ModObjectLimit(Constants.UNIT_N099_OGRE_MERCENARY_GOBLIN, Faction.UNLIMITED);
@@ -71,9 +79,10 @@ Use your resources to raise an army strong enough to take land elsewhere."
       {
         Name = "Oil Tycoon",
         IconName = "OilStation",
-        OilPoolCount = 10,
+        StartingOilPoolCount = 4,
+        MaximumOilPoolCount = 10,
         OilPoolMinimumValue = 1000,
-        OilPoolMaximumValue = 5000
+        OilPoolMaximumValue = 5000,
       };
       Goblin.AddPower(oilPower);
 

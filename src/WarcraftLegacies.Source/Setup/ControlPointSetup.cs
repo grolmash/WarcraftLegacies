@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using MacroTools.ControlPointSystem;
-using MacroTools.Wrappers;
+using MacroTools.Extensions;
 using static War3Api.Common;
 
 
@@ -22,12 +22,12 @@ namespace WarcraftLegacies.Source.Setup
     {
       foreach (var (unitTypeId, goldValue) in ControlPointValues)
         if (GetUnitAbilityLevel(unit, unitTypeId) > 0)
-          ControlPointManager.Register(new ControlPoint(unit, goldValue));
+          ControlPointManager.Instance.Register(new ControlPoint(unit, goldValue));
     }
 
     public static void Setup()
     {
-      foreach (var unit in new GroupWrapper().EnumUnitsInRect(WCSharp.Shared.Data.Rectangle.WorldBounds).EmptyToList())
+      foreach (var unit in CreateGroup().EnumUnitsInRect(WCSharp.Shared.Data.Rectangle.WorldBounds).EmptyToList())
         InitializeControlPoint(unit);
     }
   }

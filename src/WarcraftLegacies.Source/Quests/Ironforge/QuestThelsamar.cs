@@ -2,10 +2,10 @@
 using MacroTools;
 using MacroTools.Extensions;
 using MacroTools.FactionSystem;
+using MacroTools.ObjectiveSystem.Objectives.FactionBased;
+using MacroTools.ObjectiveSystem.Objectives.TimeBased;
+using MacroTools.ObjectiveSystem.Objectives.UnitBased;
 using MacroTools.QuestSystem;
-using MacroTools.QuestSystem.UtilityStructs;
-using MacroTools.Wrappers;
-using WarcraftLegacies.Source.Setup.Legends;
 using WCSharp.Shared.Data;
 using static War3Api.Common;
 
@@ -19,10 +19,10 @@ namespace WarcraftLegacies.Source.Quests.Ironforge
       "A vile group of Murloc is terrorizing Thelsamar. Destroy them!",
       "ReplaceableTextures\\CommandButtons\\BTNMurlocNightCrawler.blp")
     {
-      AddObjective(new ObjectiveLegendDead(LegendNeutral.MurlocSorc));
-      AddObjective(new ObjectiveExpire(420));
+      AddObjective(new ObjectiveUnitIsDead(preplacedUnitSystem.GetUnit(FourCC("N089"))));
+      AddObjective(new ObjectiveExpire(1020));
       AddObjective(new ObjectiveSelfExists());
-      foreach (var unit in new GroupWrapper().EnumUnitsInRect(rescueRect).EmptyToList())
+      foreach (var unit in CreateGroup().EnumUnitsInRect(rescueRect).EmptyToList())
         if (GetOwningPlayer(unit) == Player(PLAYER_NEUTRAL_PASSIVE))
         {
           SetUnitInvulnerable(unit, true);
@@ -31,7 +31,7 @@ namespace WarcraftLegacies.Source.Quests.Ironforge
       Required = true;
     }
 
-    protected override string CompletionPopup => "The Murlocs have been defeated, Thelsamar will join your cause.";
+    protected override string RewardFlavour => "The Murlocs have been defeated, Thelsamar will join your cause.";
 
     protected override string RewardDescription => "Control of all units in Thelsamar";
 

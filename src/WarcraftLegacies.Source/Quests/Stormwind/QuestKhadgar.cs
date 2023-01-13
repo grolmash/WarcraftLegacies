@@ -1,6 +1,6 @@
-using MacroTools.FactionSystem;
+﻿using MacroTools.FactionSystem;
+using MacroTools.ObjectiveSystem.Objectives.LegendBased;
 using MacroTools.QuestSystem;
-using MacroTools.QuestSystem.UtilityStructs;
 using WarcraftLegacies.Source.Setup.Legends;
 using static War3Api.Common;
 
@@ -17,11 +17,11 @@ namespace WarcraftLegacies.Source.Quests.Stormwind
       "At the end of the Second War, Khadgar remained in Draenor to seal the Dark Portal, effectively ending the conflict. He has been stranded deep in Outland ever since.",
       "ReplaceableTextures\\CommandButtons\\BTNMageWC2.blp")
     {
-      AddObjective(new ObjectiveControlLegend(LegendFelHorde.LegendBlacktemple, false));
+      AddObjective(new ObjectiveCapitalDead(LegendFelHorde.LegendBlacktemple));
       ResearchId = FourCC("R016");
     }
     
-    protected override string CompletionPopup =>
+    protected override string RewardFlavour =>
       "Khadgar has been freed from his confines under the Black Temple, and he is now free to serve the Kingdom of Stormwind.";
 
     protected override string RewardDescription => "You can summon Khadgar from the Altar of Kings";

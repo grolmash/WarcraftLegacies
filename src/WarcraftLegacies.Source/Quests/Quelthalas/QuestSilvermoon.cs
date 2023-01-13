@@ -3,9 +3,11 @@ using MacroTools;
 using MacroTools.ControlPointSystem;
 using MacroTools.Extensions;
 using MacroTools.FactionSystem;
+using MacroTools.ObjectiveSystem.Objectives.ControlPointBased;
+using MacroTools.ObjectiveSystem.Objectives.FactionBased;
+using MacroTools.ObjectiveSystem.Objectives.TimeBased;
+using MacroTools.ObjectiveSystem.Objectives.UnitBased;
 using MacroTools.QuestSystem;
-using MacroTools.QuestSystem.UtilityStructs;
-using MacroTools.Wrappers;
 using WarcraftLegacies.Source.Setup.Legends;
 using WCSharp.Shared.Data;
 using static War3Api.Common;
@@ -25,14 +27,14 @@ namespace WarcraftLegacies.Source.Quests.Quelthalas
       _elvenRunestone = elvenRunestone;
       AddObjective(new ObjectiveKillUnit(
         preplacedUnitSystem.GetUnit(Constants.UNIT_O00O_CHIEFTAN_OF_THE_AMANI_TRIBE_CREEP_ZUL_AMAN)));
-      AddObjective(new ObjectiveControlPoint(ControlPointManager.GetFromUnitType(FourCC("n01V"))));
-      AddObjective(new ObjectiveControlPoint(ControlPointManager.GetFromUnitType(FourCC("n01L"))));
+      AddObjective(new ObjectiveControlPoint(ControlPointManager.Instance.GetFromUnitType(FourCC("n01V"))));
+      AddObjective(new ObjectiveControlPoint(ControlPointManager.Instance.GetFromUnitType(FourCC("n01L"))));
       AddObjective(new ObjectiveUpgrade(FourCC("h03T"), FourCC("h033")));
       AddObjective(new ObjectiveExpire(1480));
       AddObjective(new ObjectiveSelfExists());
       ResearchId = Constants.UPGRADE_R02U_QUEST_COMPLETED_THE_SIEGE_OF_SILVERMOON;
 
-      foreach (var unit in new GroupWrapper().EnumUnitsInRect(rescueRect).EmptyToList())
+      foreach (var unit in CreateGroup().EnumUnitsInRect(rescueRect).EmptyToList())
         if (GetOwningPlayer(unit) == Player(PLAYER_NEUTRAL_PASSIVE))
         {
           _rescueUnits.Add(unit);
@@ -43,7 +45,7 @@ namespace WarcraftLegacies.Source.Quests.Quelthalas
     }
 
     //Todo: bad flavour
-    protected override string CompletionPopup =>
+    protected override string RewardFlavour =>
       "Silvermoon siege has been lifted, and its military is now free to assist the Alliance.";
 
     protected override string RewardDescription =>

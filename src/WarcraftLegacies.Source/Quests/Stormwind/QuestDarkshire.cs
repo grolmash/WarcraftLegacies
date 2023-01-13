@@ -1,8 +1,11 @@
 using MacroTools.ControlPointSystem;
 using MacroTools.Extensions;
 using MacroTools.FactionSystem;
+using MacroTools.ObjectiveSystem.Objectives.ControlPointBased;
+using MacroTools.ObjectiveSystem.Objectives.FactionBased;
+using MacroTools.ObjectiveSystem.Objectives.TimeBased;
+using MacroTools.ObjectiveSystem.Objectives.UnitBased;
 using MacroTools.QuestSystem;
-using MacroTools.QuestSystem.UtilityStructs;
 using static War3Api.Common;
 
 namespace WarcraftLegacies.Source.Quests.Stormwind
@@ -14,24 +17,24 @@ namespace WarcraftLegacies.Source.Quests.Stormwind
       "ReplaceableTextures\\CommandButtons\\BTNGnollArcher.blp")
     {
       AddObjective(new ObjectiveKillUnit(gnollToKill));
-      AddObjective(new ObjectiveControlPoint(ControlPointManager.GetFromUnitType(FourCC("n00V"))));
+      AddObjective(new ObjectiveControlPoint(ControlPointManager.Instance.GetFromUnitType(FourCC("n00V"))));
       AddObjective(new ObjectiveExpire(1425));
       AddObjective(new ObjectiveSelfExists());
       Required = true;
     }
 
-    protected override string CompletionPopup =>
+    protected override string RewardFlavour =>
       "Darkshire has been liberated, and its military is now free to assist Stormwind.";
 
     protected override string RewardDescription => "Control of all units in Darkshire";
 
     private static void GrantDarkshire(player whichPlayer)
     {
-      group tempGroup = CreateGroup();
+      var tempGroup = CreateGroup();
 
       //Transfer all Neutral Passive units in Darkshire
       GroupEnumUnitsInRect(tempGroup, Regions.DarkshireUnlock.Rect, null);
-      unit u = FirstOfGroup(tempGroup);
+      var u = FirstOfGroup(tempGroup);
       while (true)
       {
         if (u == null) break;

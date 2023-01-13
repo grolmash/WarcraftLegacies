@@ -13,15 +13,16 @@ namespace WarcraftLegacies.Source.Setup.FactionSetup
         "ReplaceableTextures\\CommandButtons\\BTNBOSSVelen.blp")
       {
         UndefeatedResearch = FourCC("R06E"),
-        StartingGold = 150,
+        StartingGold = 200,
         StartingLumber = 500,
+        ControlPointDefenderUnitTypeId = Constants.UNIT_U008_CONTROL_POINT_DEFENDER_DRAENEI,
         IntroText = @"You are playing as the exiled |cff000080Draenei|r.
 
-You must evacuate your people from Shattrah and migrate North to Tempest Keep, there you will find a valuable goldmine.
+You begin on Azuremyst Island, amid the wreckage of your flight from the Burning Legion.
 
-The Fel Horde is mobilizing to wipe out your people, this is a fight you cannot win.
+Further inland your Night-elf allies will need your help against the Orcish Horde, quickly build your base and gain entry to the Exodar.
 
-Escape as soon as you can and  try to save as many Draenei as you can. If you are trapped in Outland by turn 15, it may be too late to save your people."
+The Exodar is a mighty fortress-base with the ability to move around the map, but it will take a long time to repair."
       };
 
       Draenei.ModObjectLimit(FourCC("o02P"), Faction.UNLIMITED); //Crystal Hall
@@ -49,9 +50,15 @@ Escape as soon as you can and  try to save as many Draenei as you can. If you ar
       Draenei.ModObjectLimit(FourCC("h09U"), 4); //Elekk Knight
       Draenei.ModObjectLimit(FourCC("u02H"), 6); //Nether Ray
 
+      //Ships
       Draenei.ModObjectLimit(FourCC("etrs"), Faction.UNLIMITED); //Night Elf Transport Ship
-      Draenei.ModObjectLimit(FourCC("edes"), Faction.UNLIMITED); //Night Elf Frigate
-      Draenei.ModObjectLimit(FourCC("ebsh"), 6); //Night Elf Battleship
+      Draenei.ModObjectLimit(FourCC("h0AU"), Faction.UNLIMITED); // Scout
+      Draenei.ModObjectLimit(FourCC("h0AV"), Faction.UNLIMITED); // Frigate
+      Draenei.ModObjectLimit(FourCC("h0B1"), Faction.UNLIMITED); // Fireship
+      Draenei.ModObjectLimit(FourCC("h057"), Faction.UNLIMITED); // Galley
+      Draenei.ModObjectLimit(FourCC("h0B4"), Faction.UNLIMITED); // Boarding
+      Draenei.ModObjectLimit(FourCC("h0BA"), Faction.UNLIMITED); // Juggernaut
+      Draenei.ModObjectLimit(FourCC("h0B8"), 6); // Bombard
 
       Draenei.ModObjectLimit(FourCC("H09S"), 1); //Maraad
       Draenei.ModObjectLimit(FourCC("E01I"), 1); //Velen

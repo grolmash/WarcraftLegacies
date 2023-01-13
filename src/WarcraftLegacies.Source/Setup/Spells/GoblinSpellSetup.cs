@@ -36,23 +36,27 @@ namespace WarcraftLegacies.Source.Setup.Spells
 
       SpellSystem.Register(new NuclearLaunch(Constants.ABILITY_A0RH_INTERCONTINENTAL_BOMBARDMENT_GOBLIN_ARTILLERY, 25));
 
-      PassiveAbilityManager.Register(new NuclearLaunchWarning(Constants.UNIT_H011_INTERCONTINENTAL_ARTILLERY_GOBLIN,
+      PassiveAbilityManager.Register(new NuclearLaunchWarning(Constants.UNIT_H011_INTERCONTINENTAL_ARTILLERY_GOBLIN_TOWER,
         Constants.UNIT_H06L_DUMMY_NUKE_WARNING, @"war3mapImported/NuclearLaunchDetected.mp3", 25));
       
-      PassiveAbilityManager.Register(new AnimationSpeedMultiplier(Constants.UNIT_H011_INTERCONTINENTAL_ARTILLERY_GOBLIN, 0.4f));
+      PassiveAbilityManager.Register(new AnimationSpeedMultiplier(Constants.UNIT_H011_INTERCONTINENTAL_ARTILLERY_GOBLIN_TOWER, 0.4f));
       
-      PassiveAbilityManager.Register(new OilUser(Constants.UNIT_H011_INTERCONTINENTAL_ARTILLERY_GOBLIN));
+      PassiveAbilityManager.Register(new OilUser(Constants.UNIT_H011_INTERCONTINENTAL_ARTILLERY_GOBLIN_TOWER));
       PassiveAbilityManager.Register(new OilUser(Constants.UNIT_NTIN_CHIEF_ENGINEER_GOBLIN));
       PassiveAbilityManager.Register(new OilUser(Constants.UNIT_N062_SHREDDER_GOBLIN));
       PassiveAbilityManager.Register(new OilUser(Constants.UNIT_H08Z_ASSAULT_TANK_GOBLIN));
       PassiveAbilityManager.Register(new OilUser(Constants.UNIT_H091_WAR_ZEPPELIN_GOBLIN));
+      PassiveAbilityManager.Register(new OilUser(Constants.UNIT_O01M_ENGINEER_S_GUILD_GOBLIN_SPECIALIST));
+      PassiveAbilityManager.Register(new OilUser(Constants.UNIT_NTIN_CHIEF_ENGINEER_GOBLIN));
+      PassiveAbilityManager.Register(new OilProducer(Constants.UNIT_H04Z_KEZAN_OIL_SUPPLY_GOBLIN)
+      {
+        OilProducedPerSecond = 20
+      });
       PassiveAbilityManager.Register(new OilHarvester(Constants.UNIT_O04R_OIL_RIG_GOBLIN)
       {
-        OilHarvestedPerSecond = 10,
+        OilHarvestedPerSecond = 5,
         Radius = 400
       });
-      PassiveAbilityManager.Register(new OilUser(Constants.UNIT_H04Z_KEZAN_OIL_SUPPLY_GOBLIN));
-      PassiveAbilityManager.Register(new OilUser(Constants.UNIT_NTIN_CHIEF_ENGINEER_GOBLIN));
 
       SpellSystem.Register(new PingOilDeposits(Constants.ABILITY_A0PJ_LOCATE_OIL_GOBLIN_OIL_RIG_CONSTRUCTOR)
       {
@@ -61,7 +65,6 @@ namespace WarcraftLegacies.Source.Setup.Spells
 
       PassiveAbilityManager.Register(new ProvidesIncome(Constants.UNIT_NBOT_GOBLIN_PRIVATEER_NEUTRAL_GOBLIN, -2));
       PassiveAbilityManager.Register(new ProvidesIncome(Constants.UNIT_NGIR_SHREDDER_GOBLIN_SHOP, -2));
-
     }
   }
 }

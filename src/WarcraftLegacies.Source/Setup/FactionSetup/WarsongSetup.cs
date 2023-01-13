@@ -15,16 +15,17 @@ namespace WarcraftLegacies.Source.Setup.FactionSetup
         "ReplaceableTextures\\CommandButtons\\BTNHellScream.blp")
       {
         UndefeatedResearch = FourCC("R05W"),
-        StartingGold = 150,
+        StartingGold = 200,
         StartingLumber = 500,
         CinematicMusic = "DarkAgents",
-        IntroText = @"You are playing as the proud |cffd45e19Warsong clan|r.
+        ControlPointDefenderUnitTypeId = Constants.UNIT_N0D6_CONTROL_POINT_DEFENDER_WARSONG,
+        IntroText = @"You are playing as the brutal |cffd45e19Warsong clan|r.
 
-You start isolated in the woods of Ashenvale. The Warchief expects a large amount of lumber from you, begin harvesting with your Peons.
+You begin in the eaves of Ashenvale, isolated from your ally, the Frostwolf Clan in the South. 
 
-Travel South into the Barren to creep and colonise.
+The Warchief expects a large amount of lumber from you. Begin by harvesting with your Peons, and expanding into the Barrens and Durotar.
 
-The Night Elves are aware of your presence and are gathering against you. Unlock Orgrimmar as soon as possible to defend against the Night Elf attacks."
+The Night Elves are aware of your presence and are gathering a mighty host against you. Unlock Orgrimmar as soon as possible to defend against the Night Elf assault."
       };
 
       WarsongClan.ModObjectLimit(FourCC("o00C"), Faction.UNLIMITED); //Great Hall
@@ -52,12 +53,19 @@ The Night Elves are aware of your presence and are gathering against you. Unlock
       WarsongClan.ModObjectLimit(FourCC("o00I"), 6); //Horde War Machine
       WarsongClan.ModObjectLimit(FourCC("e01M"), 4); //Azerite Siege Engine
       WarsongClan.ModObjectLimit(FourCC("okod"), 4); //Kodo Beast
-      WarsongClan.ModObjectLimit(FourCC("obot"), Faction.UNLIMITED); //Transport Ship
-      WarsongClan.ModObjectLimit(FourCC("odes"), Faction.UNLIMITED); //Orc Frigate
-      WarsongClan.ModObjectLimit(FourCC("ojgn"), 6); //Juggernaught
       WarsongClan.ModObjectLimit(FourCC("o00G"), 6); //Blademaster
       WarsongClan.ModObjectLimit(FourCC("n03F"), 6); //Korkron elite
       WarsongClan.ModObjectLimit(FourCC("owyv"), 8); //Wind Rider
+
+      //Ship
+      WarsongClan.ModObjectLimit(FourCC("obot"), Faction.UNLIMITED); //Transport Ship
+      WarsongClan.ModObjectLimit(FourCC("h0AS"), Faction.UNLIMITED); //Scout
+      WarsongClan.ModObjectLimit(FourCC("h0AP"), Faction.UNLIMITED); //Frigate
+      WarsongClan.ModObjectLimit(FourCC("h0B2"), Faction.UNLIMITED); //Fireship
+      WarsongClan.ModObjectLimit(FourCC("h0AY"), Faction.UNLIMITED); //Galley
+      WarsongClan.ModObjectLimit(FourCC("h0B5"), Faction.UNLIMITED); //Boarding
+      WarsongClan.ModObjectLimit(FourCC("h0BC"), Faction.UNLIMITED); //Juggernaut
+      WarsongClan.ModObjectLimit(FourCC("h0AO"), 6); //Bombard
 
       WarsongClan.ModObjectLimit(FourCC("Ogrh"), 1); //Grom
       WarsongClan.ModObjectLimit(FourCC("Obla"), 1); //Varok

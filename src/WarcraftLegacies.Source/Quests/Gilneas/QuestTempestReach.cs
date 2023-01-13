@@ -3,8 +3,10 @@ using MacroTools.QuestSystem;
 using System.Collections.Generic;
 using static War3Api.Common;
 using MacroTools.Extensions;
-using MacroTools.QuestSystem.UtilityStructs;
 using MacroTools.ControlPointSystem;
+using MacroTools.ObjectiveSystem.Objectives.ControlPointBased;
+using MacroTools.ObjectiveSystem.Objectives.FactionBased;
+using MacroTools.ObjectiveSystem.Objectives.TimeBased;
 
 namespace WarcraftLegacies.Source.Quests.Gilneas
 {
@@ -20,7 +22,7 @@ namespace WarcraftLegacies.Source.Quests.Gilneas
     /// </summary>
     public QuestTempestReach() : base("Tempest Reach", "The first settlement we need to capture is Tempest Reach, just south of our location.", "ReplaceableTextures\\CommandButtons\\BTNGilneasFarm.blp")
     {
-      AddObjective(new ObjectiveControlPoint(ControlPointManager.GetFromUnitType(Constants.UNIT_N084_TEMPEST_REACH_10GOLD_MIN)));
+      AddObjective(new ObjectiveControlPoint(ControlPointManager.Instance.GetFromUnitType(Constants.UNIT_N084_TEMPEST_REACH_10GOLD_MIN)));
       AddObjective(new ObjectiveExpire(670));
       AddObjective(new ObjectiveSelfExists());
       _rescueUnits = Regions.GilneasUnlock1.PrepareUnitsForRescue(RescuePreparationMode.HideNonStructures);
@@ -28,7 +30,7 @@ namespace WarcraftLegacies.Source.Quests.Gilneas
     }
 
     /// <inheritdoc/>
-    protected override string CompletionPopup => "Tempest Reach has been liberated.";
+    protected override string RewardFlavour => "Tempest Reach has been liberated.";
 
     /// <inheritdoc/>
     protected override string RewardDescription => "Control of all buildings in Tempest Reach.";

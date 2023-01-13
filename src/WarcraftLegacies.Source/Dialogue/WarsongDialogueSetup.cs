@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using MacroTools.DialogueSystem;
 using MacroTools.FactionSystem;
-using MacroTools.QuestSystem;
-using MacroTools.QuestSystem.UtilityStructs;
+using MacroTools.ObjectiveSystem;
+using MacroTools.ObjectiveSystem.Objectives.LegendBased;
 using WarcraftLegacies.Source.Setup.FactionSetup;
 using WarcraftLegacies.Source.Setup.Legends;
 
@@ -13,39 +12,46 @@ namespace WarcraftLegacies.Source.Dialogue
   {
     public static void Setup()
     {
-      try
-      {
-        var gromObjectives = new List<Objective>();
-        gromObjectives.Add(new ObjectiveControlLegend(LegendWarsong.GromHellscream, false)
-        {
-          EligibleFactions = new List<Faction>
-          {
-            WarsongSetup.WarsongClan
-          }
-        });
-        gromObjectives.Add(new ObjectiveControlLegend(LegendNeutral.FountainOfBlood, false)
-        {
-          EligibleFactions = new List<Faction>
-          {
-            WarsongSetup.WarsongClan
-          }
-        });
-        DialogueManager.Add(new MacroTools.DialogueSystem.Dialogue(
-          objectives: gromObjectives,
-          soundFile: @"Sound\Dialogue\OrcCampaign\Orc05\O05Grom26.flac",
-          caption:
+      TriggeredDialogueManager.Add(new TriggeredDialogue(
+        new MacroTools.DialogueSystem.Dialogue(@"Sound\Dialogue\OrcCampaign\Orc05\O05Grom26.flac",
           "Yes! I feel the power once again! Come, my warriors; drink from the dark waters, and you will be reborn!",
-          speaker: "Grom Hellscream",
-          audience: new[]
+          "Grom Hellscream"), new[]
+        {
+          WarsongSetup.WarsongClan
+        }, new List<Objective>
+        {
+          new ObjectiveControlLegend(LegendWarsong.GromHellscream, false)
+          {
+            EligibleFactions = new List<Faction>
+            {
+              WarsongSetup.WarsongClan
+            }
+          },
+          new ObjectiveControlCapital(LegendNeutral.FountainOfBlood, false)
+          {
+            EligibleFactions = new List<Faction>
+            {
+              WarsongSetup.WarsongClan
+            }
+          }
+        }
+      ));
+      
+      TriggeredDialogueManager.Add(
+        new TriggeredDialogue(new MacroTools.DialogueSystem.Dialogue(
+            @"Sound\Dialogue\OrcExpCamp\RandomOrcQuest02x\DR02Chen01",
+            "Ah, greetings, my friend. I am Chen Stormstout, humble brewmaster of Pandaria. I have traveled the wide world searching for rare, exotic ingredients to use in my special brew! After all, good ale can solve all the problems of this world, don't you agree?",
+            "Chen Stormstout")
+          , new[]
           {
             WarsongSetup.WarsongClan
-          }
-        ));
-      }
-      catch (Exception ex)
-      {
-        Console.WriteLine($"Failed to run DialogueSetup: {ex}");
-      }
+          }, new[]
+          {
+            new ObjectiveControlLegend(LegendWarsong.ChenStormstout, false)
+            {
+              EligibleFactions = new List<Faction>{ WarsongSetup.WarsongClan }
+            }
+          }));
     }
   }
 }

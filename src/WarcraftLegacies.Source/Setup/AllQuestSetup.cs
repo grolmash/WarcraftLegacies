@@ -5,30 +5,30 @@ namespace WarcraftLegacies.Source.Setup
 {
   public static class AllQuestSetup
   {
-    public static void Setup(PreplacedUnitSystem preplacedUnitSystem)
+    public static void Setup(PreplacedUnitSystem preplacedUnitSystem, ArtifactSetup artifactSetup)
     {
       QuelthalasQuestSetup.Setup(preplacedUnitSystem);
-      DalaranQuestSetup.Setup(preplacedUnitSystem);
-      DruidsQuestSetup.Setup();
-      FelHordeQuestSetup.Setup(preplacedUnitSystem);
-      FrostwolfQuestSetup.Setup(preplacedUnitSystem);
+      DalaranQuestSetup.Setup(preplacedUnitSystem, artifactSetup);
+      DruidsQuestSetup.Setup(artifactSetup);
+      FelHordeQuestSetup.Setup();
+      FrostwolfQuestSetup.Setup(preplacedUnitSystem, artifactSetup);
       IronforgeQuestSetup.Setup(preplacedUnitSystem);
       LegionQuestSetup.Setup(preplacedUnitSystem);
-      LordaeronQuestSetup.Setup(preplacedUnitSystem);
-      var questPlague = ScourgeQuestSetup.Setup(preplacedUnitSystem);
-      SentinelsQuestSetup.Setup();
-      StormwindQuestSetup.Setup(preplacedUnitSystem);
-      WarsongQuestSetup.Setup(preplacedUnitSystem);
-      NagaQuestSetup.Setup();
-      GilneasQuestSetup.Setup();
+      LordaeronQuestSetup.Setup(preplacedUnitSystem, artifactSetup);
+      ScourgeQuestSetup.Setup(preplacedUnitSystem, artifactSetup);
+      SentinelsQuestSetup.Setup(artifactSetup);
+      StormwindQuestSetup.Setup(preplacedUnitSystem, artifactSetup);
+      WarsongQuestSetup.Setup(preplacedUnitSystem, artifactSetup);
+      NagaQuestSetup.Setup(preplacedUnitSystem, artifactSetup);
+      GilneasQuestSetup.Setup(artifactSetup);
       KultirasQuestSetup.Setup(preplacedUnitSystem);
-      ScarletQuestSetup.Setup(preplacedUnitSystem);
-      TrollQuestSetup.Setup();
-      ForsakenQuestSetup.Setup(questPlague, preplacedUnitSystem);
+      ScarletQuestSetup.Setup();
+      TrollQuestSetup.Setup(artifactSetup);
+      ForsakenQuestSetup.Setup();
       GoblinQuestSetup.Setup();
       DraeneiQuestSetup.Setup(preplacedUnitSystem);
       DragonmawQuestSetup.Setup(preplacedUnitSystem);
-      SharedQuestSetup.Setup(preplacedUnitSystem);
+      SharedQuestSetup.Setup(preplacedUnitSystem, artifactSetup);
     }
   }
 }

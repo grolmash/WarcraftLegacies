@@ -1,5 +1,6 @@
 ﻿using MacroTools;
 using MacroTools.FactionSystem;
+using MacroTools.Powers;
 using WCSharp.Shared.Data;
 using static War3Api.Common;
 
@@ -14,18 +15,18 @@ namespace WarcraftLegacies.Source.Setup.FactionSetup
       Lordaeron = new Faction("Lordaeron", PLAYER_COLOR_BLUE, "|c000042ff",
         "ReplaceableTextures\\CommandButtons\\BTNArthas.blp")
       {
-        StartingGold = 150,
+        StartingGold = 200,
         StartingLumber = 500,
         UndefeatedResearch = FourCC("R05M"),
         CinematicMusic = "Comradeship",
-        IntroText = @"You are playing as the royal |cff4242ebKingdom of Lordaeron|r.
+        ControlPointDefenderUnitTypeId = Constants.UNIT_H03W_CONTROL_POINT_DEFENDER_LORDAERON,
+        IntroText = @"You are playing as the great |cff4242ebKingdom of Lordaeron|r.
 
-You start the game with the largest territory, but the Plague of Undeath is coming.
+You begin in Andorhal, isolated from your forces in the rest of the Kingdom, and the Plague of Undeadh is coming.
 
-Secure your major cities by clearing out clusters of enemies and fortify your Kingdom as much as possible.
+Secure your major settlements by clearing out clusters of enemies and fortify your Kingdom as much as possible.
 
-Keep an eye out for the Cult of the Damned, they have several agents in your lands that will infect your buidings. 
-Burn these infected buildings to weaken the Cult's power."
+If you survive the Plague, sail to the frozen wasteland of Northrend and take the fight to the Lich King."
       };
 
       //Structures
@@ -49,9 +50,6 @@ Burn these infected buildings to weaken the Cult's power."
 
       //Units
       Lordaeron.ModObjectLimit(FourCC("hpea"), Faction.UNLIMITED); //Peasant
-      Lordaeron.ModObjectLimit(FourCC("hbot"), Faction.UNLIMITED); //Alliance Transport Ship
-      Lordaeron.ModObjectLimit(FourCC("hdes"), Faction.UNLIMITED); //Alliance Frigate
-      Lordaeron.ModObjectLimit(FourCC("hbsh"), 6); //Alliance Battle Ship
       Lordaeron.ModObjectLimit(FourCC("hfoo"), Faction.UNLIMITED); //Footman
       Lordaeron.ModObjectLimit(FourCC("hkni"), Faction.UNLIMITED); //Knight
       Lordaeron.ModObjectLimit(FourCC("nchp"), Faction.UNLIMITED); //Cleric
@@ -64,6 +62,16 @@ Burn these infected buildings to weaken the Cult's power."
       Lordaeron.ModObjectLimit(FourCC("e017"), 8); //Scorpion
       Lordaeron.ModObjectLimit(FourCC("o02F"), 6); //Mangonel
       Lordaeron.ModObjectLimit(FourCC("h09Y"), 2); //Throne Guard
+
+      //Ships
+      Lordaeron.ModObjectLimit(FourCC("hbot"), Faction.UNLIMITED); //Alliance Transport Ship
+      Lordaeron.ModObjectLimit(FourCC("h0AR"), Faction.UNLIMITED); //Alliance Scout
+      Lordaeron.ModObjectLimit(FourCC("h0AX"), Faction.UNLIMITED); //Alliance Frigate
+      Lordaeron.ModObjectLimit(FourCC("h0B3"), Faction.UNLIMITED); //Alliance Fireship
+      Lordaeron.ModObjectLimit(FourCC("h0B0"), Faction.UNLIMITED); //Alliance Galley
+      Lordaeron.ModObjectLimit(FourCC("h0B6"), Faction.UNLIMITED); //Alliance Boarding
+      Lordaeron.ModObjectLimit(FourCC("h0AN"), Faction.UNLIMITED); //Alliance Juggernaut
+      Lordaeron.ModObjectLimit(FourCC("h0B7"), 6); //Alliance Bombard
 
       //Demis
       Lordaeron.ModObjectLimit(FourCC("h012"), 1); //Falric
@@ -102,6 +110,12 @@ Burn these infected buildings to weaken the Cult's power."
       Lordaeron.ModAbilityAvailability(Constants.ABILITY_A0K5_DWARVEN_MASONRY_CASTLES_YELLOW, -1);
       
       Lordaeron.AddGoldMine(preplacedUnitSystem.GetUnit(FourCC("ngol"), new Point(13617, 8741)));
+
+      Lordaeron.AddPower(new ControlLevelPerTurnBonus(0.5f)
+      {
+        IconName = @"ShieldOfUnification",
+        Name = "Dominion"
+      });
       
       FactionManager.Register(Lordaeron);
     }

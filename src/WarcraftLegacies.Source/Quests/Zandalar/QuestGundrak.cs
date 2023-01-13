@@ -1,6 +1,7 @@
-﻿using MacroTools.FactionSystem;
+﻿using MacroTools.Extensions;
+using MacroTools.FactionSystem;
+using MacroTools.ObjectiveSystem.Objectives.LegendBased;
 using MacroTools.QuestSystem;
-using MacroTools.QuestSystem.UtilityStructs;
 using WarcraftLegacies.Source.Setup.Legends;
 using static War3Api.Common;
 
@@ -14,9 +15,8 @@ namespace WarcraftLegacies.Source.Quests.Zandalar
   {
     private const int _gundrakResearch = Constants.UPGRADE_R02Q_QUEST_COMPLETED_THE_DRAKKARI_FORTRESS_WARSONG;
     private const int _warlordId = Constants.UNIT_NFTK_WARLORD_WARSONG;
-    private const int _trollShrineId = Constants.UNIT_O04X_LOA_SHRINE_ZANDALAR;
-
-
+    private const int _trollShrineId = Constants.UNIT_O04X_LOA_SHRINE_ZANDALARI_SPECIALIST;
+    
     /// <summary>
     /// Initializes a new instance of the <see cref="QuestGundrak"/> class
     /// </summary>
@@ -24,12 +24,11 @@ namespace WarcraftLegacies.Source.Quests.Zandalar
       "The Drakkari troll of Gundrak believe their fortress to be impregnable. Capture it to gain their loyalty.",
       "ReplaceableTextures\\CommandButtons\\BTNTerrorTroll.blp")
     {
-      AddObjective(new ObjectiveControlLegend(LegendNeutral.Gundrak, false));
-      
+      AddObjective(new ObjectiveControlCapital(LegendNeutral.Gundrak, false));
     }
 
     /// <inheritdoc/>
-    protected override string CompletionPopup =>
+    protected override string RewardFlavour =>
       "Gundrak has fallen. The Drakkari trolls lend their might to the Zandalari.";
 
     /// <inheritdoc/>

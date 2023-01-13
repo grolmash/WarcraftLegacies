@@ -1,5 +1,4 @@
-﻿using System;
-using MacroTools.Extensions;
+﻿using MacroTools.Extensions;
 using static War3Api.Common;
 using WCSharp.Buffs;
 
@@ -33,6 +32,13 @@ namespace MacroTools.Spells.ExactJustice
     public override void OnDispose()
     {
       DestroyTrigger(_noDamageTrigger);
+    }
+    
+    /// <inheritdoc />
+    public override StackResult OnStack(Buff newStack)
+    {
+      Stacks++;
+      return StackResult.Stack;
     }
   }
 }

@@ -1,8 +1,9 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using MacroTools.Extensions;
 using MacroTools.FactionSystem;
+using MacroTools.ObjectiveSystem.Objectives.FactionBased;
+using MacroTools.ObjectiveSystem.Objectives.UnitBased;
 using MacroTools.QuestSystem;
-using MacroTools.QuestSystem.UtilityStructs;
 using WarcraftLegacies.Source.Setup;
 using WarcraftLegacies.Source.Setup.FactionSetup;
 using WCSharp.Shared.Data;
@@ -32,7 +33,7 @@ namespace WarcraftLegacies.Source.Quests.Scarlet
       "ReplaceableTextures\\CommandButtons\\BTNDivine_Reckoning_Icon.blp")
     {
       _scarletMonasteryEntrance = scarletMonasteryEntrance.Show(false);
-      AddObjective(new ObjectiveResearch(UnleashTheCrusadeResearchId, Constants.UNIT_H00T_SCARLET_MONASTERY_LORDAERON));
+      AddObjective(new ObjectiveResearch(UnleashTheCrusadeResearchId, Constants.UNIT_H00T_SCARLET_MONASTERY_SCARLET_LORDAERON));
       AddObjective(new ObjectiveSelfExists());
       ResearchId = Constants.UPGRADE_R03F_QUEST_COMPLETED_UNLEASH_THE_CRUSADE;
       Global = true;
@@ -42,7 +43,7 @@ namespace WarcraftLegacies.Source.Quests.Scarlet
 
     //Todo: bad flavour
     /// <inheritdoc />
-    protected override string CompletionPopup =>
+    protected override string RewardFlavour =>
       "The Scarlet Monastery Hand is complete and ready to join the Alliance.";
 
     /// <inheritdoc />
@@ -58,8 +59,8 @@ namespace WarcraftLegacies.Source.Quests.Scarlet
         Constants.UPGRADE_R06V_SCARLET_CRUSADE_IS_UNLEASHED, 1);
       SetPlayerTechResearched(ScarletSetup.ScarletCrusade.Player, Constants.UPGRADE_R086_PATH_CHOSEN, 1);
       _scarletMonasteryEntrance
-        .Show(true)
-        .SetWaygateDestination(Regions.Scarlet_Monastery_Interior.Center);
+        .Show(true);
+        //.SetWaygateDestination(Regions.Scarlet_Monastery_Interior.Center);
       completingFaction.Player?.RescueGroup(_rescueUnits);
       completingFaction.Player?.SetTeam(TeamSetup.ScarletCrusade);
       completingFaction.Name = "Scarlet";

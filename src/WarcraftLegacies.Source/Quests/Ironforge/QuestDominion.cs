@@ -2,9 +2,11 @@
 using MacroTools.ControlPointSystem;
 using MacroTools.Extensions;
 using MacroTools.FactionSystem;
+using MacroTools.ObjectiveSystem.Objectives.ControlPointBased;
+using MacroTools.ObjectiveSystem.Objectives.FactionBased;
+using MacroTools.ObjectiveSystem.Objectives.TimeBased;
+using MacroTools.ObjectiveSystem.Objectives.UnitBased;
 using MacroTools.QuestSystem;
-using MacroTools.QuestSystem.UtilityStructs;
-using MacroTools.Wrappers;
 using WCSharp.Shared.Data;
 using static War3Api.Common;
 
@@ -19,14 +21,14 @@ namespace WarcraftLegacies.Source.Quests.Ironforge
       "The Dwarven Dominion must be established before Ironforge can join the war.",
       "ReplaceableTextures\\CommandButtons\\BTNDwarvenFortress.blp")
     {
-      AddObjective(new ObjectiveControlPoint(ControlPointManager.GetFromUnitType(FourCC("n017"))));
-      AddObjective(new ObjectiveControlPoint(ControlPointManager.GetFromUnitType(FourCC("n014"))));
-      AddObjective(new ObjectiveControlPoint(ControlPointManager.GetFromUnitType(FourCC("n013"))));
+      AddObjective(new ObjectiveControlPoint(ControlPointManager.Instance.GetFromUnitType(FourCC("n017"))));
+      AddObjective(new ObjectiveControlPoint(ControlPointManager.Instance.GetFromUnitType(FourCC("n014"))));
+      AddObjective(new ObjectiveControlPoint(ControlPointManager.Instance.GetFromUnitType(FourCC("n013"))));
       AddObjective(new ObjectiveUpgrade(FourCC("h07G"), FourCC("h07E")));
       AddObjective(new ObjectiveExpire(1462));
       AddObjective(new ObjectiveSelfExists());
       ResearchId = FourCC("R043");
-      foreach (var unit in new GroupWrapper().EnumUnitsInRect(rescueRect).EmptyToList())
+      foreach (var unit in CreateGroup().EnumUnitsInRect(rescueRect).EmptyToList())
         if (GetOwningPlayer(unit) == Player(PLAYER_NEUTRAL_PASSIVE))
         {
           SetUnitInvulnerable(unit, true);
@@ -35,7 +37,7 @@ namespace WarcraftLegacies.Source.Quests.Ironforge
       Required = true;
     }
 
-    protected override string CompletionPopup =>
+    protected override string RewardFlavour =>
       "The Dwarven Empire is re-united again, Ironforge is ready for war again.";
 
     protected override string RewardDescription => "Control of all units in Ironforge";

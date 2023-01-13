@@ -1,4 +1,5 @@
 ﻿using MacroTools;
+using MacroTools.ArtifactSystem;
 using MacroTools.FactionSystem;
 using MacroTools.Powers;
 using WarcraftLegacies.Source.Mechanics.Scourge;
@@ -11,24 +12,23 @@ namespace WarcraftLegacies.Source.Setup.FactionSetup
   {
     public static Faction? Scourge { get; private set; }
 
-    public static void Setup(PreplacedUnitSystem preplacedUnitSystem)
+    public static void Setup(PreplacedUnitSystem preplacedUnitSystem, Artifact helmOfDomination)
     {
       Scourge = new Faction("Scourge", PLAYER_COLOR_PURPLE, "|c00540081",
         "ReplaceableTextures\\CommandButtons\\BTNRevenant.blp")
       {
         UndefeatedResearch = FourCC("R05K"),
-        StartingGold = 150,
+        StartingGold = 200,
         StartingLumber = 500,
         CinematicMusic = "ArthasTheme",
-        IntroText = @"You are playing as the the terrifying Undead Scourge.
+        ControlPointDefenderUnitTypeId = Constants.UNIT_U028_CONTROL_POINT_DEFENDER_SCOURGE,
+        IntroText = @"You are playing as the the horrific Undead Scourge.
 
-Northrend is vast and isolated, a perfect place to raise an army of undying warriors to destroy your enemies.
+You begin in Northrend, a vast and isolated land, perfect to raise an army of undying warriors to destroy the living.
 
-The Nerubians of Northrend have declared war on you, destroy their decrepit holdings and kill their Queen to secure the continent.
+The local Nerubians have declared war on you, destroy their decrepit holdings and kill their Queen to secure the continent.
 
-Coordinate with the Cult of the Damned and Burning Legion for the Plague that will sweep Lordaeron. 
-
-The Necropolis of Naxxramas is become the perfect weapon for the Scourge, but you will need a powerful necromancer to awaken it."
+Coordinate with the Burning Legion and make use of the Plague of Undeath to sweep Lordaeron away."
       };
 
       //Buildings
@@ -65,11 +65,18 @@ The Necropolis of Naxxramas is become the perfect weapon for the Scourge, but yo
       Scourge.ModObjectLimit(FourCC("uobs"), 4); //Obsidian Statue
       Scourge.ModObjectLimit(FourCC("ufro"), 4); //Frost Wyrm
       Scourge.ModObjectLimit(FourCC("h00H"), 6); //Death Knight
-      Scourge.ModObjectLimit(FourCC("ubot"), Faction.UNLIMITED); //Undead Transport Ship
-      Scourge.ModObjectLimit(FourCC("udes"), Faction.UNLIMITED); //Undead Frigate
-      Scourge.ModObjectLimit(FourCC("uubs"), 6); //Undead Battleship
       Scourge.ModObjectLimit(FourCC("ubsp"), 6); //Destroyer
       Scourge.ModObjectLimit(FourCC("nfgl"), 2); //Plague Titan
+
+      //Ship
+      Scourge.ModObjectLimit(FourCC("ubot"), Faction.UNLIMITED); //Undead Transport Ship
+      Scourge.ModObjectLimit(FourCC("h0AT"), Faction.UNLIMITED); //Scout
+      Scourge.ModObjectLimit(FourCC("h0AW"), Faction.UNLIMITED); //Frigate
+      Scourge.ModObjectLimit(FourCC("h0BM"), Faction.UNLIMITED); //Fireship
+      Scourge.ModObjectLimit(FourCC("h0AZ"), Faction.UNLIMITED); //Galley
+      Scourge.ModObjectLimit(FourCC("h0AQ"), Faction.UNLIMITED); //Boarding
+      Scourge.ModObjectLimit(FourCC("h0BB"), Faction.UNLIMITED); //Juggernaut
+      Scourge.ModObjectLimit(FourCC("h0B9"), 6); //Bombard
 
       //Demi-Heroes
       Scourge.ModObjectLimit(FourCC("ubdd"), 1); //Sapphiron
@@ -79,6 +86,7 @@ The Necropolis of Naxxramas is become the perfect weapon for the Scourge, but yo
       Scourge.ModObjectLimit(FourCC("U00M"), 1); //Kel'thuzad (Ghost)
       Scourge.ModObjectLimit(FourCC("U00A"), 1); //Rivendare
       Scourge.ModObjectLimit(FourCC("Uktl"), 1); //Kel'thuzad (Lich)
+      Scourge.ModObjectLimit(Constants.UNIT_UEAR_CHAMPION_OF_THE_SCOURGE_SCOURGE, 1);
 
       //Upgrades
       Scourge.ModObjectLimit(FourCC("Ruba"), Faction.UNLIMITED); //Banshee Adept Training
@@ -91,11 +99,14 @@ The Necropolis of Naxxramas is become the perfect weapon for the Scourge, but yo
       Scourge.ModObjectLimit(FourCC("R02A"), Faction.UNLIMITED); //Chaos Infusion
       Scourge.ModObjectLimit(FourCC("R00Q"), Faction.UNLIMITED); //Chilling Aura
       Scourge.ModObjectLimit(FourCC("R04V"), Faction.UNLIMITED); //Improved Hypothermic Breath
-      Scourge.ModObjectLimit(FourCC("R01X"), Faction.UNLIMITED); //Epidemic
+      Scourge.ModObjectLimit(Constants.UPGRADE_R01X_EPIDEMIC_SCOURGE, Faction.UNLIMITED);
+      Scourge.ModObjectLimit(Constants.UPGRADE_R08T_REVENANTS_SCOURGE, Faction.UNLIMITED);
       Scourge.ModObjectLimit(FourCC("R01D"), Faction.UNLIMITED); //Piercing Screech
       Scourge.ModObjectLimit(FourCC("R06N"), Faction.UNLIMITED); //Improved Orb of Annihilation
       Scourge.ModObjectLimit(FourCC("Rusl"), Faction.UNLIMITED); //Skeletal Mastery
       Scourge.ModObjectLimit(FourCC("Rusm"), Faction.UNLIMITED); //Skeletal Longevity
+
+      Scourge.ModObjectLimit(Constants.UPGRADE_R07X_MAKE_ARTHAS_THE_LICH_KING_SCOURGE, Faction.UNLIMITED);
 
       //Abilities
       Scourge.ModAbilityAvailability(Constants.ABILITY_A0WG_SPELL_SHIELD_SPELL_BOOK_ORANGE_ANTONIDAS_RED_LICH_KING, -1);
@@ -122,7 +133,7 @@ The Necropolis of Naxxramas is become the perfect weapon for the Scourge, but yo
       
       Scourge.AddGoldMine(preplacedUnitSystem.GetUnit(FourCC("ngol"), new Point(-4939, 18803)));
 
-      HelmOfDominationDropsWhenScourgeLeaves.Setup();
+      HelmOfDominationDropsWhenScourgeLeaves.Setup(helmOfDomination);
 
       FactionManager.Register(Scourge);
     }

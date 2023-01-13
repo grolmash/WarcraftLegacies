@@ -2,8 +2,8 @@ using System;
 using System.Collections.Generic;
 using MacroTools.Extensions;
 using MacroTools.FactionSystem;
+using MacroTools.ObjectiveSystem.Objectives.UnitBased;
 using MacroTools.QuestSystem;
-using MacroTools.QuestSystem.UtilityStructs;
 using MacroTools.Wrappers;
 using WCSharp.Shared.Data;
 using static War3Api.Common; 
@@ -28,7 +28,7 @@ namespace WarcraftLegacies.Source.Quests.Legion
       Global = true;
       Required = true;
 
-      foreach (var unit in new GroupWrapper().EnumUnitsInRect(rescueRect).EmptyToList())
+      foreach (var unit in CreateGroup().EnumUnitsInRect(rescueRect).EmptyToList())
         if (GetOwningPlayer(unit) == Player(PLAYER_NEUTRAL_PASSIVE))
         {
           if (!IsUnitType(unit, UNIT_TYPE_STRUCTURE)) ShowUnit(unit, false);
@@ -38,7 +38,7 @@ namespace WarcraftLegacies.Source.Quests.Legion
     }
 
     /// <inheritdoc />
-    protected override string CompletionPopup => "Tremble, mortals, and despair. Doom has come to this world.";
+    protected override string RewardFlavour => "Tremble, mortals, and despair. Doom has come to this world.";
 
     /// <inheritdoc />
     protected override string RewardDescription =>

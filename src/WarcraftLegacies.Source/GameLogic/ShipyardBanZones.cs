@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using MacroTools;
-using MacroTools.FactionSystem;
+using MacroTools.Extensions;
 using WCSharp.Events;
 using WCSharp.Shared.Data;
 using static War3Api.Common;
@@ -21,7 +21,7 @@ namespace WarcraftLegacies.Source.GameLogic
       {
         if (unitType.Category == UnitCategory.Shipyard)
         {
-          PlayerUnitEvents.Register(PlayerUnitEvent.UnitTypeFinishesConstruction, () =>
+          PlayerUnitEvents.Register(UnitTypeEvent.FinishesConstruction, () =>
           {
             var constructedStructure = GetConstructedStructure();
             foreach (var banZone in banZones)

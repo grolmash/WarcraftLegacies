@@ -16,17 +16,17 @@ namespace WarcraftLegacies.Source.Setup.FactionSetup
         "ReplaceableTextures\\CommandButtons\\BTNPitLord.blp")
       {
         UndefeatedResearch = FourCC("R05L"),
-        StartingGold = 300,
-        StartingLumber = 600,
+        StartingGold = 200,
+        StartingLumber = 500,
         CinematicMusic = "Doom",
+        ControlPointDefenderUnitTypeId = Constants.UNIT_N0AA_CONTROL_POINT_DEFENDER_FEL_HORDE,
         IntroText = @"You are playing as the bloodthirsty Fel Horde.
 
-The Draenei survivors are fleeing Shattrath for Tempest Keep. At the bidding of your demon-masters, you must slay them all before they can escape Outland.
+You begin in Nagrand, cut off from your forces in Hellfire Citadel. You must raise an army and quickly conquer Outland.
 
-Once the Draenei have been dealt with, gather the hordes and prepare to invade Azeroth through the Dark Portal.
+Once Outland is under your control, gather your hordes and prepare to invade Azeroth through the Dark Portal.
 
-The Alliance is gathering outside the Dark Portal to stop you, so prepare to for a very hard breakout.
-Your allies cannot reach you on Outland, you are alone.",
+The Alliance is gathering outside the Dark Portal to stop you, so prepare to for a very hard breakout.",
         FoodMaximum = 250
       };
 
@@ -58,19 +58,25 @@ Your allies cannot reach you on Outland, you are alone.",
       FelHorde.ModObjectLimit(FourCC("o01O"), 8); //Demolisher
       FelHorde.ModObjectLimit(FourCC("u018"), 10); //Eye of Grillok
       FelHorde.ModObjectLimit(FourCC("u00V"), Faction.UNLIMITED); //Necrolyte
-      FelHorde.ModObjectLimit(FourCC("n057"), -Faction.UNLIMITED); //Nether Dragon Hatchling
       FelHorde.ModObjectLimit(FourCC("n058"), Faction.UNLIMITED); //Troll Axethrowers
+
+      //Ship
       FelHorde.ModObjectLimit(FourCC("obot"), Faction.UNLIMITED); //Transport Ship
-      FelHorde.ModObjectLimit(FourCC("odes"), Faction.UNLIMITED); //Orc Frigate
-      FelHorde.ModObjectLimit(FourCC("ojgn"), 6); //Juggernaught
+      FelHorde.ModObjectLimit(FourCC("h0AS"), Faction.UNLIMITED); //Scout
+      FelHorde.ModObjectLimit(FourCC("h0AP"), Faction.UNLIMITED); //Frigate
+      FelHorde.ModObjectLimit(FourCC("h0B2"), Faction.UNLIMITED); //Fireship
+      FelHorde.ModObjectLimit(FourCC("h0AY"), Faction.UNLIMITED); //Galley
+      FelHorde.ModObjectLimit(FourCC("h0B5"), Faction.UNLIMITED); //Boarding
+      FelHorde.ModObjectLimit(FourCC("h0BC"), Faction.UNLIMITED); //Juggernaut
+      FelHorde.ModObjectLimit(FourCC("h0AO"), 6); //Bombard
 
       FelHorde.ModObjectLimit(FourCC("n05T"), 1); //Kazzak
       FelHorde.ModObjectLimit(FourCC("n064"), 1); //Voone
       FelHorde.ModObjectLimit(FourCC("n08A"), 1); //neltharaktu
-      FelHorde.ModObjectLimit(FourCC("Nmag"), 1); //Magtheridon
       FelHorde.ModObjectLimit(FourCC("N03D"), 1); //Kargath
       FelHorde.ModObjectLimit(FourCC("Nbbc"), 1); //Rend
       FelHorde.ModObjectLimit(FourCC("U02D"), 1); //Teron
+      FelHorde.ModObjectLimit(FourCC("E01G"), 1); //Gruul
 
       FelHorde.ModObjectLimit(FourCC("Robf"), Faction.UNLIMITED); //Demonic Flux
       FelHorde.ModObjectLimit(FourCC("R066"), Faction.UNLIMITED); //Burning Oil
@@ -90,6 +96,7 @@ Your allies cannot reach you on Outland, you are alone.",
       FelHorde.ModObjectLimit(FourCC("R034"), Faction.UNLIMITED); //Enhanced Breath
       FelHorde.ModObjectLimit(FourCC("R035"), Faction.UNLIMITED); //Improved Firebolt
       FelHorde.ModObjectLimit(FourCC("R01Z"), Faction.UNLIMITED); //Battle Stations
+      FelHorde.ModObjectLimit(Constants.UPGRADE_R098_FEL_INFUSED_SKELETON_FEL_HORDE, Faction.UNLIMITED);
       FelHorde.SetObjectLevel(FourCC("R01Z"), 1); //Battle Stations
       
       FelHorde.ModObjectLimit(FourCC("n05R"), 1); //Felguard
@@ -102,7 +109,9 @@ Your allies cannot reach you on Outland, you are alone.",
       FelHorde.ModAbilityAvailability(Constants.ABILITY_A0MZ_DEMONIC_CONSTRUCTION_TEAL_DEMOLISHERS, -1);
       FelHorde.ModAbilityAvailability(Constants.ABILITY_A0GM_FOR_THE_HORDE_PINK_GREY_MAIN_BUILDINGS, -1);
 
-      FelHorde.AddGoldMine(preplacedUnitSystem.GetUnit(FourCC("ngol"), new Point(5804, -29242)));
+      FelHorde.ModObjectLimit(FourCC("R090"), Faction.UNLIMITED); //Blackrock
+
+      FelHorde.AddGoldMine(preplacedUnitSystem.GetUnit(FourCC("ngol"), new Point(-2735, -30242)));
       
       FactionManager.Register(FelHorde);
 

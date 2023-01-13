@@ -1,8 +1,9 @@
-﻿using MacroTools.Extensions;
+﻿using MacroTools.ArtifactSystem;
+using MacroTools.Extensions;
 using MacroTools.FactionSystem;
+using MacroTools.ObjectiveSystem.Objectives.LegendBased;
+using MacroTools.ObjectiveSystem.Objectives.UnitBased;
 using MacroTools.QuestSystem;
-using MacroTools.QuestSystem.UtilityStructs;
-using WarcraftLegacies.Source.Setup;
 using WarcraftLegacies.Source.Setup.Legends;
 using static War3Api.Common;
 
@@ -14,26 +15,28 @@ namespace WarcraftLegacies.Source.Quests.Lordaeron
   public sealed class QuestKingArthas : QuestData
   {
     private readonly unit _terenas;
+    private readonly Artifact _crownOfLordaeron;
     private const int CompletionExperienceBonus = 2000;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="QuestKingArthas"/> class.
     /// </summary>
-    public QuestKingArthas(unit terenas) : base("Line of Succession",
+    public QuestKingArthas(unit terenas, Artifact crownOfLordaeron) : base("Line of Succession",
       "Arthas Menethil is the one true heir of the Kingdom of Lordaeron. The only thing standing in the way of his coronation is the world-ending threat of the Scourge.",
       "ReplaceableTextures\\CommandButtons\\BTNArthas.blp")
     {
-      AddObjective(new ObjectiveLegendNotPermanentlyDead(LegendLordaeron.CapitalPalace));
+      AddObjective(new ObjectiveUnitAlive(LegendLordaeron.CapitalPalace.Unit));
       AddObjective(new ObjectiveControlLegend(LegendLordaeron.Arthas, true));
-      AddObjective(new ObjectiveLegendDead(LegendScourge.LegendLichking));
+      AddObjective(new ObjectiveCapitalDead(LegendScourge.LegendLichking));
       AddObjective(new ObjectiveLegendInRect(LegendLordaeron.Arthas, Regions.King_Arthas_crown, "King Terenas"));
       ResearchId = Constants.UPGRADE_R08A_QUEST_COMPLETED_LINE_OF_SUCCESSION;
       _terenas = terenas;
+      _crownOfLordaeron = crownOfLordaeron;
       Required = true;
     }
 
     /// <inheritdoc/>
-    protected override string CompletionPopup =>
+    protected override string RewardFlavour =>
       "With the Lich King eliminated, the Kingdom of Lordaeron is free of its greatest threat. King Terenas Menethil proudly abdicates in favor of his son.";
 
     /// <inheritdoc/>
@@ -47,7 +50,7 @@ namespace WarcraftLegacies.Source.Quests.Lordaeron
       BlzSetUnitName(_terenas, "King Emeritus Terenas Menethil");
       RemoveUnit(_terenas);
       AddHeroXP(LegendLordaeron.Arthas.Unit, CompletionExperienceBonus, true);
-      LegendLordaeron.Arthas.Unit?.AddItemSafe(ArtifactSetup.ArtifactCrownlordaeron.Item);
+      LegendLordaeron.Arthas.Unit?.AddItemSafe(_crownOfLordaeron.Item);
       LegendLordaeron.Arthas.ClearUnitDependencies();
     }
   }

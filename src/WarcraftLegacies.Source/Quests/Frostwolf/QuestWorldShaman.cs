@@ -1,8 +1,8 @@
 ﻿using MacroTools.Extensions;
 using MacroTools.FactionSystem;
+using MacroTools.ObjectiveSystem.Objectives.LegendBased;
 using MacroTools.Powers;
 using MacroTools.QuestSystem;
-using MacroTools.QuestSystem.UtilityStructs;
 using WarcraftLegacies.Source.Setup.Legends;
 
 namespace WarcraftLegacies.Source.Quests.Frostwolf
@@ -22,7 +22,7 @@ namespace WarcraftLegacies.Source.Quests.Frostwolf
     }
 
     /// <inheritdoc />
-    protected override string CompletionPopup =>
+    protected override string RewardFlavour =>
       "Thrall has stabilized the power of the Maelstrom and stored it within the Doomhammer. He is no longer merely the Warchief of the Horde; he is the World-Shaman of all Azeroth.";
     
     /// <inheritdoc />

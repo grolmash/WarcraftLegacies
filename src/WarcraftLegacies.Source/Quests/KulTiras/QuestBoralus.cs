@@ -2,11 +2,13 @@
 using MacroTools.Extensions;
 using MacroTools.FactionSystem;
 using MacroTools.QuestSystem;
-using MacroTools.QuestSystem.UtilityStructs;
 using WCSharp.Shared.Data;
 using static War3Api.Common;
 using static War3Api.Blizzard;
 using MacroTools;
+using MacroTools.ObjectiveSystem.Objectives.FactionBased;
+using MacroTools.ObjectiveSystem.Objectives.TimeBased;
+using MacroTools.ObjectiveSystem.Objectives.UnitBased;
 
 namespace WarcraftLegacies.Source.Quests.KulTiras
 {
@@ -26,17 +28,18 @@ namespace WarcraftLegacies.Source.Quests.KulTiras
       "Proudmoore is stranded at sea. Rejoin Boralus to take control of the city.",
       "ReplaceableTextures\\CommandButtons\\BTNHumanShipyard.blp")
     {
-      AddObjective(new ObjectiveResearch(Constants.UPGRADE_R04R_FORTIFIED_HULLS_UNIVERSAL_UPGRADE, Constants.UNIT_H06I_CASTLE_KUL_TIRAS));
-      AddObjective(new ObjectiveUpgrade(Constants.UNIT_H06I_CASTLE_KUL_TIRAS, Constants.UNIT_H062_TOWN_HALL_KUL_TIRAS));
+      AddObjective(new ObjectiveResearch(Constants.UPGRADE_R04R_FORTIFIED_HULLS_UNIVERSAL_UPGRADE, Constants.UNIT_H06I_CASTLE_KUL_TIRAS_T3));
+      AddObjective(new ObjectiveUpgrade(Constants.UNIT_H06I_CASTLE_KUL_TIRAS_T3, Constants.UNIT_H062_TOWN_HALL_KUL_TIRAS_T1));
       AddObjective(new ObjectiveExpire(900));
       AddObjective(new ObjectiveSelfExists());
       ResearchId = Constants.UPGRADE_R00L_QUEST_COMPLETED_CITY_AT_SEA_KULTIRAS;
       _rescueUnits = rescueRect.PrepareUnitsForRescue(RescuePreparationMode.HideNonStructures);
       _rescueUnits.Remove(preplacedUnitSystem.GetUnit(Constants.UNIT_H05V_PROUDMOORE_FLAGSHIP_KUL_TIRAS)); // Proudmoore Capital Ship is not supposed to be rescued on this quest
+      Required = true;
     }
 
     /// <inheritdoc/>
-    protected override string CompletionPopup =>
+    protected override string RewardFlavour =>
       "Kul'tiras has joined the war and its military is now free to assist the Alliance.";
 
     /// <inheritdoc/>

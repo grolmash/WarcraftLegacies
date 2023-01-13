@@ -1,8 +1,8 @@
-using MacroTools.ArtifactSystem;
+﻿using MacroTools.ArtifactSystem;
 using MacroTools.Extensions;
 using MacroTools.FactionSystem;
+using MacroTools.ObjectiveSystem.Objectives.LegendBased;
 using MacroTools.QuestSystem;
-using MacroTools.QuestSystem.UtilityStructs;
 using static War3Api.Common;
 using WarcraftLegacies.Source.Setup.Legends;
 
@@ -12,15 +12,15 @@ namespace WarcraftLegacies.Source.Quests.Frostwolf
   {
     public QuestDrektharsSpellbook() : base("Drekthar's Spellbook",
       "The savage Night Elves threaten the safety of the entire Horde. Capture their World Tree and bring Thrall to its roots.",
-      "ReplaceableTextures\\CommandButtons\\BTNSorceressMaster.blp")
+      "ReplaceableTextures\\CommandButtons\\BTNNecromancerMaster.blp")
     {
-      AddObjective(new ObjectiveControlLegend(LegendDruids.LegendNordrassil, false));
+      AddObjective(new ObjectiveControlCapital(LegendDruids.LegendNordrassil, false));
       AddObjective(new ObjectiveLegendInRect(LegendFrostwolf.LegendThrall, Regions.Drekthars_Spellbook,
         "Nordrassil"));
     }
 
     /// <inheritdoc />
-    protected override string CompletionPopup =>
+    protected override string RewardFlavour =>
       "The World Tree, Nordrassil, has been captured by the forces of the Horde. Drek'thar has gifted Warchief Thrall his magical spellbook for this achievement.";
 
     /// <inheritdoc />

@@ -1,4 +1,5 @@
-using MacroTools;
+﻿using MacroTools;
+using MacroTools.Extensions;
 using MacroTools.Instances;
 
 namespace WarcraftLegacies.Source.Setup
@@ -14,65 +15,26 @@ namespace WarcraftLegacies.Source.Setup
     public static void Setup(PreplacedUnitSystem preplacedUnitSystem)
     {
       InstanceSystem.Register(
-        new Instance("Barrow Deeps", Regions.InstanceBarrowDeeps)
+        new Instance("Argus", Regions.MonolithNoBuild)
       );
-
-      InstanceSystem.Register(
-        new Instance("Twisting Nether", Regions.TwistingNether)
-      );
-
-      InstanceSystem.Register(
-        new Instance("Dire Maul", Regions.InstanceDireMaul)
-      );
-
-      var scholomance = new Instance("Scholomance", Regions.InstanceScholomance);
-      scholomance.AddDependency(preplacedUnitSystem.GetUnit(Constants.UNIT_N035_SCHOLOMANCE));
-      InstanceSystem.Register(scholomance);
-
-      InstanceSystem.Register(
-        new Instance("Blackrock Depths", Regions.InstanceBlackrock)
-      );
-
-      InstanceSystem.Register(
-        new Instance("Tomb of Sargeras", Regions.InstanceSargerasTomb)
-      );
-
-      InstanceSystem.Register(
-        new Instance("Azjol'nerub", Regions.InstanceAzjolNerub)
-      );
-
 
       InstanceSystem.Register(
         new Instance("Outland", Regions.InstanceOutland)
       );
 
-
-      InstanceSystem.Register(
-        new Instance("Nazjatar", Regions.InstanceNazjatar)
-      );
-
-      InstanceSystem.Register(
-        new Instance("Dalaran Dungeons", new[]
-        {
-          Regions.InstanceDalaranDungeon1,
-          Regions.InstanceDalaranDungeon2,
-          Regions.InstanceDalaranDungeon3
-        })
-      );
-
-      var naxxramas = new Instance("Naxxramas", Regions.NaxxramasInside);
-      naxxramas.AddDependency(preplacedUnitSystem.GetUnit(Constants.UNIT_U01X_HEART_OF_NAXXRAMAS));
-      naxxramas.AddDependency(preplacedUnitSystem.GetUnit(Constants.UNIT_E013_NAXXRAMAS_SCOURGE));
-      InstanceSystem.Register(naxxramas);
-
-      var scarletMonastery = new Instance("Scarlet Monastery", Regions.ScarletAmbient);
-      scarletMonastery.AddDependency(preplacedUnitSystem.GetUnit(Constants.UNIT_H00T_SCARLET_MONASTERY_LORDAERON));
-      InstanceSystem.Register(scarletMonastery);
-
       var proudmooreFlagshipInterior = new Instance("Proudmoore Flagship Interior", Regions.ShipAmbient);
       proudmooreFlagshipInterior.AddDependency(preplacedUnitSystem.GetUnit(Constants.UNIT_H05V_PROUDMOORE_FLAGSHIP_KUL_TIRAS));
-      proudmooreFlagshipInterior.AddDependency(preplacedUnitSystem.GetUnit(Constants.UNIT_H09D_FLEETMASTER_S_TABLE));
+      proudmooreFlagshipInterior.AddDependency(preplacedUnitSystem.GetUnit(Constants.UNIT_H09D_FLEETMASTER_S_TABLE_KUL_TIRAS_OTHER));
       InstanceSystem.Register(proudmooreFlagshipInterior);
+
+      var draeneiShipInterior = new Instance("Draenei Ship interior", Regions.Exodar_Interior_All);
+      var exodarRegalis = preplacedUnitSystem.GetUnit(Constants.UNIT_E01X_EXODAR_REGALIS_DRAENEI_SPACESHIP);
+      draeneiShipInterior.AddDependency(exodarRegalis);
+      draeneiShipInterior.AddDependency(preplacedUnitSystem.GetUnit(Constants.UNIT_N00E_DIMENSIONAL_GENERATOR_DRAENEI));
+      draeneiShipInterior.AddGate(new Gate(
+        () => Regions.Exodar_South_Interior.Center, 
+        () => exodarRegalis.GetPosition()));
+      InstanceSystem.Register(draeneiShipInterior);
 
       InstanceSystem.Register(new Instance("Artifact dummy area", Regions.ArtifactDummyInstance));
     }

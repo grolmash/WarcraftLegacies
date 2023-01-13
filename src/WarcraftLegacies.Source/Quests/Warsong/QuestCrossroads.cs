@@ -3,9 +3,11 @@ using MacroTools;
 using MacroTools.ControlPointSystem;
 using MacroTools.Extensions;
 using MacroTools.FactionSystem;
+using MacroTools.ObjectiveSystem.Objectives.ControlPointBased;
+using MacroTools.ObjectiveSystem.Objectives.FactionBased;
+using MacroTools.ObjectiveSystem.Objectives.TimeBased;
+using MacroTools.ObjectiveSystem.Objectives.UnitBased;
 using MacroTools.QuestSystem;
-using MacroTools.QuestSystem.UtilityStructs;
-using MacroTools.Wrappers;
 using WCSharp.Shared.Data;
 using static War3Api.Common;
 
@@ -22,11 +24,11 @@ namespace WarcraftLegacies.Source.Quests.Warsong
     {
       AddObjective(
         new ObjectiveKillUnit(preplacedUnitSystem.GetUnit(FourCC("nrzm"), rescueRect.Center))); //Razorman Medicine Man
-      AddObjective(new ObjectiveControlPoint(ControlPointManager.GetFromUnitType(FourCC("n01T"))));
+      AddObjective(new ObjectiveControlPoint(ControlPointManager.Instance.GetFromUnitType(FourCC("n01T"))));
       AddObjective(new ObjectiveExpire(1460));
       AddObjective(new ObjectiveSelfExists());
 
-      foreach (var unit in new GroupWrapper().EnumUnitsInRect(rescueRect).EmptyToList())
+      foreach (var unit in CreateGroup().EnumUnitsInRect(rescueRect).EmptyToList())
         if (GetOwningPlayer(unit) == Player(PLAYER_NEUTRAL_PASSIVE))
         {
           SetUnitInvulnerable(unit, true);
@@ -34,7 +36,7 @@ namespace WarcraftLegacies.Source.Quests.Warsong
         }
     }
 
-    protected override string CompletionPopup => "The Crossroads have been constructed.";
+    protected override string RewardFlavour => "The Crossroads have been constructed.";
 
     protected override string RewardDescription => "Control of the Crossroads";
 

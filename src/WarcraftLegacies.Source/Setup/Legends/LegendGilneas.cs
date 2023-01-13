@@ -1,4 +1,4 @@
-﻿using MacroTools.FactionSystem;
+﻿using MacroTools.LegendSystem;
 
 namespace WarcraftLegacies.Source.Setup.Legends
 {
@@ -7,61 +7,56 @@ namespace WarcraftLegacies.Source.Setup.Legends
   /// </summary>
   public static class LegendGilneas
   {
-    public static Legend Tess { get; private set; }
-    public static Legend Genn { get; private set; }
-    public static Legend Darius { get; private set; }
-    public static Legend Goldrinn { get; private set; }
-    public static Legend LightDawn { get; private set; }
-    public static Legend GilneasCastle { get; private set; }
+    public static LegendaryHero Tess { get; private set; }
+    public static LegendaryHero Genn { get; private set; }
+    public static LegendaryHero Darius { get; private set; }
+    public static LegendaryHero Goldrinn { get; private set; }
+    public static Capital NorthshireAbbey { get; private set; }
+    public static Capital GilneasCastle { get; private set; }
 
     /// <summary>
     /// Sets up <see cref="LegendGilneas"/>.
     /// </summary>
     public static void Setup()
     {
-      Tess = new Legend
+      Tess = new LegendaryHero("Tess Greymane")
       {
         UnitType = Constants.UNIT_EWAR_PRINCESS_OF_GILNEAS_GILNEAS,
-        Name = "Tess Greymane"
       };
-      Legend.Register(Tess);
+      LegendaryHeroManager.Register(Tess);
 
-      Goldrinn = new Legend
+      Goldrinn = new LegendaryHero("Goldrinn")
       {
         UnitType = Constants.UNIT_E01E_ANCIENT_GUARDIAN_GILNEAS,
         StartingXp = 8800,
-        Name = "Goldrinn"
       };
-      Legend.Register(Goldrinn);
+      LegendaryHeroManager.Register(Goldrinn);
 
-      Genn = new Legend
+      Genn = new LegendaryHero("Genn Greymane")
       {
-        Name = "Genn Greymane",
         UnitType = Constants.UNIT_HHKL_KING_OF_GILNEAS_GILNEAS,
         StartingXp = 2800
       };
-      Legend.Register(Genn);
+      LegendaryHeroManager.Register(Genn);
 
-      Darius = new Legend
+      Darius = new LegendaryHero("Darius Crowley")
       {
         UnitType = Constants.UNIT_HPB2_GILNEAN_LORD_GILNEAS,
-        Name = "Darius Crowley"
       };
-      Legend.Register(Darius);
+      LegendaryHeroManager.Register(Darius);
 
-      LightDawn = new Legend
+      NorthshireAbbey = new Capital
       {
-        UnitType = Constants.UNIT_H057_LIGHT_S_DAWN_CATHEDRAL_GILNEAS,
-        DeathMessage = "The Light's Dawn Capital has been destroyed.",
+        UnitType = Constants.UNIT_H02R_NORTHSHIRE_ABBEY_STORMWIND_OTHER
       };
-      Legend.Register(LightDawn);
+      CapitalManager.Register(NorthshireAbbey);
 
-      GilneasCastle = new Legend
+      GilneasCastle = new Capital
       {
-        UnitType = Constants.UNIT_H04I_GILNEAS_CASTLE_GILNEAS,
+        UnitType = Constants.UNIT_H04I_GILNEAS_CASTLE_GILNEAS_OTHER,
         DeathMessage = "The Gilneas castle has fallen",  
       };
-      Legend.Register(GilneasCastle);
+      CapitalManager.Register(GilneasCastle);
     }
   }
 }

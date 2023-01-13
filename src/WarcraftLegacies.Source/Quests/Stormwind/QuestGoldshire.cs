@@ -2,9 +2,11 @@ using System.Collections.Generic;
 using MacroTools.ControlPointSystem;
 using MacroTools.Extensions;
 using MacroTools.FactionSystem;
+using MacroTools.ObjectiveSystem.Objectives.ControlPointBased;
+using MacroTools.ObjectiveSystem.Objectives.FactionBased;
+using MacroTools.ObjectiveSystem.Objectives.TimeBased;
+using MacroTools.ObjectiveSystem.Objectives.UnitBased;
 using MacroTools.QuestSystem;
-using MacroTools.QuestSystem.UtilityStructs;
-using MacroTools.Wrappers;
 using WCSharp.Shared.Data;
 using static War3Api.Common;
 
@@ -19,10 +21,10 @@ namespace WarcraftLegacies.Source.Quests.Stormwind
       "ReplaceableTextures\\CommandButtons\\BTNGnoll.blp")
     {
       AddObjective(new ObjectiveKillUnit(hogger)); //Hogger
-      AddObjective(new ObjectiveControlPoint(ControlPointManager.GetFromUnitType(FourCC("n00Z"))));
+      AddObjective(new ObjectiveControlPoint(ControlPointManager.Instance.GetFromUnitType(FourCC("n00Z"))));
       AddObjective(new ObjectiveExpire(1335));
       AddObjective(new ObjectiveSelfExists());
-      foreach (var unit in new GroupWrapper().EnumUnitsInRect(rescueRect).EmptyToList())
+      foreach (var unit in CreateGroup().EnumUnitsInRect(rescueRect).EmptyToList())
         if (GetOwningPlayer(unit) == Player(PLAYER_NEUTRAL_PASSIVE))
         {
           SetUnitInvulnerable(unit, true);
@@ -31,7 +33,7 @@ namespace WarcraftLegacies.Source.Quests.Stormwind
       Required = true;
     }
 
-    protected override string CompletionPopup => "The Gnolls have been defeated, Goldshire is safe.";
+    protected override string RewardFlavour => "The Gnolls have been defeated, Goldshire is safe.";
 
     protected override string RewardDescription => "Control of all units in Goldshire";
 

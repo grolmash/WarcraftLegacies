@@ -13,9 +13,8 @@ namespace WarcraftLegacies.Source.Setup.FactionSetup
         "ReplaceableTextures\\CommandButtons\\BTNHeroDemonHunter.blp")
       {
         UndefeatedResearch = FourCC("R02L"),
-        StartingGold = 150,
+        StartingGold = 200,
         StartingLumber = 500,
-        CinematicMusic = @"war3mapImported\Illidancinematic3.mp3",
         IntroText = @"You are playing as the renegade Illidan.|r|r.
 
 While shunned by most of Night Elven society, you still support Tyrande, the object of your eternal affection.
@@ -49,6 +48,7 @@ The goblins will be vying for the support of Tanaris, be ready for a tough fight
       Illidan.ModObjectLimit(FourCC("nnsu"), 6); //Summoner
       Illidan.ModObjectLimit(FourCC("h08W"), 6); //Demon Hunter
       Illidan.ModObjectLimit(FourCC("nnrg"), 6); //Royal Guard
+      Illidan.ModObjectLimit(FourCC("h0AC"), 6); //Sea Witch
       Illidan.ModObjectLimit(FourCC("nhyc"), 8); //Dragon Turtle
       Illidan.ModObjectLimit(FourCC("nwgs"), 8); //Couatl
       Illidan.ModObjectLimit(FourCC("e00Y"), 4); //Scylla

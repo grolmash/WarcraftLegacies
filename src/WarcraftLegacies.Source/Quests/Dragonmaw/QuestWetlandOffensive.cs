@@ -1,11 +1,13 @@
 ﻿using MacroTools.Extensions;
 using MacroTools.FactionSystem;
 using MacroTools.QuestSystem;
-using MacroTools.QuestSystem.UtilityStructs;
 using static War3Api.Common;
 using WarcraftLegacies.Source.Setup.Legends;
 using MacroTools;
 using System;
+using MacroTools.ObjectiveSystem.Objectives.LegendBased;
+using MacroTools.ObjectiveSystem.Objectives.TimeBased;
+using MacroTools.ObjectiveSystem.Objectives.UnitBased;
 
 namespace WarcraftLegacies.Source.Quests.Dragonmaw
 {
@@ -15,14 +17,14 @@ namespace WarcraftLegacies.Source.Quests.Dragonmaw
       "Nek'rosh has a grudge against the alliance for the death of his father. His first target is the port town of Menethil Harbor.",
       "ReplaceableTextures\\CommandButtons\\BTNHumanShipyard.blp")
     {
-      AddObjective(new ObjectiveLegendDead(LegendIronforge.LegendMenethilHarbor));
+      AddObjective(new ObjectiveCapitalDead(LegendIronforge.LegendMenethilHarbor));
       AddObjective(new ObjectiveControlLegend(LegendDragonmaw.Nekrosh, false));
-      AddObjective(new ObjectiveControlLegend(LegendDragonmaw.DragonmawPort, false));
-      AddObjective(new ObjectiveLegendNotPermanentlyDead(LegendDragonmaw.DragonmawPort));
+      AddObjective(new ObjectiveControlCapital(LegendDragonmaw.DragonmawPort, false));
+      AddObjective(new ObjectiveUnitAlive(LegendDragonmaw.DragonmawPort.Unit));
       AddObjective(new ObjectiveExpire(600));
     }
 
-    protected override string CompletionPopup =>
+    protected override string RewardFlavour =>
       "Nek'rosh's revenge is finally complete and the plounder of Menethil Harbor will give the Dragonmaw plenty of ressources for the wars to come";
 
     protected override string RewardDescription => "3000 experience for Nek'rosh, 750 gold and lumber at turn 10";

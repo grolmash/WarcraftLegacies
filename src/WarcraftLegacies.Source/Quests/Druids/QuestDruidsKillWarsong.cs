@@ -1,7 +1,8 @@
+﻿using MacroTools.ControlPointSystem;
+using MacroTools.Extensions;
 using MacroTools.FactionSystem;
+using MacroTools.ObjectiveSystem.Objectives.ControlPointBased;
 using MacroTools.QuestSystem;
-using MacroTools.QuestSystem.UtilityStructs;
-using WarcraftLegacies.Source.Setup.Legends;
 using static War3Api.Common;
 
 namespace WarcraftLegacies.Source.Quests.Druids
@@ -14,11 +15,19 @@ namespace WarcraftLegacies.Source.Quests.Druids
       "Arriving from another planet and across the seas of Azeroth, the Orcs of the Warsong Clan have arrived to ravage the wilderness and consume its bounty. They must be stopped.",
       "ReplaceableTextures\\CommandButtons\\BTNHellScream.blp")
     {
-      AddObjective(new ObjectiveLegendDead(LegendWarsong.StonemaulKeep));
+      AddObjective(new ObjectiveControlLevel(
+        ControlPointManager.Instance.GetFromUnitType(Constants.UNIT_N01Q_NORTHERN_ASHENVALE_10GOLD_MIN), 10));
+      AddObjective(new ObjectiveControlLevel(
+        ControlPointManager.Instance.GetFromUnitType(Constants.UNIT_N08U_SOUTHERN_ASHENVALE_10GOLD_MIN), 10));
+      AddObjective(new ObjectiveControlLevel(
+        ControlPointManager.Instance.GetFromUnitType(Constants.UNIT_N05K_WARSONG_LUMBER_CAMP_15GOLD_MIN), 10));
+      AddObjective(new ObjectiveControlLevel(
+        ControlPointManager.Instance.GetFromUnitType(Constants.UNIT_N09R_ELDARATH_15GOLD_MIN), 10));
+      AddObjective(new ObjectiveControlPoint(ControlPointManager.Instance.GetFromUnitType(Constants.UNIT_N05K_WARSONG_LUMBER_CAMP_15GOLD_MIN)));
       ResearchId = FourCC("R05A");
     }
     
-    protected override string CompletionPopup =>
+    protected override string RewardFlavour =>
       "The Warsong presence on Kalimdor has been eliminated. The sacred lands are safe from their hatchets.";
 
     protected override string RewardDescription => "Learn to train " + GetObjectName(UNITTYPE_ID) + "s";

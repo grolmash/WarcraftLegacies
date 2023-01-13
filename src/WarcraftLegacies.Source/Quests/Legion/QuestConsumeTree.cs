@@ -1,7 +1,7 @@
 using MacroTools.Extensions;
 using MacroTools.FactionSystem;
+using MacroTools.ObjectiveSystem.Objectives.LegendBased;
 using MacroTools.QuestSystem;
-using MacroTools.QuestSystem.UtilityStructs;
 using WarcraftLegacies.Source.Setup.FactionSetup;
 using WarcraftLegacies.Source.Setup.Legends;
 using static War3Api.Common;
@@ -19,7 +19,7 @@ namespace WarcraftLegacies.Source.Quests.Legion
       Global = true;
     }
 
-    protected override string CompletionPopup =>
+    protected override string RewardFlavour =>
       "Archimonde has now consummed the World Tree and is now nigh unstoppable";
 
     protected override string RewardDescription =>
@@ -28,7 +28,7 @@ namespace WarcraftLegacies.Source.Quests.Legion
 
     protected override void OnComplete(Faction completingFaction)
     {
-      unit whichUnit = LegendLegion.LEGEND_ARCHIMONDE.Unit;
+      var whichUnit = LegendLegion.LEGEND_ARCHIMONDE.Unit;
       DruidsSetup.Druids.Obliterate();
       BlzSetUnitName(whichUnit, "Devourer of Worlds");
       AddSpecialEffectTarget("Abilities\\Weapons\\GreenDragonMissile\\GreenDragonMissile.mdl", whichUnit,

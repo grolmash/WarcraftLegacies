@@ -1,35 +1,55 @@
-using MacroTools.ControlPointSystem;
+﻿using System.Collections.Generic;
+using MacroTools.Extensions;
 using MacroTools.FactionSystem;
+using MacroTools.ObjectiveSystem.Objectives.FactionBased;
+using MacroTools.ObjectiveSystem.Objectives.LegendBased;
+using MacroTools.ObjectiveSystem.Objectives.TimeBased;
 using MacroTools.QuestSystem;
-using MacroTools.QuestSystem.UtilityStructs;
-using WarcraftLegacies.Source.Setup;
-using WarcraftLegacies.Source.Setup.FactionSetup;
 using WarcraftLegacies.Source.Setup.Legends;
+using WCSharp.Shared.Data;
 using static War3Api.Common;
 
 namespace WarcraftLegacies.Source.Quests.Naga
 {
+  /// <summary>
+  /// Bring <see cref="LegendNaga.LegendIllidan"/> to <see cref="LegendFelHorde.LegendBlacktemple"/> to gain control of it.
+  /// </summary>
   public sealed class QuestBlackTemple : QuestData
   {
-    public QuestBlackTemple() : base("The Lord of Outland",
-      "The Fel Horde is weak and complacent. The Illidari will easily subjugate them into Illidan's service.",
-      "ReplaceableTextures\\CommandButtons\\BTNMetamorphosis.blp")
+    private readonly List<unit> _rescueUnits;
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="QuestBlackTemple"/> class.
+    /// </summary>
+    /// <param name="rescueRect"></param>
+    public QuestBlackTemple(Rectangle rescueRect) : base("Seat of Power",
+      $"Illidan requires the aid of his servants in Outland for the upcoming war. He must travel to the Black Temple to muster them. His incredible power allows him to move between worlds with ease.",
+      "ReplaceableTextures\\CommandButtons\\BTNWarpPortal.blp")
     {
-      AddObjective(new ObjectiveControlLegend(LegendFelHorde.LegendBlacktemple, false));
-      AddObjective(new ObjectiveControlPoint(ControlPointManager.GetFromUnitType(FourCC("n00R"))));
-      AddObjective(new ObjectiveResearch(FourCC("R063"), FourCC("n055")));
+      AddObjective(new ObjectiveLegendInRect(LegendNaga.LegendIllidan, Regions.IllidanBlackTempleUnlock, "Black Temple"));
+      AddObjective(new ObjectiveExpire(1250));
+      AddObjective(new ObjectiveSelfExists());
+      _rescueUnits = rescueRect.PrepareUnitsForRescue(RescuePreparationMode.HideNonStructures,
+        filterUnit => filterUnit.GetTypeId() != Constants.UNIT_N066_INFERNAL_JUGGERNAUT_TEAL_TOWER);
+      Required = true;
     }
 
-    protected override string CompletionPopup =>
-      "Illidan has killed Magtheridon and subjugated the Fel Horde, the Illidari grow strong.";
+    /// <inheritdoc />
+    protected override string RewardFlavour => "The forces of Outland are now under Illidan's command.";
 
-    protected override string RewardDescription => "The Fel Horde will join us and Magtheridon will die";
+    /// <inheritdoc />
+    protected override string RewardDescription => $"Gain control of the Black Temple";
 
+    /// <inheritdoc />
+    protected override void OnFail(Faction completingFaction)
+    {
+      Player(PLAYER_NEUTRAL_AGGRESSIVE).RescueGroup(_rescueUnits);
+    }
+
+    /// <inheritdoc />
     protected override void OnComplete(Faction completingFaction)
     {
-      if (IllidariSetup.Illidari.Player?.GetTeam() == TeamSetup.Naga) FelHordeSetup.FelHorde.Player?.SetTeam(TeamSetup.Naga);
-      RemoveUnit(LegendFelHorde.LegendMagtheridon.Unit);
-      FelHordeSetup.FelHorde.ModObjectLimit(LegendFelHorde.LegendMagtheridon.UnitType, -Faction.UNLIMITED);
+      completingFaction.Player?.RescueGroup(_rescueUnits);
     }
   }
 }

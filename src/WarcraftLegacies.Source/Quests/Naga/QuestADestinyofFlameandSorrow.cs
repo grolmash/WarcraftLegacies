@@ -1,8 +1,8 @@
-﻿using MacroTools.Extensions;
+﻿using MacroTools.ArtifactSystem;
+using MacroTools.Extensions;
 using MacroTools.FactionSystem;
+using MacroTools.ObjectiveSystem.Objectives.LegendBased;
 using MacroTools.QuestSystem;
-using MacroTools.QuestSystem.UtilityStructs;
-using WarcraftLegacies.Source.Setup;
 using WarcraftLegacies.Source.Setup.Legends;
 
 namespace WarcraftLegacies.Source.Quests.Naga
@@ -15,16 +15,16 @@ namespace WarcraftLegacies.Source.Quests.Naga
     /// <summary>
     /// Initializes a new instance of the <see cref="QuestADestinyofFlameandSorrow"/> class.
     /// </summary>
-    public QuestADestinyofFlameandSorrow() : base("A Destiny of Flame and Sorrow",
+    public QuestADestinyofFlameandSorrow(Artifact artifactSkullOfGuldan) : base("A Destiny of Flame and Sorrow",
       "The Skull of Gul'dan calls for Illidan. If he could harness it's power, he would gain immeasureable power",
       @"ReplaceableTextures\CommandButtons\BTNMetamorphosis.blp")
     {
-      AddObjective(new ObjectiveLegendHasArtifact(LegendNaga.LegendIllidan, ArtifactSetup.ArtifactSkullofguldan));
+      AddObjective(new ObjectiveLegendHasArtifact(LegendNaga.LegendIllidan, artifactSkullOfGuldan));
       ResearchId = Constants.UPGRADE_R095_QUEST_COMPLETED_A_DESTINY_OF_FLAME_AND_SORROW;
     }
 
     /// <inheritdoc/>
-    protected override string CompletionPopup =>
+    protected override string RewardFlavour =>
       "The Skull of Gul'dan has given Illidan Demonic power beyond measure";
 
     /// <inheritdoc/>
@@ -34,7 +34,7 @@ namespace WarcraftLegacies.Source.Quests.Naga
     /// <inheritdoc />
     protected override void OnComplete(Faction whichFaction)
     {
-      LegendNaga.LegendIllidan.Unit?.SetSkin(Constants.UNIT_EEVI_BETRAYER_NAGA);
+      LegendNaga.LegendIllidan.Unit?.SetSkin(Constants.UNIT_EEVI_BETRAYER_ILLIDARI);
     }
   }
 }

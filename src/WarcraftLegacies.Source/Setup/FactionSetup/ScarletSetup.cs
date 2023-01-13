@@ -1,6 +1,5 @@
 ﻿using MacroTools;
 using MacroTools.FactionSystem;
-using WCSharp.Shared.Data;
 using static War3Api.Common;
 
 namespace WarcraftLegacies.Source.Setup.FactionSetup
@@ -88,8 +87,6 @@ Fortify your strongholds against the storm to come and make ready to unleash the
       ScarletCrusade.ModObjectLimit(FourCC("Rhac"), Faction.UNLIMITED); //Improved Masonry
       ScarletCrusade.ModObjectLimit(FourCC("R06Q"), Faction.UNLIMITED); //Paladin Adept Training
 
-      ScarletCrusade.AddGoldMine(preplacedUnitSystem.GetUnit(FourCC("ngol"), new Point(12860, 11254)));
-      
       FactionManager.Register(ScarletCrusade);
     }
   }

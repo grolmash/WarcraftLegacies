@@ -15,16 +15,17 @@ namespace WarcraftLegacies.Source.Setup.FactionSetup
         "ReplaceableTextures\\CommandButtons\\BTNPriestessOfTheMoon.blp")
       {
         UndefeatedResearch = FourCC("R05Y"),
-        StartingGold = 150,
+        StartingGold = 200,
         StartingLumber = 500,
         CinematicMusic = "Comradeship",
-        IntroText = @"You are playing as the vigilant Sentinel Army.
+        ControlPointDefenderUnitTypeId = Constants.UNIT_H03F_CONTROL_POINT_DEFENDER_SENTINELS,
+        IntroText = @"You are playing as the ever-watchful Sentinels.
 
-The Druids are slowly waking from their slumber, it falls to you, the Sentinels, to drive back the invaders from Kalimdor until then.
+The Druids are slowly waking from their slumber, and it falls to you to drive back the Orcish invaders from Kalimdor until then.
 
-Your first mission is to race down the coast all the way to Feathermoon Stronghold, an extremely robust fortress on the southern part of the continent. 
+Your first mission is to race down the coast to Feathermoon Stronghold, a powerful Sentinel stronghold on the southern half of the continent. 
 
-Once you have secured your holdings, gather your army and destroy the orc invaders. Be careful, they will outnumber you if you give them time to rally their allies."
+Once you have secured your holdings, gather your army and destroy the Orcish Horde. Be careful, they will outnumber you if given time to unite the clans."
       };
 
       Sentinels.ModObjectLimit(FourCC("e00V"), Faction.UNLIMITED); //Temple of Elune
@@ -53,10 +54,18 @@ Once you have secured your holdings, gather your army and destroy the orc invade
       Sentinels.ModObjectLimit(FourCC("ehpr"), 6); //Hippogryph Rider
       Sentinels.ModObjectLimit(FourCC("n034"), 12); //Guild Ranger
       Sentinels.ModObjectLimit(FourCC("nwat"), Faction.UNLIMITED); //Nightblade
-      Sentinels.ModObjectLimit(FourCC("etrs"), Faction.UNLIMITED); //Night Elf Transport Ship
-      Sentinels.ModObjectLimit(FourCC("edes"), Faction.UNLIMITED); //Night Elf Frigate
-      Sentinels.ModObjectLimit(FourCC("ebsh"), 6); //Night Elf Battleship
       Sentinels.ModObjectLimit(FourCC("nnmg"), 12); //Redeemed Highborne
+      Sentinels.ModObjectLimit(Constants.UNIT_ECHM_CHIMAERA_SENTINELS, 4);
+
+      //Ships
+      Sentinels.ModObjectLimit(FourCC("etrs"), Faction.UNLIMITED); //Night Elf Transport Ship
+      Sentinels.ModObjectLimit(FourCC("h0AU"), Faction.UNLIMITED); // Scout
+      Sentinels.ModObjectLimit(FourCC("h0AV"), Faction.UNLIMITED); // Frigate
+      Sentinels.ModObjectLimit(FourCC("h0B1"), Faction.UNLIMITED); // Fireship
+      Sentinels.ModObjectLimit(FourCC("h057"), Faction.UNLIMITED); // Galley
+      Sentinels.ModObjectLimit(FourCC("h0B4"), Faction.UNLIMITED); // Boarding
+      Sentinels.ModObjectLimit(FourCC("h0BA"), Faction.UNLIMITED); // Juggernaut
+      Sentinels.ModObjectLimit(FourCC("h0B8"), 6); // Bombard
 
       Sentinels.ModObjectLimit(FourCC("e009"), 1); //Naisha
       Sentinels.ModObjectLimit(FourCC("Etyr"), 1); //Tyrande
@@ -67,17 +76,17 @@ Once you have secured your holdings, gather your army and destroy the orc invade
       Sentinels.ModObjectLimit(FourCC("R00S"), Faction.UNLIMITED); //Priestess Adept Training
       Sentinels.ModObjectLimit(FourCC("R064"), Faction.UNLIMITED); //Sentinel Fortifications
       Sentinels.ModObjectLimit(FourCC("R01W"), Faction.UNLIMITED); //Trapper Adept Training
-      Sentinels.ModObjectLimit(FourCC("R026"), Faction.UNLIMITED); //Elune)s Power Infusion
+      Sentinels.ModObjectLimit(FourCC("R026"), Faction.UNLIMITED); //Elune's Power Infusion
       Sentinels.ModObjectLimit(FourCC("Reib"), Faction.UNLIMITED); //Improved Bows
       Sentinels.ModObjectLimit(FourCC("Reuv"), Faction.UNLIMITED); //Ultravision
       Sentinels.ModObjectLimit(FourCC("Remg"), Faction.UNLIMITED); //Upgraded Moon Glaive
       Sentinels.ModObjectLimit(FourCC("Roen"), Faction.UNLIMITED); //Ensnare
-      Sentinels.ModObjectLimit(FourCC("R04E"), Faction.UNLIMITED); //Ysera)s Gift (World Tree upgrade)
+      Sentinels.ModObjectLimit(FourCC("R04E"), Faction.UNLIMITED); //Ysera's Gift (World Tree upgrade)
       Sentinels.ModObjectLimit(FourCC("R002"), Faction.UNLIMITED); //Blackwald Enhancement
       Sentinels.ModObjectLimit(FourCC("R03J"), Faction.UNLIMITED); //Wind Walk
-      Sentinels.ModObjectLimit(FourCC("R013"), Faction.UNLIMITED); //Elune)s Blessing
+      Sentinels.ModObjectLimit(FourCC("R013"), Faction.UNLIMITED); //Elune's Blessing
 
-      Sentinels.AddGoldMine(preplacedUnitSystem.GetUnit(FourCC("ngol"), new Point(-16016, 10113)));
+      Sentinels.AddGoldMine(preplacedUnitSystem.GetUnit(FourCC("ngol"), new Point(-16516, 10513)));
       
       FactionManager.Register(Sentinels);
     }

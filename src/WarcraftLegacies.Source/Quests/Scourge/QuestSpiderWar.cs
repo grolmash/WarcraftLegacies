@@ -1,10 +1,12 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using MacroTools.ControlPointSystem;
 using MacroTools.Extensions;
 using MacroTools.FactionSystem;
+using MacroTools.ObjectiveSystem.Objectives.ControlPointBased;
+using MacroTools.ObjectiveSystem.Objectives.FactionBased;
+using MacroTools.ObjectiveSystem.Objectives.TimeBased;
+using MacroTools.ObjectiveSystem.Objectives.UnitBased;
 using MacroTools.QuestSystem;
-using MacroTools.QuestSystem.UtilityStructs;
-using MacroTools.Wrappers;
 using WCSharp.Shared.Data;
 using static War3Api.Common;
 
@@ -20,15 +22,14 @@ namespace WarcraftLegacies.Source.Quests.Scourge
       "The proud Nerubians have declared war on the newly formed Lich King, destroy them to secure the continent of Northrend.",
       "ReplaceableTextures\\CommandButtons\\BTNNerubianQueen.blp")
     {
-      AddObjective(new ObjectiveControlPoint(ControlPointManager.GetFromUnitType(FourCC("n00I"))));
-      AddObjective(new ObjectiveControlPoint(ControlPointManager.GetFromUnitType(FourCC("n08D"))));
-      AddObjective(new ObjectiveControlPoint(ControlPointManager.GetFromUnitType(FourCC("n00G"))));
+      AddObjective(new ObjectiveControlPoint(ControlPointManager.Instance.GetFromUnitType(FourCC("n08D"))));
+      AddObjective(new ObjectiveControlPoint(ControlPointManager.Instance.GetFromUnitType(FourCC("n00G"))));
       AddObjective(new ObjectiveKillUnit(spiderQueen));
       AddObjective(new ObjectiveUpgrade(FourCC("unp2"), FourCC("unp1")));
       AddObjective(new ObjectiveExpire(1480));
       AddObjective(new ObjectiveSelfExists());
 
-      foreach (var unit in new GroupWrapper().EnumUnitsInRect(rescueRect.Rect).EmptyToList())
+      foreach (var unit in CreateGroup().EnumUnitsInRect(rescueRect.Rect).EmptyToList())
         if (GetOwningPlayer(unit) == Player(PLAYER_NEUTRAL_PASSIVE))
         {
           SetUnitInvulnerable(unit, true);
@@ -38,7 +39,7 @@ namespace WarcraftLegacies.Source.Quests.Scourge
       Required = true;
     }
 
-    protected override string CompletionPopup =>
+    protected override string RewardFlavour =>
       "Northrend and the Icecrown Citadel is now under full control of the Lich King and the Scourge.";
 
     protected override string RewardDescription =>

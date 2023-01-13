@@ -1,4 +1,5 @@
-﻿using MacroTools.FactionSystem;
+﻿using MacroTools.Extensions;
+using MacroTools.FactionSystem;
 using WCSharp.Events;
 using static War3Api.Common;
 
@@ -15,7 +16,7 @@ namespace MacroTools.ResearchSystems
     /// </summary>
     public static void Register(int parentResearch, int childResearch)
     {
-      PlayerUnitEvents.Register(PlayerUnitEvent.ResearchIsFinished, () =>
+      PlayerUnitEvents.Register(ResearchEvent.IsFinished, () =>
       {
         var triggerFaction = GetTriggerPlayer().GetFaction();
         triggerFaction?.ModObjectLimit(childResearch, 1);

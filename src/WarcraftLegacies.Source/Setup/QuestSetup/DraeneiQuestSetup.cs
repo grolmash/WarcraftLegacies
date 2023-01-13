@@ -1,8 +1,8 @@
+﻿using MacroTools;
+using MacroTools.QuestSystem;
 using System.Collections.Generic;
-using MacroTools;
 using WarcraftLegacies.Source.Quests.Draenei;
 using WarcraftLegacies.Source.Setup.FactionSetup;
-using static War3Api.Common;
 
 namespace WarcraftLegacies.Source.Setup.QuestSetup
 {
@@ -11,29 +11,22 @@ namespace WarcraftLegacies.Source.Setup.QuestSetup
     public static void Setup(PreplacedUnitSystem preplacedUnitSystem)
     {
       var draenei = DraeneiSetup.Draenei;
-
-      var questExiled = new QuestExiled
-      {
-        GoldMine = preplacedUnitSystem.GetUnit(FourCC("ngol"), Regions.TempestKeep.Center),
-        KilledOnFail = new List<unit>
-        {
-          preplacedUnitSystem.GetUnit(Constants.UNIT_O02P_CRYSTAL_HALL_DRAENEI)
-        },
-        TheExodar = preplacedUnitSystem.GetUnit(Constants.UNIT_H09W_THE_EXODAR)
-      };
-      draenei.StartingQuest = draenei.AddQuest(questExiled);
-      draenei.AddQuest(new QuestWarnBase(Regions.Halaar, "Halaar", "ReplaceableTextures\\CommandButtons\\BTNCallToArms.blp"));
-      draenei.AddQuest(new QuestWarnBase(Regions.Shattrah, "Shattrah", "ReplaceableTextures\\CommandButtons\\BTNCallToArms.blp"));
-      draenei.AddQuest(new QuestWarnBase(Regions.Farahlon, "Farahlon", "ReplaceableTextures\\CommandButtons\\BTNCallToArms.blp"));
-      draenei.AddQuest(new QuestSurvivorsShattrah());
-      draenei.AddQuest(new QuestFirstWave(preplacedUnitSystem));
+      if (draenei == null) 
+        return;
+      var questRepairHull = new QuestRepairExodarHull(Regions.Exodar_Interior_All);
+      draenei.StartingQuest = questRepairHull;
+      draenei.AddQuest(questRepairHull);
+      draenei.AddQuest(new QuestRebuildCivilisation(Regions.AzuremystAmbient));
       draenei.AddQuest(new QuestBrokenOne());
       draenei.AddQuest(new QuestShipArgus(
-        questExiled,
         preplacedUnitSystem.GetUnit(Constants.UNIT_H03V_ENTRANCE_PORTAL, Regions.OutlandToArgus.Center),
         preplacedUnitSystem.GetUnit(Constants.UNIT_H03V_ENTRANCE_PORTAL, Regions.TempestKeepSpawn.Center)
-        ));
+      ));
+      var questRepairGenerator = new QuestRepairGenerator();
+      draenei.AddQuest(questRepairGenerator);
       draenei.AddQuest(new QuestTriumvirate());
+      var questDimensionalShip = new QuestDimensionalShip(Regions.Exodar_Interior_All, new List<QuestData> { questRepairHull, questRepairGenerator });
+      draenei.AddQuest(questDimensionalShip);
     }
   }
 }

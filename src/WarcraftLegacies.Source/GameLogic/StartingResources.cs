@@ -1,4 +1,4 @@
-using MacroTools.FactionSystem;
+using MacroTools.Extensions;
 using static War3Api.Common;
 
 namespace WarcraftLegacies.Source.GameLogic

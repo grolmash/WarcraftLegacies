@@ -1,9 +1,8 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using MacroTools.Extensions;
 using MacroTools.FactionSystem;
+using MacroTools.ObjectiveSystem.Objectives.LegendBased;
 using MacroTools.QuestSystem;
-using MacroTools.QuestSystem.UtilityStructs;
-using MacroTools.Wrappers;
 using WarcraftLegacies.Source.Setup.Legends;
 using WCSharp.Shared.Data;
 using static War3Api.Common;
@@ -19,16 +18,17 @@ namespace WarcraftLegacies.Source.Quests.Stormwind
       "Despite Outland's incredibly harsh climate, some Alliance forces have managed to make a home there - a town called Honor Hold",
       "ReplaceableTextures\\CommandButtons\\BTNHumanBarracks.blp")
     {
-      foreach (var unit in new GroupWrapper().EnumUnitsInRect(rescueRect).EmptyToList())
+      foreach (var unit in CreateGroup().EnumUnitsInRect(rescueRect).EmptyToList())
         if (GetOwningPlayer(unit) == Player(PLAYER_NEUTRAL_PASSIVE))
         {
           SetUnitInvulnerable(unit, true);
           _rescueUnits.Add(unit);
         }
-      AddObjective(new ObjectiveLegendDead(LegendFelHorde.LegendHellfirecitadel));
+      AddObjective(new ObjectiveCapitalDead(LegendFelHorde.LegendHellfirecitadel));
+      ResearchId = FourCC("R039");
     }
 
-    protected override string CompletionPopup =>
+    protected override string RewardFlavour =>
       "Honor Hold is now free from the constant looming threat of Hellfire Citadel, and have finally been reconnected with their Alliance from Azeroth.";
 
     protected override string RewardDescription =>

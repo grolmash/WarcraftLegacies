@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using MacroTools.ControlPointSystem;
+using MacroTools.Extensions;
 using MacroTools.Wrappers;
 using static War3Api.Common;
 
@@ -19,13 +20,13 @@ namespace TestMap.Source.Setup
     {
       foreach (var (unitTypeId, goldValue) in ControlPointValues)
         if (GetUnitAbilityLevel(unit, unitTypeId) > 0)
-          ControlPointManager.Register(new ControlPoint(unit, goldValue));
+          ControlPointManager.Instance.Register(new ControlPoint(unit, goldValue));
     }
 
     public static void Setup()
     {
       var playableMapArea = WCSharp.Shared.Data.Rectangle.WorldBounds;
-      foreach (var unit in new GroupWrapper().EnumUnitsInRect(playableMapArea).EmptyToList())
+      foreach (var unit in CreateGroup().EnumUnitsInRect(playableMapArea).EmptyToList())
         InitializeControlPoint(unit);
     }
   }

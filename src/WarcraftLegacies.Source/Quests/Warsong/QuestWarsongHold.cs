@@ -2,8 +2,8 @@ using MacroTools.ControlPointSystem;
 using MacroTools.Extensions;
 using MacroTools.FactionSystem;
 using MacroTools.Libraries;
+using MacroTools.ObjectiveSystem.Objectives.UnitBased;
 using MacroTools.QuestSystem;
-using MacroTools.QuestSystem.UtilityStructs;
 using static MacroTools.Libraries.GeneralHelpers;
 using static War3Api.Common;
 
@@ -22,18 +22,18 @@ namespace WarcraftLegacies.Source.Quests.Warsong
       AddObjective(new ObjectiveResearch(ResearchId, FourCC("o02T")));
     }
 
-    protected override string CompletionPopup =>
+    protected override string RewardFlavour =>
       "The Warsong Clan has sail for the icy shores of Northrend and up a formidable encampment at Borean Tundra.";
 
     protected override string RewardDescription => "A new base at Borean Tundra in Northrend";
 
     protected override void OnComplete(Faction completingFaction)
     {
-      unit boreanTundra = ControlPointManager.GetFromUnitType(FourCC("n00G")).Unit;
+      var boreanTundra = ControlPointManager.Instance.GetFromUnitType(FourCC("n00G")).Unit;
       KillNeutralHostileUnitsInRadius(GetUnitX(boreanTundra), GetUnitY(boreanTundra), 2300);
       //Spawn the base
       SetUnitOwner(boreanTundra, completingFaction.Player, true);
-      unit warsongHold = CreateStructureForced(completingFaction.Player, FourCC("o02S"), -7648, 15456, 270, 192);
+      var warsongHold = CreateStructureForced(completingFaction.Player, FourCC("o02S"), -7648, 15456, 270, 192);
       BlzSetUnitName(warsongHold, "Warsong Hold");
       BlzSetUnitMaxHP(warsongHold, 4000);
       warsongHold.SetLifePercent(100);

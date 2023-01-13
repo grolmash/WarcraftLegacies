@@ -17,16 +17,17 @@ namespace WarcraftLegacies.Source.Setup.FactionSetup
         new Faction(
           "Kul'tiras", PLAYER_COLOR_EMERALD, "|cff00781e", "ReplaceableTextures\\CommandButtons\\BTNProudmoore.blp")
           {
-            StartingGold = 150,
+            StartingGold = 200,
             StartingLumber = 500,
-            IntroText = @"You are playing as the hardy island |cff008000Kingdom of Kul'tiras|r.
+            ControlPointDefenderUnitTypeId = Constants.UNIT_H09W_CONTROL_POINT_DEFENDER_KUL_TIRAS,
+            IntroText = @"You are playing as the maritime |cff008000Kingdom of Kul'tiras|r.
 
-You start in the Balor islands, but you must move quickly to gain control your capital and the Gold Mines on Kul'tiras island. 
+You begin on Balor island, separated from your main forces in Kul Tiras. Unite your forces by eliminating your enemies in Tiragarde, Drustvar and Stormsong Valley.
 
-The Zandalari Trolls mounting an attack from the South so be ready, the fight will be bloody.
+Illidan's Naga have established a base in the Broken Isles, and are preparing to invade your islands from the North.
 
-Once you have conquered the Zandalari Empire, set sail to help your allies."
-          };
+Stormwind is preparing for an invasion through the Dark Portal in the South. Muster the Admiralty and help them, or you may lose your strongest ally."
+        };
 
       //Structures
       Kultiras.ModObjectLimit(FourCC("h062"), Faction.UNLIMITED); //Town Hall
@@ -37,7 +38,7 @@ Once you have conquered the Zandalari Empire, set sail to help your allies."
       Kultiras.ModObjectLimit(FourCC("h07R"), Faction.UNLIMITED); //Scout Tower
       Kultiras.ModObjectLimit(FourCC("h07S"), Faction.UNLIMITED); //Guard Tower
       Kultiras.ModObjectLimit(FourCC("h07T"), Faction.UNLIMITED); //Improved Guard Tower
-      Kultiras.ModObjectLimit(FourCC("h04U"), Faction.UNLIMITED); //Cannon Tower
+      Kultiras.ModObjectLimit(FourCC("h07U"), Faction.UNLIMITED); //Cannon Tower
       Kultiras.ModObjectLimit(FourCC("h07V"), Faction.UNLIMITED); //Improved Cannon Tower
       Kultiras.ModObjectLimit(FourCC("h07O"), Faction.UNLIMITED); //Blacksmith
       Kultiras.ModObjectLimit(FourCC("h07Q"), Faction.UNLIMITED); //Arcane Sanctum
@@ -49,9 +50,6 @@ Once you have conquered the Zandalari Empire, set sail to help your allies."
 
       //Units
       Kultiras.ModObjectLimit(FourCC("h01E"), Faction.UNLIMITED); //Deckhand
-      Kultiras.ModObjectLimit(FourCC("hbot"), Faction.UNLIMITED); //Alliance Transport Ship
-      Kultiras.ModObjectLimit(FourCC("hdes"), Faction.UNLIMITED); //Alliance Frigate
-      Kultiras.ModObjectLimit(FourCC("h04J"), 5); //Warship
       Kultiras.ModObjectLimit(FourCC("e007"), Faction.UNLIMITED); //Thornspeaker
       Kultiras.ModObjectLimit(FourCC("n09A"), 12); //Ember Cleric
       Kultiras.ModObjectLimit(FourCC("n09B"), 8); //Witch Hunter
@@ -68,6 +66,16 @@ Once you have conquered the Zandalari Empire, set sail to help your allies."
       Kultiras.ModObjectLimit(FourCC("h04W"), 3); //Siege Tank
       Kultiras.ModObjectLimit(FourCC("h0A0"), 8); //Fusillier
 
+      //Ships
+      Kultiras.ModObjectLimit(FourCC("hbot"), Faction.UNLIMITED); //Alliance Transport Ship
+      Kultiras.ModObjectLimit(FourCC("h0AR"), Faction.UNLIMITED); //Alliance Scout
+      Kultiras.ModObjectLimit(FourCC("h0AX"), Faction.UNLIMITED); //Alliance Frigate
+      Kultiras.ModObjectLimit(FourCC("h0B3"), Faction.UNLIMITED); //Alliance Fireship
+      Kultiras.ModObjectLimit(FourCC("h0B0"), Faction.UNLIMITED); //Alliance Galley
+      Kultiras.ModObjectLimit(FourCC("h0B6"), Faction.UNLIMITED); //Alliance Boarding
+      Kultiras.ModObjectLimit(FourCC("h0AN"), Faction.UNLIMITED); //Alliance Juggernaut
+      Kultiras.ModObjectLimit(FourCC("h0B7"), 6); //Alliance Bombard
+
       //Upgrades
       Kultiras.ModObjectLimit(FourCC("R001"), Faction.UNLIMITED); //Rising Tides
       Kultiras.ModObjectLimit(FourCC("R000"), Faction.UNLIMITED); //Tidesage Adept Training
@@ -78,13 +86,14 @@ Once you have conquered the Zandalari Empire, set sail to help your allies."
       Kultiras.ModObjectLimit(FourCC("Rhlh"), Faction.UNLIMITED); //Improved Lumber Harvesting
       Kultiras.ModObjectLimit(FourCC("Rhac"), Faction.UNLIMITED); //Improved Masonry
       Kultiras.ModObjectLimit(FourCC("R08B"), Faction.UNLIMITED); //Long Rifles
+      Kultiras.ModObjectLimit(FourCC("R00K"), Faction.UNLIMITED); //Power Infusion
 
       //Heroes
       Kultiras.ModObjectLimit(FourCC("Hapm"), 1); //Admiral
       Kultiras.ModObjectLimit(FourCC("H05L"), 1); //Lady Ashvane
       Kultiras.ModObjectLimit(FourCC("E016"), 1); //Lucille
 
-      Kultiras.AddGoldMine(preplacedUnitSystem.GetUnit(FourCC("ngol"), new Point(2619, -4946)));
+      Kultiras.AddGoldMine(preplacedUnitSystem.GetUnit(FourCC("ngol"), new Point(4585, -13038)));
       
       Kultiras.AddPower(new CityOfHeroes(0.125f, 1.5f, "Ships")
       {

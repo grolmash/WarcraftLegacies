@@ -1,6 +1,6 @@
 using MacroTools.FactionSystem;
+using MacroTools.ObjectiveSystem.Objectives.LegendBased;
 using MacroTools.QuestSystem;
-using MacroTools.QuestSystem.UtilityStructs;
 using WarcraftLegacies.Source.Setup.Legends;
 
 namespace WarcraftLegacies.Source.Quests.Dalaran
@@ -11,10 +11,10 @@ namespace WarcraftLegacies.Source.Quests.Dalaran
       "The spire of Medivh stands mysteriously idle. Dalaran could make use of its grand magicks.",
       "ReplaceableTextures\\CommandButtons\\BTNTomeBrown.blp")
     {
-      AddObjective(new ObjectiveControlLegend(LegendNeutral.Karazhan, false));
+      AddObjective(new ObjectiveControlCapital(LegendNeutral.Karazhan, false));
     }
     
-    protected override string CompletionPopup => "Karazhan has been captured. Dalaran's archivists scour its halls for arcane resources.";
+    protected override string RewardFlavour => "Karazhan has been captured. Dalaran's archivists scour its halls for arcane resources.";
 
     protected override string RewardDescription => "Learn to research three powerful upgrades at Karazhan.";
 

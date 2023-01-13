@@ -1,6 +1,7 @@
 using MacroTools.FactionSystem;
+using MacroTools.ObjectiveSystem.Objectives.FactionBased;
+using MacroTools.ObjectiveSystem.Objectives.UnitBased;
 using MacroTools.QuestSystem;
-using MacroTools.QuestSystem.UtilityStructs;
 using static War3Api.Common;
 
 namespace WarcraftLegacies.Source.Quests.Warsong
@@ -23,7 +24,7 @@ namespace WarcraftLegacies.Source.Quests.Warsong
       _chen = chen;
     }
 
-    protected override string CompletionPopup => "Chen Stormstout has joined the Warsong Clan.";
+    protected override string RewardFlavour => "Chen Stormstout has joined the Warsong Clan.";
 
     protected override string RewardDescription => "The hero Chen Stormstout";
 

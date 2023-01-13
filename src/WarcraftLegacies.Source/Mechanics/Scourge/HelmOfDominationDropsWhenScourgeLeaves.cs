@@ -1,10 +1,11 @@
 using MacroTools;
+using MacroTools.ArtifactSystem;
 using MacroTools.Extensions;
 using MacroTools.FactionSystem;
-using WarcraftLegacies.Source.Setup;
 using WarcraftLegacies.Source.Setup.FactionSetup;
 using WarcraftLegacies.Source.Setup.Legends;
 using WCSharp.Shared.Data;
+using static War3Api.Common;
 
 namespace WarcraftLegacies.Source.Mechanics.Scourge
 {
@@ -13,23 +14,29 @@ namespace WarcraftLegacies.Source.Mechanics.Scourge
   /// </summary>
   public static class HelmOfDominationDropsWhenScourgeLeaves
   {
+    private static Artifact? _helmOfDomination;
+    private static trigger? _deathTrigger;
+
     /// <summary>
     /// Sets up <see cref="HelmOfDominationDropsWhenScourgeLeaves"/>.
     /// </summary>
-    public static void Setup()
+    public static void Setup(Artifact helmOfDomination)
     {
       if (LegendScourge.LegendLichking == null)
         throw new SystemNotInitializedException(nameof(LegendScourge));
       if (ScourgeSetup.Scourge == null)
         throw new SystemNotInitializedException(nameof(ScourgeSetup));
-      LegendScourge.LegendLichking.PermanentlyDied += OnLichKingDeath;
-      ScourgeSetup.Scourge.LeftGame += OnScourgeLeaveGame;
-    }
 
-    private static void OnLichKingDeath(object? sender, Legend legend)
-    {
-      CheckHelmOfDomination();
-      UnregisterEvents();
+      _deathTrigger = CreateTrigger()
+        .RegisterUnitEvent(LegendScourge.LegendLichking.Unit, EVENT_UNIT_DEATH)
+        .AddAction(() =>
+        {
+          CheckHelmOfDomination();
+          UnregisterEvents();
+        });
+
+      ScourgeSetup.Scourge.LeftGame += OnScourgeLeaveGame;
+      _helmOfDomination = helmOfDomination;
     }
 
     private static void OnScourgeLeaveGame(object? sender, Faction faction)
@@ -40,21 +47,19 @@ namespace WarcraftLegacies.Source.Mechanics.Scourge
 
     private static void UnregisterEvents()
     {
-      if (LegendScourge.LegendLichking != null) 
-        LegendScourge.LegendLichking.PermanentlyDied -= OnLichKingDeath;
-      if (ScourgeSetup.Scourge != null) 
+      _deathTrigger.Destroy();
+      if (ScourgeSetup.Scourge != null)
         ScourgeSetup.Scourge.LeftGame -= OnScourgeLeaveGame;
     }
-    
+
     private static void CheckHelmOfDomination()
     {
-      if (ArtifactSetup.ArtifactHelmofdomination == null
-          || LegendScourge.LegendLichking?.Unit == null)
+      if (LegendScourge.LegendLichking?.Unit == null)
         return;
 
       var lichKingPosition = LegendScourge.LegendLichking.Unit.GetPosition();
       LegendScourge.LegendLichking.Unit.DropAllItems();
-      ArtifactSetup.ArtifactHelmofdomination.Item.SetPosition(new Point(lichKingPosition.X - 55,
+      _helmOfDomination.Item.SetPosition(new Point(lichKingPosition.X - 55,
         lichKingPosition.Y + 30));
     }
   }

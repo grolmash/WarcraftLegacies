@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using MacroTools.Extensions;
 using MacroTools.FactionSystem;
 using MacroTools.Hazards;
 using MacroTools.SpellSystem;
@@ -21,6 +22,7 @@ namespace MacroTools.Powers
     private OilIncomePeriodicAction? _oilIncomePeriodicAction;
     private readonly List<OilPool> _oilPools = new();
     private readonly List<player> _owners = new();
+    private timer? _oilTimer;
 
     /// <summary>
     /// Fired when the amount of oil stored changes.
@@ -63,15 +65,20 @@ namespace MacroTools.Powers
     }
 
     /// <summary>
-    /// The number of oil pools that will generate on the map.
+    /// The maximum number of oil pools that will generate on the map.
     /// </summary>
-    public int OilPoolCount { get; init; }
-    
+    public int MaximumOilPoolCount { get; init; }
+
+    /// <summary>
+    /// The number of oil pools that are spawned at the start of the game.
+    /// </summary>
+    public int StartingOilPoolCount { get; init; } = 1;
+
     /// <summary>
     /// The maximum amount of oil that a given <see cref="OilPool"/> can start with.
     /// </summary>
     public int OilPoolMaximumValue { get; init; }
-    
+
     /// <summary>
     /// The minimum amount of oil that a given <see cref="OilPool"/> can start with.
     /// </summary>
@@ -88,8 +95,10 @@ namespace MacroTools.Powers
       _owners.Add(whichPlayer);
       _oilIncomePeriodicAction = new OilIncomePeriodicAction(this);
       OilIncomePeriodicTrigger.Add(_oilIncomePeriodicAction);
-      GameTime.TurnEnded += (_, _) => GenerateOilPools();
-      GenerateOilPools();
+
+      _oilTimer = CreateTimer().Start(300, true, GenerateOilPool);
+      for (var i = 0; i < StartingOilPoolCount; i++)
+        GenerateOilPool();
     }
 
     /// <inheritdoc/>
@@ -99,31 +108,31 @@ namespace MacroTools.Powers
       _oilIncomePeriodicAction.Active = false;
       _oilIncomePeriodicAction = null;
       _owners.Remove(whichPlayer);
+      _oilTimer?.Destroy();
     }
 
-    private void GenerateOilPools()
+    private void GenerateOilPool()
     {
       if (_oilPools.Count > 0)
       {
-        for (var i = _oilPools.Count; i --> 0;)
+        for (var i = _oilPools.Count; i-- > 0;)
         {
-          if (_oilPools[i].OilAmount <= 0) 
+          if (_oilPools[i].OilAmount <= 0)
             _oilPools.Remove(_oilPools[i]);
         }
       }
-      
-      for (var i = _oilPools.Count; i < OilPoolCount; i++)
+
+      if (_oilPools.Count >= MaximumOilPoolCount)
+        return;
+      var randomPoint = GetRandomPointAtSea();
+      var oilPool = new OilPool(_owners.First(), randomPoint, "Tar Pool.mdx", this)
       {
-        var randomPoint = GetRandomPointAtSea();
-        var oilPool = new OilPool(_owners.First(), randomPoint, "Tar Pool.mdx", this)
-        {
-          Active = true,
-          Duration = float.MaxValue,
-          OilAmount = GetRandomInt(OilPoolMinimumValue, OilPoolMaximumValue)
-        };
-        HazardSystem.Add(oilPool);
-        _oilPools.Add(oilPool);
-      }
+        Active = true,
+        Duration = float.MaxValue,
+        OilAmount = GetRandomInt(OilPoolMinimumValue, OilPoolMaximumValue)
+      };
+      HazardSystem.Add(oilPool);
+      _oilPools.Add(oilPool);
     }
 
     private void RefreshDescription()
@@ -138,7 +147,10 @@ namespace MacroTools.Powers
       do
       {
         randomPoint = Rectangle.WorldBounds.GetRandomPoint();
-      } while (IsTerrainPathable(randomPoint.X, randomPoint.Y, PATHING_TYPE_FLOATABILITY));
+      } while (IsTerrainPathable(randomPoint.X, randomPoint.Y, PATHING_TYPE_FLOATABILITY) ||
+               !IsTerrainPathable(randomPoint.X, randomPoint.Y, PATHING_TYPE_WALKABILITY) || 
+               GetTerrainType(randomPoint.X, randomPoint.Y) != FourCC("Gsqd"));
+
       return randomPoint;
     }
   }

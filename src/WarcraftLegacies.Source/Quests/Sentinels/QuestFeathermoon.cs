@@ -1,10 +1,13 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using MacroTools.ControlPointSystem;
 using MacroTools.Extensions;
 using MacroTools.FactionSystem;
+using MacroTools.ObjectiveSystem.Objectives.ControlPointBased;
+using MacroTools.ObjectiveSystem.Objectives.FactionBased;
+using MacroTools.ObjectiveSystem.Objectives.LegendBased;
+using MacroTools.ObjectiveSystem.Objectives.TimeBased;
+using MacroTools.ObjectiveSystem.Objectives.UnitBased;
 using MacroTools.QuestSystem;
-using MacroTools.QuestSystem.UtilityStructs;
-using MacroTools.Wrappers;
 using WarcraftLegacies.Source.Setup.Legends;
 using WCSharp.Shared.Data;
 using static War3Api.Common;
@@ -21,12 +24,12 @@ namespace WarcraftLegacies.Source.Quests.Sentinels
     {
       AddObjective(new ObjectiveLegendReachRect(LegendSentinels.Tyrande, Regions.FeathermoonUnlock,
         "Feathermoon Stronghold"));
-      AddObjective(new ObjectiveControlPoint(ControlPointManager.GetFromUnitType(Constants.UNIT_N01R_ASTRANAAR_15GOLD_MIN)));
-      AddObjective(new ObjectiveUpgrade(Constants.UNIT_N06P_SENTINEL_ENCLAVE_SENTINELS, Constants.UNIT_N06J_SENTINEL_OUTPOST_SENTINELS));
+      AddObjective(new ObjectiveControlPoint(ControlPointManager.Instance.GetFromUnitType(Constants.UNIT_N01R_ASTRANAAR_15GOLD_MIN)));
+      AddObjective(new ObjectiveUpgrade(Constants.UNIT_N06P_SENTINEL_ENCLAVE_SENTINEL_T3, Constants.UNIT_N06J_SENTINEL_OUTPOST_SENTINEL_T1));
       AddObjective(new ObjectiveExpire(1485));
       AddObjective(new ObjectiveSelfExists());
       ResearchId = Constants.UPGRADE_R06M_QUEST_COMPLETED_FEATHERMOON_RELIEF;
-      foreach (var unit in new GroupWrapper().EnumUnitsInRect(rescueRect).EmptyToList())
+      foreach (var unit in CreateGroup().EnumUnitsInRect(rescueRect).EmptyToList())
         if (GetOwningPlayer(unit) == Player(PLAYER_NEUTRAL_PASSIVE))
         {
           SetUnitInvulnerable(unit, true);
@@ -37,7 +40,7 @@ namespace WarcraftLegacies.Source.Quests.Sentinels
     }
 
     /// <inheritdoc />
-    protected override string CompletionPopup =>
+    protected override string RewardFlavour =>
       "Feathermoon Stronghold has been relieved and has joined the Sentinels in their war effort";
 
     /// <inheritdoc />

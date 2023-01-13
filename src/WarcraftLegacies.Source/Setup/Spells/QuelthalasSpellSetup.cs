@@ -4,6 +4,7 @@ using MacroTools.PassiveAbilities;
 using MacroTools.PassiveAbilitySystem;
 using MacroTools.Spells;
 using MacroTools.SpellSystem;
+using WarcraftLegacies.Source.Spells;
 
 namespace WarcraftLegacies.Source.Setup.Spells
 {
@@ -59,7 +60,7 @@ namespace WarcraftLegacies.Source.Setup.Spells
         OrbitRadius = 350,
         OrbitalPeriod = 4,
         OrbEffectPath = @"war3mapImported\OrbFireX.mdx",
-        Damage = new LeveledAbilityField<float> { Base = 50, PerLevel = 100 },
+        Damage = new LeveledAbilityField<float> { Base = 25, PerLevel = 50 },
         CollisionRadius = new LeveledAbilityField<float> { Base = 150, PerLevel = 0},
         OrbDuration = 45,
         AbilityWhitelist = new List<int>
@@ -69,6 +70,9 @@ namespace WarcraftLegacies.Source.Setup.Spells
           Constants.ABILITY_AHPX_ASHES_OF_AL_AR_QUEL_THALAS_ANASTERIAN_KAEL_THAS
         }
       });
+      
+      //Todo: create an "Extract Vial" spell for the Sunwell and assign it below
+      SpellSystem.Register(new ExtractSunwellVial(Constants.ABILITY_A0OC_EXTRACT_VIAL_ALL, Constants.ITEM_I018_VIAL_OF_THE_SUNWELL));
     }
   }
 }

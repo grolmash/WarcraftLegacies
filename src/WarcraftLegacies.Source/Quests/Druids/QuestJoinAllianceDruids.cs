@@ -1,6 +1,7 @@
+using MacroTools.Extensions;
 using MacroTools.FactionSystem;
+using MacroTools.ObjectiveSystem.Objectives.UnitBased;
 using MacroTools.QuestSystem;
-using MacroTools.QuestSystem.UtilityStructs;
 using WarcraftLegacies.Source.Setup;
 using WarcraftLegacies.Source.Setup.Legends;
 using static War3Api.Common; 
@@ -16,7 +17,7 @@ namespace WarcraftLegacies.Source.Quests.Druids
       AddObjective(new ObjectiveCastSpell(FourCC("A0IG"), true));
     }
     
-    protected override string CompletionPopup => "The Druids have joined the Alliance";
+    protected override string RewardFlavour => "The Druids have joined the Alliance";
 
     protected override string RewardDescription => "Join the Alliance team";
     

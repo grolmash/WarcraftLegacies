@@ -1,6 +1,6 @@
 using MacroTools.FactionSystem;
+using MacroTools.ObjectiveSystem.Objectives.LegendBased;
 using MacroTools.QuestSystem;
-using MacroTools.QuestSystem.UtilityStructs;
 using WarcraftLegacies.Source.Setup.Legends;
 using static War3Api.Common;
 
@@ -14,10 +14,10 @@ namespace WarcraftLegacies.Source.Quests.Warsong
       "Long ago, the orcs drank the blood of Mannoroth and were infused with demonic fury. A mere taste of his blood would reignite those powers.",
       "ReplaceableTextures\\CommandButtons\\BTNFountainOfLifeBlood.blp")
     {
-      AddObjective(new ObjectiveControlLegend(LegendNeutral.FountainOfBlood, false));
+      AddObjective(new ObjectiveControlCapital(LegendNeutral.FountainOfBlood, false));
     }
     
-    protected override string CompletionPopup =>
+    protected override string RewardFlavour =>
       "The Fountain of Blood is under Warsong control. As the orcs drink from it, they feel a a familiar fury awake within them.";
 
     protected override string RewardDescription =>
