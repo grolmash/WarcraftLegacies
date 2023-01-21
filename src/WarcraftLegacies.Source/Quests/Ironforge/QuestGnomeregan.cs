@@ -16,7 +16,7 @@ namespace WarcraftLegacies.Source.Quests.Ironforge
   public sealed class QuestGnomeregan : QuestData
   {
     private static readonly int QuestResearchId = FourCC("R05Q");
-    private readonly List<unit> _rescueUnits = new();
+    private readonly List<unit> _rescueUnits;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="QuestGnomeregan"/> class.
@@ -50,7 +50,7 @@ namespace WarcraftLegacies.Source.Quests.Ironforge
     protected override void OnComplete(Faction completingFaction)
     {
       SetPlayerTechResearched(completingFaction.Player, FourCC("R05Q"), 1);
-      completingFaction.Player?.RescueGroup(_rescueUnits);
+      completingFaction.Player.RescueGroup(_rescueUnits);
     }
 
     protected override void OnAdd(Faction whichFaction)
