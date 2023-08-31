@@ -22,9 +22,12 @@ namespace MacroTools
     //This must be after the Multiboard is shown or the Multiboard will break
     private static timer? _gameTimer;
     private static timer? _turnTimer;
+    private static timer? _initialTimer;
     private static timerdialog? _turnTimerDialog;
+    private static timerdialog? _initialTimerDialog;
     private static int _turnCount;
     private static float _currentTime;
+    private static float _introSeconds;
 
     /// <summary>
     /// Fired when a turn ends.
@@ -37,11 +40,14 @@ namespace MacroTools
     /// <summary>
     /// 
     /// </summary>
-    public GameTime()
+    public GameTime(int introSeconds)
     {
       _gameTimer = CreateTimer();
       _turnTimer = CreateTimer();
+      _initialTimer = CreateTimer();
       _turnTimerDialog = CreateTimerDialog(_turnTimer);
+      _initialTimerDialog = CreateTimerDialog(_initialTimer);
+      _introSeconds = introSeconds;
    
     }
     /// <inheritdoc/>
@@ -49,13 +55,19 @@ namespace MacroTools
     {
       var trig = CreateTrigger();
       TriggerRegisterTimerEvent(trig, 0, false);
-      TriggerAddAction(trig, Actions);
+      TriggerAddAction(trig, TimeTick);
 
+      // Display a intro timer.
       trig = CreateTrigger();
       TriggerRegisterTimerEvent(trig, TimerDelay, false);
-      TriggerAddAction(trig, ShowTimer); ;
+      TriggerAddAction(trig, ShowIntroTimer);
+
+      // Start the turns after waiting for the initial delay.
+      trig = CreateTrigger();
+      TriggerRegisterTimerEvent(trig, _introSeconds + TimerDelay, false);
+      TriggerAddAction(trig, TurnTick);
     }
-  
+
     /// <returns>The number of seconds that have elapsed since the start of the game</returns>
     public static float GetGameTime()
     {
@@ -100,16 +112,32 @@ namespace MacroTools
       _currentTime += 1;
     }
 
-    private static void ShowTimer()
+    /// <summary>
+    /// Start the game: destroys the intro timers, and starts the first turn.
+    /// </summary>
+    private void GameStart()
     {
+      DestroyTimerDialog(_initialTimerDialog);
+      DestroyTimer(_initialTimer);
       TimerDialogDisplay(_turnTimerDialog, true);
-      TimerDialogSetTitle(_turnTimerDialog, "Game starts in:");
+      EndTurn();
     }
 
-    private void Actions()
+    private void ShowIntroTimer()
+    {
+      TimerStart(_initialTimer, _introSeconds, false, GameStart); // Start the intro timer
+      TimerDialogDisplay(_initialTimerDialog, true);
+      TimerDialogSetTitle(_initialTimerDialog, "Game starts in:");
+    }
+
+    private void TurnTick()
     {
       TimerStart(_turnTimer, TurnDuration, true, EndTurn);
-      TimerStart(_gameTimer, 1, true, GameTick);
+    }
+
+    private void TimeTick()
+    {
+      TimerStart(_gameTimer, 1, true, GameTick); 
     }
   }
 }

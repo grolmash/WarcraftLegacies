@@ -31,20 +31,20 @@ namespace WarcraftLegacies.Source.GameLogic
     }
 
     /// <summary>Displays the faction choice to a player.</summary>
-    public void Run(player whichPlayer)
+    public void Run(player whichPlayer, int introSeconds)
     {
       _activeChoices.Add(this);
       DialogSetMessage(_pickDialogue, "Pick your Faction");
       
       var timer = CreateTimer();
-      TimerStart(timer, 4, false, () =>
+      TimerStart(timer, 2, false, () =>
       {
         StartFactionPick(whichPlayer);
         DestroyTimer(GetExpiredTimer());
       });
       
       var concludeTimer = CreateTimer();
-      TimerStart(concludeTimer, 24, false, () =>
+      TimerStart(concludeTimer, introSeconds - 12, false, () =>
       {
         ExpireFactionPick(whichPlayer);
         DestroyTimer(GetExpiredTimer());

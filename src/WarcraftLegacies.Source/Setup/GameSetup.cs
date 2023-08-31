@@ -28,9 +28,10 @@ namespace WarcraftLegacies.Source.Setup
     /// </summary>
     public static void Setup()
     {
-      var displayIntroText = new DisplayIntroText(25);
-      var cinematicMode = new CinematicMode(59, displayIntroText);
-      var gameTime = new GameTime();
+      var introSeconds = 60;
+      var displayIntroText = new DisplayIntroText((introSeconds / 2) - 5);
+      var cinematicMode = new CinematicMode(introSeconds + 2, displayIntroText);
+      var gameTime = new GameTime(introSeconds);
       SetupControlPointManager();
       var preplacedUnitSystem = new PreplacedUnitSystem();
       SoundLibrary.Setup();
@@ -44,9 +45,9 @@ namespace WarcraftLegacies.Source.Setup
       AllFactionSetup.Setup(preplacedUnitSystem, artifactSetup);
       SharedFactionConfigSetup.Setup();
       PlayerSetup.Setup();
-      new FactionChoiceDialogPresenter(GoblinSetup.Goblin, ZandalarSetup.Zandalar).Run(Player(8));
-      new FactionChoiceDialogPresenter(IllidariSetup.Illidari, SunfurySetup.Sunfury).Run(Player(15));
-      new FactionChoiceDialogPresenter(DalaranSetup.Dalaran, GilneasSetup.Gilneas).Run(Player(7));
+      new FactionChoiceDialogPresenter(GoblinSetup.Goblin, ZandalarSetup.Zandalar).Run(Player(8), introSeconds);
+      new FactionChoiceDialogPresenter(IllidariSetup.Illidari, SunfurySetup.Sunfury).Run(Player(15), introSeconds);
+      new FactionChoiceDialogPresenter(DalaranSetup.Dalaran, GilneasSetup.Gilneas).Run(Player(7), introSeconds);
       NeutralHostileSetup.Setup();
       AllQuestSetup.Setup(preplacedUnitSystem, artifactSetup, allLegendSetup);
       ObserverSetup.Setup(new[] { Player(21) });
@@ -70,7 +71,7 @@ namespace WarcraftLegacies.Source.Setup
       DestructibleSetup.Setup(preplacedUnitSystem);
       ResearchSetup.Setup(preplacedUnitSystem);
       PatronSystem.Setup(preplacedUnitSystem);
-      OpenAllianceVote.Setup();
+      OpenAllianceVote.Setup(introSeconds);
       AugmentSetup.Setup();
       RockSetup.Setup();
       TurnResearchSetup.Setup();
@@ -79,13 +80,13 @@ namespace WarcraftLegacies.Source.Setup
       BlockerSetup.Setup();
       NeutralVictimAndPassiveSetup.Setup();
       GateSetup.Setup();
-      StartingResources.Setup();
-      StartingQuestPopup.Setup(63);
+      StartingResources.Setup(introSeconds - 2);
+      StartingQuestPopup.Setup(introSeconds + 3);
       RefundZeroLimitUnits.Setup();
       HeroGlowFix.Setup();
       CleanPersons.Setup();
       PlayerLeaves.Setup();
-      FloatingTextSetup.Setup(60, 10);
+      FloatingTextSetup.Setup(introSeconds, 10);
       AmbianceSetup.Setup();
       PassiveAbilityManager.InitializePreplacedUnits();
       IncompatibleResearchSetup.Setup();
