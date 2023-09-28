@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using MacroTools.ControlPointSystem;
 using MacroTools.Extensions;
 using MacroTools.FactionSystem;
@@ -37,14 +38,14 @@ namespace WarcraftLegacies.Source.GameLogic
       DialogSetMessage(_pickDialogue, "Pick your Faction");
       
       var timer = CreateTimer();
-      TimerStart(timer, 2, false, () =>
+      TimerStart(timer, (int)(introSeconds*0.07), false, () =>
       {
         StartFactionPick(whichPlayer);
         DestroyTimer(GetExpiredTimer());
       });
       
       var concludeTimer = CreateTimer();
-      TimerStart(concludeTimer, introSeconds - 12, false, () =>
+      TimerStart(concludeTimer, (int)(introSeconds * 0.4), false, () =>
       {
         ExpireFactionPick(whichPlayer);
         DestroyTimer(GetExpiredTimer());

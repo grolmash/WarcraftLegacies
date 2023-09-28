@@ -33,7 +33,7 @@ namespace WarcraftLegacies.Source.GameLogic
     {
       DialogSetMessage(VoteDialogue, "Vote Game Mode");
       var timer = CreateTimer();
-      TimerStart(timer, introSeconds - 11, false, StartVote);
+      TimerStart(timer, (int)(introSeconds*0.82), false, StartVote);
       var concludeTimer = CreateTimer();
       TimerStart(concludeTimer, introSeconds - 1, false, ConcludeVote);
     }

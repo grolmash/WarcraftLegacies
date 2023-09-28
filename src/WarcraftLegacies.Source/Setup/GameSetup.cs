@@ -28,9 +28,9 @@ namespace WarcraftLegacies.Source.Setup
     /// </summary>
     public static void Setup()
     {
-      var introSeconds = 30;
-      var displayIntroText = new DisplayIntroText(introSeconds - 11);
-      var cinematicMode = new CinematicMode(introSeconds + 2, displayIntroText);
+      var introSeconds = 10;
+      var displayIntroText = new DisplayIntroText((int)(introSeconds * 0.41));
+      var cinematicMode = new CinematicMode((int)(introSeconds*1.03), displayIntroText);
       var gameTime = new GameTime(introSeconds);
       SetupControlPointManager();
       var preplacedUnitSystem = new PreplacedUnitSystem();
@@ -80,7 +80,7 @@ namespace WarcraftLegacies.Source.Setup
       BlockerSetup.Setup();
       NeutralVictimAndPassiveSetup.Setup();
       GateSetup.Setup();
-      StartingResources.Setup(introSeconds - 2);
+      StartingResources.Setup((int)(introSeconds*0.96));
       StartingQuestPopup.Setup(introSeconds + 3);
       RefundZeroLimitUnits.Setup();
       HeroGlowFix.Setup();
